@@ -15,6 +15,7 @@ export default [
         file: packageJson.main,
         format: 'cjs',
         sourcemap: true,
+        exports: 'named',
       },
       {
         file: packageJson.module,
@@ -36,12 +37,22 @@ export default [
         minimize: true,
       }),
     ],
-    external: ['react', 'react-dom'],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime'
+    ],
   },
   {
     input: 'src/index.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
     plugins: [dts()],
-    external: ['react', 'react-dom'],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime'
+    ],
   },
 ];
