@@ -50,7 +50,7 @@ function MyComponent() {
   
   return (
     <div style={{ 
-      backgroundColor: theme.colors.background.primary,
+      backgroundColor: theme.colors.background.app,
       color: theme.colors.text.primary,
       padding: theme.spacing.lg 
     }}>

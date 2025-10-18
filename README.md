@@ -38,7 +38,8 @@ npm install @flowlab/theme-system
 
 ```tsx
 import React from 'react';
-import { ThemeProvider, lightTheme, darkTheme, oceanTheme } from '@flowlab/theme-system';
+import { ThemeProvider } from '@flowlab/theme-system';
+import { lightTheme, darkTheme, oceanTheme } from '@flowlab/theme-system/themes';
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState(lightTheme);
