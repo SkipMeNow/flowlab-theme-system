@@ -1,10 +1,10 @@
 # @flowlab/theme-system
 
-A comprehensive, TypeScript-first theme system for React applications with full CSS variable support, dark/light mode switching, and extensive customization options.
+A comprehensive, TypeScript-first theme system for React applications with 8 beautiful built-in themes, full CSS variable support, and extensive customization options.
 
 ## Features
 
-- 🎨 **Complete Color System**: 10-step gray and accent color scales with semantic color mappings
+- 🎨 **8 Built-in Themes**: Light, Dark, Ocean, Forest, Sunset, Lavender, Cyberpunk, and Autumn themes
 - 🌙 **Dark/Light Mode**: Seamless theme switching with automatic CSS variable updates  
 - 📱 **Responsive Typography**: Font size scaling (small/medium/large) with proper line heights
 - 🎯 **Compact Mode**: Space-efficient layout option for dense interfaces
@@ -12,6 +12,19 @@ A comprehensive, TypeScript-first theme system for React applications with full 
 - ⚡ **Performance Optimized**: CSS variables for efficient runtime theme changes
 - 💾 **Persistence**: LocalStorage integration for theme preferences
 - 🎛️ **Extensive Customization**: Over 100 CSS variables for complete control
+
+## Available Themes
+
+- **Light** - Clean, professional default theme
+- **Dark** - Modern dark theme for reduced eye strain
+- **Ocean** - Calming blues and cyans for data-focused apps
+- **Forest** - Natural greens for wellness and environmental apps
+- **Sunset** - Warm oranges and pinks for creative applications
+- **Lavender** - Soft purples for elegant, dreamy interfaces
+- **Cyberpunk** - Neon highlights on dark backgrounds for tech/gaming
+- **Autumn** - Cozy browns and golds for seasonal warmth
+
+[View Theme Gallery →](./THEMES.md)
 
 ## Installation
 
@@ -25,13 +38,37 @@ npm install @flowlab/theme-system
 
 ```tsx
 import React from 'react';
-import { ThemeProvider } from '@flowlab/theme-system';
+import { ThemeProvider, lightTheme, darkTheme, oceanTheme } from '@flowlab/theme-system';
 
 function App() {
+  const [currentTheme, setCurrentTheme] = useState(lightTheme);
+  
   return (
-    <ThemeProvider initialConfig={{ mode: 'dark', fontSize: 'medium' }}>
+    <ThemeProvider theme={currentTheme}>
+      <ThemeSelector onThemeChange={setCurrentTheme} />
       <YourAppContent />
     </ThemeProvider>
+  );
+}
+```
+
+### Theme Switching
+
+```tsx
+import { themes, allThemes } from '@flowlab/theme-system/themes';
+
+function ThemeSelector({ onThemeChange }) {
+  return (
+    <div>
+      {allThemes.map(themeName => (
+        <button
+          key={themeName}
+          onClick={() => onThemeChange(themes[themeName])}
+        >
+          {themeName.charAt(0).toUpperCase() + themeName.slice(1)}
+        </button>
+      ))}
+    </div>
   );
 }
 ```
@@ -41,29 +78,17 @@ function App() {
 ```tsx
 import { useTheme } from '@flowlab/theme-system';
 
-function ThemeToggle() {
-  const { config, setMode, setFontSize, setCompactMode } = useTheme();
+function ThemedComponent() {
+  const { theme, toggleTheme } = useTheme();
   
   return (
-    <div>
-      <button onClick={() => setMode(config.mode === 'light' ? 'dark' : 'light')}>
-        Toggle {config.mode === 'light' ? 'Dark' : 'Light'} Mode
-      </button>
-      
-      <select value={config.fontSize} onChange={(e) => setFontSize(e.target.value)}>
-        <option value="small">Small</option>
-        <option value="medium">Medium</option>
-        <option value="large">Large</option>
-      </select>
-      
-      <label>
-        <input 
-          type="checkbox" 
-          checked={config.compactMode}
-          onChange={(e) => setCompactMode(e.target.checked)}
-        />
-        Compact Mode
-      </label>
+    <div style={{
+      backgroundColor: theme.colors.background.app,
+      color: theme.colors.text.primary,
+      padding: theme.spacing.lg,
+    }}>
+      <h1>Current Theme: {theme.name}</h1>
+      <button onClick={toggleTheme}>Switch Theme</button>
     </div>
   );
 }
