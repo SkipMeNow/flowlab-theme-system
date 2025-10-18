@@ -10,12 +10,14 @@ export interface ThemeContextValue {
   setMode: (mode: ThemeMode) => void;
   setFontSize: (fontSize: FontSize) => void;
   setCompactMode: (compact: boolean) => void;
+  toggleTheme?: () => void; // New: For toggling between light/dark when using direct theme prop
 }
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 export interface ThemeProviderProps {
   children: ReactNode;
+  theme?: Theme; // New: Direct theme prop for custom themes
   initialConfig?: Partial<ThemeConfig>;
   persistToLocalStorage?: boolean;
   localStorageKey?: string;
@@ -29,6 +31,7 @@ const defaultConfig: ThemeConfig = {
 
 export function ThemeProvider({
   children,
+  theme: customTheme, // New: Direct theme prop
   initialConfig = {},
   persistToLocalStorage = true,
   localStorageKey = 'flowlab-theme-config',
@@ -47,7 +50,8 @@ export function ThemeProvider({
     return { ...defaultConfig, ...initialConfig };
   });
 
-  const theme = config.mode === 'dark' ? darkTheme : lightTheme;
+  // Use custom theme if provided, otherwise fall back to light/dark theme based on config
+  const theme = customTheme || (config.mode === 'dark' ? darkTheme : lightTheme);
 
   const setMode = (mode: ThemeMode) => {
     setConfig((prev: ThemeConfig) => ({ ...prev, mode }));
@@ -60,6 +64,11 @@ export function ThemeProvider({
   const setCompactMode = (compactMode: boolean) => {
     setConfig((prev: ThemeConfig) => ({ ...prev, compactMode }));
   };
+
+  // Toggle between light and dark themes when using custom theme
+  const toggleTheme = customTheme ? () => {
+    setMode(config.mode === 'light' ? 'dark' : 'light');
+  } : undefined;
 
   // Apply theme changes to DOM
   useEffect(() => {
@@ -85,6 +94,7 @@ export function ThemeProvider({
     setMode,
     setFontSize,
     setCompactMode,
+    toggleTheme,
   };
 
   return (

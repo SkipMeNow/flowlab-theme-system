@@ -32,21 +32,23 @@ npm install react react-dom
 
 ## Usage Example
 
+### Option 1: Simple Theme Provider (Recommended for Custom Themes)
+
 ```tsx
 import React from 'react';
-import { ThemeProvider, useTheme } from '@flowlab/theme-system';
-import { lightTheme, darkTheme } from '@flowlab/theme-system/themes';
+import { SimpleThemeProvider, useSimpleTheme } from '@flowlab/theme-system';
+import { lightTheme, darkTheme, oceanTheme } from '@flowlab/theme-system/themes';
 
 function App() {
   return (
-    <ThemeProvider theme={lightTheme}>
+    <SimpleThemeProvider theme={oceanTheme}>
       <MyComponent />
-    </ThemeProvider>
+    </SimpleThemeProvider>
   );
 }
 
 function MyComponent() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, setTheme } = useSimpleTheme();
   
   return (
     <div style={{ 
@@ -55,8 +57,46 @@ function MyComponent() {
       padding: theme.spacing.lg 
     }}>
       <h1>Hello from FlowLab Theme System!</h1>
+      <p>Current theme: {theme.name}</p>
       <button onClick={toggleTheme}>
-        Switch to {theme.name === 'light' ? 'dark' : 'light'} theme
+        Toggle Theme
+      </button>
+      <button onClick={() => setTheme(oceanTheme)}>
+        Use Ocean Theme
+      </button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Option 2: Original Theme Provider (For Light/Dark Mode)
+
+```tsx
+import React from 'react';
+import { ThemeProvider, useTheme } from '@flowlab/theme-system';
+
+function App() {
+  return (
+    <ThemeProvider initialConfig={{ mode: 'dark' }}>
+      <MyComponent />
+    </ThemeProvider>
+  );
+}
+
+function MyComponent() {
+  const { theme, setMode, config } = useTheme();
+  
+  return (
+    <div style={{ 
+      backgroundColor: theme.colors.background.app,
+      color: theme.colors.text.primary,
+      padding: theme.spacing.lg 
+    }}>
+      <h1>Hello from FlowLab Theme System!</h1>
+      <button onClick={() => setMode(config.mode === 'light' ? 'dark' : 'light')}>
+        Switch to {config.mode === 'light' ? 'dark' : 'light'} mode
       </button>
     </div>
   );

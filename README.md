@@ -36,17 +36,34 @@ npm install @flowlab/theme-system
 
 ### Basic Setup
 
+#### Option 1: Using Any Theme (SimpleThemeProvider)
+
 ```tsx
 import React from 'react';
-import { ThemeProvider } from '@flowlab/theme-system';
+import { SimpleThemeProvider } from '@flowlab/theme-system';
 import { lightTheme, darkTheme, oceanTheme } from '@flowlab/theme-system/themes';
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState(lightTheme);
+  const [currentTheme, setCurrentTheme] = useState(oceanTheme);
   
   return (
-    <ThemeProvider theme={currentTheme}>
+    <SimpleThemeProvider theme={currentTheme} onThemeChange={setCurrentTheme}>
       <ThemeSelector onThemeChange={setCurrentTheme} />
+      <YourAppContent />
+    </SimpleThemeProvider>
+  );
+}
+```
+
+#### Option 2: Using Built-in Light/Dark Mode (ThemeProvider)
+
+```tsx
+import React from 'react';
+import { ThemeProvider } from '@flowlab/theme-system';
+
+function App() {
+  return (
+    <ThemeProvider initialConfig={{ mode: 'dark', fontSize: 'medium' }}>
       <YourAppContent />
     </ThemeProvider>
   );
@@ -76,11 +93,14 @@ function ThemeSelector({ onThemeChange }) {
 
 ### Using the Theme Hook
 
+#### With SimpleThemeProvider
+
 ```tsx
-import { useTheme } from '@flowlab/theme-system';
+import { useSimpleTheme } from '@flowlab/theme-system';
+import { oceanTheme, forestTheme } from '@flowlab/theme-system/themes';
 
 function ThemedComponent() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme, toggleTheme } = useSimpleTheme();
   
   return (
     <div style={{
@@ -89,7 +109,32 @@ function ThemedComponent() {
       padding: theme.spacing.lg,
     }}>
       <h1>Current Theme: {theme.name}</h1>
-      <button onClick={toggleTheme}>Switch Theme</button>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+      <button onClick={() => setTheme(oceanTheme)}>Ocean Theme</button>
+      <button onClick={() => setTheme(forestTheme)}>Forest Theme</button>
+    </div>
+  );
+}
+```
+
+#### With Original ThemeProvider
+
+```tsx
+import { useTheme } from '@flowlab/theme-system';
+
+function ThemedComponent() {
+  const { theme, setMode, config } = useTheme();
+  
+  return (
+    <div style={{
+      backgroundColor: theme.colors.background.app,
+      color: theme.colors.text.primary,
+      padding: theme.spacing.lg,
+    }}>
+      <h1>Mode: {config.mode}</h1>
+      <button onClick={() => setMode(config.mode === 'light' ? 'dark' : 'light')}>
+        Toggle Light/Dark
+      </button>
     </div>
   );
 }
