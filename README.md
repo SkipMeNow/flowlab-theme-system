@@ -36,26 +36,7 @@ npm install @flowlab/theme-system
 
 ### Basic Setup
 
-#### Option 1: Using Any Theme (SimpleThemeProvider)
-
-```tsx
-import React from 'react';
-import { SimpleThemeProvider } from '@flowlab/theme-system';
-import { lightTheme, darkTheme, oceanTheme } from '@flowlab/theme-system/themes';
-
-function App() {
-  const [currentTheme, setCurrentTheme] = useState(oceanTheme);
-  
-  return (
-    <SimpleThemeProvider theme={currentTheme} onThemeChange={setCurrentTheme}>
-      <ThemeSelector onThemeChange={setCurrentTheme} />
-      <YourAppContent />
-    </SimpleThemeProvider>
-  );
-}
-```
-
-#### Option 2: Using Built-in Light/Dark Mode (ThemeProvider)
+#### Default Light/Dark Mode
 
 ```tsx
 import React from 'react';
@@ -64,6 +45,28 @@ import { ThemeProvider } from '@flowlab/theme-system';
 function App() {
   return (
     <ThemeProvider initialConfig={{ mode: 'dark', fontSize: 'medium' }}>
+      <YourAppContent />
+    </ThemeProvider>
+  );
+}
+```
+
+#### Custom Theme Override
+
+```tsx
+import React from 'react';
+import { ThemeProvider } from '@flowlab/theme-system';
+import { oceanTheme, cyberpunkTheme } from '@flowlab/theme-system/themes';
+
+function App() {
+  return (
+    <ThemeProvider 
+      lightTheme={oceanTheme}
+      darkTheme={cyberpunkTheme}
+      onThemeChange={(info) => {
+        console.log(`Switched to ${info.themeName} in ${info.mode} mode`);
+      }}
+    >
       <YourAppContent />
     </ThemeProvider>
   );
@@ -93,14 +96,11 @@ function ThemeSelector({ onThemeChange }) {
 
 ### Using the Theme Hook
 
-#### With SimpleThemeProvider
-
 ```tsx
-import { useSimpleTheme } from '@flowlab/theme-system';
-import { oceanTheme, forestTheme } from '@flowlab/theme-system/themes';
+import { useTheme } from '@flowlab/theme-system';
 
 function ThemedComponent() {
-  const { theme, setTheme, toggleTheme } = useSimpleTheme();
+  const { theme, themeName, config, toggleTheme, setMode } = useTheme();
   
   return (
     <div style={{
@@ -108,32 +108,36 @@ function ThemedComponent() {
       color: theme.colors.text.primary,
       padding: theme.spacing.lg,
     }}>
-      <h1>Current Theme: {theme.name}</h1>
-      <button onClick={toggleTheme}>Toggle Theme</button>
-      <button onClick={() => setTheme(oceanTheme)}>Ocean Theme</button>
-      <button onClick={() => setTheme(forestTheme)}>Forest Theme</button>
+      <h1>Theme: {themeName}</h1>
+      <p>Mode: {config.mode}</p>
+      <button onClick={toggleTheme}>
+        Toggle Light/Dark
+      </button>
+      <button onClick={() => setMode('light')}>
+        Light Mode
+      </button>
+      <button onClick={() => setMode('dark')}>
+        Dark Mode
+      </button>
     </div>
   );
 }
 ```
 
-#### With Original ThemeProvider
+### Theme Selection Component
 
 ```tsx
 import { useTheme } from '@flowlab/theme-system';
+import { themes } from '@flowlab/theme-system/themes';
 
-function ThemedComponent() {
-  const { theme, setMode, config } = useTheme();
+function ThemeSelector() {
+  const { themeName, config, toggleTheme } = useTheme();
   
   return (
-    <div style={{
-      backgroundColor: theme.colors.background.app,
-      color: theme.colors.text.primary,
-      padding: theme.spacing.lg,
-    }}>
-      <h1>Mode: {config.mode}</h1>
-      <button onClick={() => setMode(config.mode === 'light' ? 'dark' : 'light')}>
-        Toggle Light/Dark
+    <div>
+      <h3>Current: {themeName} ({config.mode} mode)</h3>
+      <button onClick={toggleTheme}>
+        Switch to {config.mode === 'light' ? 'dark' : 'light'}
       </button>
     </div>
   );

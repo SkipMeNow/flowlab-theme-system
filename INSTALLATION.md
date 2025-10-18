@@ -30,48 +30,9 @@ This package requires React as a peer dependency. Make sure your project has Rea
 npm install react react-dom
 ```
 
-## Usage Example
+## Usage Examples
 
-### Option 1: Simple Theme Provider (Recommended for Custom Themes)
-
-```tsx
-import React from 'react';
-import { SimpleThemeProvider, useSimpleTheme } from '@flowlab/theme-system';
-import { lightTheme, darkTheme, oceanTheme } from '@flowlab/theme-system/themes';
-
-function App() {
-  return (
-    <SimpleThemeProvider theme={oceanTheme}>
-      <MyComponent />
-    </SimpleThemeProvider>
-  );
-}
-
-function MyComponent() {
-  const { theme, toggleTheme, setTheme } = useSimpleTheme();
-  
-  return (
-    <div style={{ 
-      backgroundColor: theme.colors.background.app,
-      color: theme.colors.text.primary,
-      padding: theme.spacing.lg 
-    }}>
-      <h1>Hello from FlowLab Theme System!</h1>
-      <p>Current theme: {theme.name}</p>
-      <button onClick={toggleTheme}>
-        Toggle Theme
-      </button>
-      <button onClick={() => setTheme(oceanTheme)}>
-        Use Ocean Theme
-      </button>
-    </div>
-  );
-}
-
-export default App;
-```
-
-### Option 2: Original Theme Provider (For Light/Dark Mode)
+### Basic Usage (Default Light/Dark)
 
 ```tsx
 import React from 'react';
@@ -86,7 +47,7 @@ function App() {
 }
 
 function MyComponent() {
-  const { theme, setMode, config } = useTheme();
+  const { theme, themeName, config, toggleTheme } = useTheme();
   
   return (
     <div style={{ 
@@ -94,15 +55,101 @@ function MyComponent() {
       color: theme.colors.text.primary,
       padding: theme.spacing.lg 
     }}>
-      <h1>Hello from FlowLab Theme System!</h1>
-      <button onClick={() => setMode(config.mode === 'light' ? 'dark' : 'light')}>
-        Switch to {config.mode === 'light' ? 'dark' : 'light'} mode
+      <h1>Theme: {themeName}</h1>
+      <p>Mode: {config.mode}</p>
+      <button onClick={toggleTheme}>
+        Toggle Light/Dark
       </button>
     </div>
   );
 }
 
 export default App;
+```
+
+### Custom Theme Override
+
+```tsx
+import React from 'react';
+import { ThemeProvider, useTheme } from '@flowlab/theme-system';
+import { oceanTheme, forestTheme, cyberpunkTheme } from '@flowlab/theme-system/themes';
+
+function App() {
+  return (
+    <ThemeProvider 
+      lightTheme={oceanTheme}
+      darkTheme={cyberpunkTheme}
+      initialConfig={{ mode: 'light' }}
+      onThemeChange={(info) => {
+        console.log('Theme changed:', info.themeName, info.mode);
+      }}
+    >
+      <MyComponent />
+    </ThemeProvider>
+  );
+}
+
+function MyComponent() {
+  const { theme, themeName, config, toggleTheme } = useTheme();
+  
+  return (
+    <div style={{ 
+      backgroundColor: theme.colors.background.app,
+      color: theme.colors.text.primary,
+      padding: theme.spacing.lg 
+    }}>
+      <h1>Current Theme: {themeName}</h1>
+      <p>Mode: {config.mode}</p>
+      <button onClick={toggleTheme}>
+        Switch between Ocean and Cyberpunk
+      </button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Advanced Theme Management
+
+```tsx
+import React, { useState } from 'react';
+import { ThemeProvider, useTheme } from '@flowlab/theme-system';
+import { 
+  lightTheme, 
+  darkTheme, 
+  oceanTheme, 
+  forestTheme, 
+  sunsetTheme,
+  lavenderTheme 
+} from '@flowlab/theme-system/themes';
+
+const themeOptions = {
+  classic: { light: lightTheme, dark: darkTheme },
+  nature: { light: forestTheme, dark: forestTheme },
+  ocean: { light: oceanTheme, dark: oceanTheme },
+  sunset: { light: sunsetTheme, dark: lavenderTheme },
+};
+
+function App() {
+  const [selectedThemeSet, setSelectedThemeSet] = useState('classic');
+  
+  return (
+    <ThemeProvider 
+      lightTheme={themeOptions[selectedThemeSet].light}
+      darkTheme={themeOptions[selectedThemeSet].dark}
+      onThemeChange={(info) => {
+        console.log(`Theme: ${info.themeName}, Mode: ${info.mode}`);
+      }}
+    >
+      <ThemeSelector 
+        currentSet={selectedThemeSet}
+        onSetChange={setSelectedThemeSet}
+      />
+      <MyComponent />
+    </ThemeProvider>
+  );
+}
 ```
 
 ## Troubleshooting
