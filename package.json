@@ -1,6 +1,6 @@
 {
   "name": "@flowlabkit/themesystem",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A comprehensive React theme system with dynamic switching, CSS variables, and complete UI component library - part of the FlowLabKit ecosystem",
   "type": "module",
   "main": "dist/index.js",
