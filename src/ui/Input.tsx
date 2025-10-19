@@ -1,5 +1,6 @@
 import React, { forwardRef, InputHTMLAttributes, useState, useEffect } from 'react';
 import { useTheme } from '../hooks/useTheme';
+import { inputFallbacks } from '../utils/css-fallbacks';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'className' | 'type'> {
   size?: 'sm' | 'md' | 'lg';
@@ -146,46 +147,46 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   const baseStyles: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    fontFamily: 'var(--font-family)',
-    transition: 'var(--transition-base)',
+    fontFamily: inputFallbacks.fontFamily,
+    transition: inputFallbacks.transitionBase,
     position: 'relative',
   };
 
   // Container styles
   const getContainerStyles = (): React.CSSProperties => {
-    let borderColor = 'var(--input-border)';
+    let borderColor = inputFallbacks.inputBorder;
     let boxShadow = 'none';
 
     if (hasError) {
-      borderColor = 'var(--error-color)';
+      borderColor = inputFallbacks.errorColor;
       if (isFocused) {
-        boxShadow = `0 0 0 2px var(--error-light)`;
+        boxShadow = `0 0 0 2px ${inputFallbacks.errorLight}`;
       }
     } else if (isFocused) {
-      borderColor = 'var(--input-border-focus)';
-      boxShadow = `0 0 0 2px var(--focus-ring)`;
+      borderColor = inputFallbacks.inputBorderFocus;
+      boxShadow = `0 0 0 2px ${inputFallbacks.focusRing}`;
     } else if (isHovered && !disabled) {
-      borderColor = 'var(--input-border-hover)';
+      borderColor = inputFallbacks.inputBorderHover;
     }
 
     return {
       display: 'flex',
       alignItems: 'center',
-      borderRadius: variant === 'flushed' ? '0' : 'var(--radius-md)',
+      borderRadius: variant === 'flushed' ? '0' : inputFallbacks.radiusMd,
       borderWidth: '1px',
       borderStyle: 'solid',
       borderColor,
-      backgroundColor: variant === 'filled' ? 'var(--bg-elevated)' : 'var(--input-bg)',
+      backgroundColor: variant === 'filled' ? inputFallbacks.bgElevated : inputFallbacks.inputBg,
       borderBottomWidth: variant === 'flushed' ? '2px' : '1px',
       borderTopWidth: variant === 'flushed' ? '0' : '1px',
       borderLeftWidth: variant === 'flushed' ? '0' : '1px',
       borderRightWidth: variant === 'flushed' ? '0' : '1px',
-      paddingLeft: leftIcon ? 'var(--space-xs)' : 'var(--space-sm)',
-      paddingRight: rightIcon ? 'var(--space-xs)' : 'var(--space-sm)',
-      paddingTop: 'var(--space-xs)',
-      paddingBottom: 'var(--space-xs)',
+      paddingLeft: leftIcon ? inputFallbacks.spaceXs : inputFallbacks.spaceSm,
+      paddingRight: rightIcon ? inputFallbacks.spaceXs : inputFallbacks.spaceSm,
+      paddingTop: inputFallbacks.spaceXs,
+      paddingBottom: inputFallbacks.spaceXs,
       boxShadow,
-      transition: 'var(--transition-base)',
+      transition: inputFallbacks.transitionBase,
       ...sizeStyles[size],
     };
   };
@@ -196,26 +197,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
     border: 'none',
     outline: 'none',
     backgroundColor: 'transparent',
-    color: 'var(--input-text)',
-    fontSize: 'var(--font-size-base)',
+    color: inputFallbacks.inputText,
+    fontSize: inputFallbacks.fontSizeBase,
     fontFamily: 'inherit',
     padding: '0',
-    margin: leftIcon || rightIcon ? '0 var(--space-xs)' : '0',
+    margin: leftIcon || rightIcon ? `0 ${inputFallbacks.spaceXs}` : '0',
   };
 
   // Size styles
   const sizeStyles: Record<string, React.CSSProperties> = {
     sm: {
-      minHeight: 'calc(var(--font-size-sm) + var(--space-md))',
-      fontSize: 'var(--font-size-sm)',
+      minHeight: `calc(${inputFallbacks.fontSizeSm} + ${inputFallbacks.spaceMd})`,
+      fontSize: inputFallbacks.fontSizeSm,
     },
     md: {
-      minHeight: 'calc(var(--font-size-base) + var(--space-lg))',
-      fontSize: 'var(--font-size-base)',
+      minHeight: `calc(${inputFallbacks.fontSizeBase} + ${inputFallbacks.spaceLg})`,
+      fontSize: inputFallbacks.fontSizeBase,
     },
     lg: {
-      minHeight: 'calc(var(--font-size-lg) + var(--space-xl))',
-      fontSize: 'var(--font-size-lg)',
+      minHeight: `calc(${inputFallbacks.fontSizeLg} + ${inputFallbacks.spaceXl})`,
+      fontSize: inputFallbacks.fontSizeLg,
     },
   };
 
@@ -247,7 +248,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   // Password strength component
   const PasswordStrengthIndicator = ({ password }: { password: string }) => {
     const getStrength = (pwd: string) => {
-      if (pwd.length < 6) return { level: 0, text: 'Too short', color: 'var(--error-color)' };
+      if (pwd.length < 6) return { level: 0, text: 'Too short', color: inputFallbacks.errorColor };
       
       let score = 0;
       if (pwd.length >= 8) score++;
@@ -256,31 +257,31 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
       if (/\d/.test(pwd)) score++;
       if (/[!@#$%^&*(),.?":{}|<>]/.test(pwd)) score++;
       
-      if (score < 2) return { level: 1, text: 'Weak', color: 'var(--error-color)' };
-      if (score < 4) return { level: 2, text: 'Fair', color: 'var(--warning-color)' };
-      if (score < 5) return { level: 3, text: 'Good', color: 'var(--info)' };
-      return { level: 4, text: 'Strong', color: 'var(--success-color)' };
+      if (score < 2) return { level: 1, text: 'Weak', color: inputFallbacks.errorColor };
+      if (score < 4) return { level: 2, text: 'Fair', color: inputFallbacks.warningColor };
+      if (score < 5) return { level: 3, text: 'Good', color: inputFallbacks.info };
+      return { level: 4, text: 'Strong', color: inputFallbacks.successColor };
     };
 
     const strength = getStrength(password);
     
     return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}>
-        <div style={{ flex: 1, height: '4px', backgroundColor: 'var(--gray-200)', borderRadius: '2px', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: inputFallbacks.spaceSm }}>
+        <div style={{ flex: 1, height: '4px', backgroundColor: inputFallbacks.gray200, borderRadius: '2px', overflow: 'hidden' }}>
           <div
             style={{
               height: '100%',
               width: `${(strength.level / 4) * 100}%`,
               backgroundColor: strength.color,
-              transition: 'var(--transition-base)',
+              transition: inputFallbacks.transitionBase,
             }}
           />
         </div>
         <span style={{ 
           color: strength.color, 
           minWidth: '60px', 
-          fontSize: 'var(--font-size-xs)',
-          fontWeight: 'var(--font-weight-medium)'
+          fontSize: inputFallbacks.fontSizeXs,
+          fontWeight: inputFallbacks.fontWeightMedium
         }}>
           {strength.text}
         </span>
@@ -323,8 +324,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
             padding: '0.25rem',
             display: 'flex',
             alignItems: 'center',
-            color: 'var(--text-muted)',
-            borderRadius: 'var(--radius-sm)',
+            color: inputFallbacks.textMuted,
+            borderRadius: inputFallbacks.radiusSm,
           }}
           tabIndex={-1}
         >
@@ -339,7 +340,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
     }
 
     return icons.length > 0 ? (
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: inputFallbacks.spaceXs }}>
         {icons}
       </div>
     ) : null;
@@ -439,10 +440,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
           htmlFor={inputId}
           style={{
             display: 'block',
-            fontSize: 'var(--font-size-sm)',
-            fontWeight: 'var(--font-weight-medium)',
-            color: 'var(--text-primary)',
-            marginBottom: 'var(--space-xs)',
+            fontSize: inputFallbacks.fontSizeSm,
+            fontWeight: inputFallbacks.fontWeightMedium,
+            color: inputFallbacks.textPrimary,
+            marginBottom: inputFallbacks.spaceXs,
           }}
         >
           {label}
@@ -459,7 +460,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
             style={{
               display: 'flex',
               alignItems: 'center',
-              color: 'var(--text-muted)',
+              color: inputFallbacks.textMuted,
               fontSize: sizeStyles[size].fontSize,
             }}
           >
@@ -491,7 +492,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
             style={{
               display: 'flex',
               alignItems: 'center',
-              color: 'var(--text-muted)',
+              color: inputFallbacks.textMuted,
               fontSize: sizeStyles[size].fontSize,
             }}
           >
@@ -503,9 +504,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
       {(helperText || errorMessage || validationError) && (
         <div
           style={{
-            marginTop: 'var(--space-xs)',
-            fontSize: 'var(--font-size-sm)',
-            color: hasError ? 'var(--error-color)' : 'var(--text-secondary)',
+            marginTop: inputFallbacks.spaceXs,
+            fontSize: inputFallbacks.fontSizeSm,
+            color: hasError ? inputFallbacks.errorColor : inputFallbacks.textSecondary,
           }}
         >
           {errorMessage || validationError || helperText}
@@ -514,7 +515,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
 
       {/* Password strength indicator */}
       {type === 'password' && value && enableValidation && (
-        <div style={{ marginTop: 'var(--space-xs)' }}>
+        <div style={{ marginTop: inputFallbacks.spaceXs }}>
           <PasswordStrengthIndicator password={value.toString()} />
         </div>
       )}

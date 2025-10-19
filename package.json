@@ -1,7 +1,7 @@
 {
-  "name": "@flowlab/theme-system",
-  "version": "1.0.0",
-  "description": "FlowLab's comprehensive theme system for consistent UI across applications",
+  "name": "@flowlabkit/themesystem",
+  "version": "1.1.0",
+  "description": "A comprehensive React theme system with dynamic switching, CSS variables, and complete UI component library - part of the FlowLabKit ecosystem",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -28,20 +28,25 @@
     "build": "rollup -c",
     "build:watch": "rollup -c --watch",
     "dev": "rollup -c --watch",
-    "dev:examples": "vite",
+    "showcase": "vite",
+    "showcase:build": "vite build",
+    "showcase:preview": "vite preview",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run clean && npm run build",
     "type-check": "tsc --noEmit"
   },
   "keywords": [
+    "flowlabkit",
     "theme",
     "design-system",
     "css-variables",
     "react",
     "typescript",
-    "flowlab"
+    "ui-components",
+    "toolkit",
+    "ecosystem"
   ],
-  "author": "FlowLab Team",
+  "author": "FlowLabKit Team",
   "license": "MIT",
   "peerDependencies": {
     "react": ">=18.0.0",
@@ -75,10 +80,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/flowlab-theme-system.git"
+    "url": "git+https://github.com/SkipMeNow/flowlabkit-themesystem.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/flowlab-theme-system/issues"
+    "url": "https://github.com/SkipMeNow/flowlabkit-themesystem/issues"
   },
-  "homepage": "https://github.com/your-org/flowlab-theme-system#readme"
+  "homepage": "https://github.com/SkipMeNow/flowlabkit-themesystem#readme"
 }

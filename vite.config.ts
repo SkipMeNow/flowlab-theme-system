@@ -5,7 +5,7 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  root: 'examples',
+  root: 'showcase',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -17,6 +17,6 @@ export default defineConfig({
     open: true,
   },
   build: {
-    outDir: '../dist-examples',
+    outDir: '../dist-showcase',
   },
 })

@@ -1,6 +1,6 @@
-# @flowlab/theme-system
+# @flowlabkit/themesystem
 
-A comprehensive, TypeScript-first theme system for React applications with 8 beautiful built-in themes, full CSS variable support, and extensive customization options.
+A comprehensive, TypeScript-first theme system for React applications with 8 beautiful built-in themes, full CSS variable support, and extensive customization options. Part of the FlowLabKit ecosystem for building modern React applications.
 
 ## Features
 
@@ -29,7 +29,7 @@ A comprehensive, TypeScript-first theme system for React applications with 8 bea
 ## Installation
 
 ```bash
-npm install @flowlab/theme-system
+npm install @flowlabkit/themesystem
 ```
 
 ## Quick Start
@@ -40,7 +40,7 @@ npm install @flowlab/theme-system
 
 ```tsx
 import React from 'react';
-import { ThemeProvider } from '@flowlab/theme-system';
+import { ThemeProvider } from '@flowlabkit/themesystem';
 
 function App() {
   return (
@@ -55,8 +55,8 @@ function App() {
 
 ```tsx
 import React from 'react';
-import { ThemeProvider } from '@flowlab/theme-system';
-import { oceanTheme, cyberpunkTheme } from '@flowlab/theme-system/themes';
+import { ThemeProvider } from '@flowlabkit/themesystem';
+import { oceanTheme, cyberpunkTheme } from '@flowlabkit/themesystem/themes';
 
 function App() {
   return (
@@ -76,7 +76,7 @@ function App() {
 ### Theme Switching
 
 ```tsx
-import { themes, allThemes } from '@flowlab/theme-system/themes';
+import { themes, allThemes } from '@flowlabkit/themesystem/themes';
 
 function ThemeSelector({ onThemeChange }) {
   return (
@@ -97,7 +97,7 @@ function ThemeSelector({ onThemeChange }) {
 ### Using the Theme Hook
 
 ```tsx
-import { useTheme } from '@flowlab/theme-system';
+import { useTheme } from '@flowlabkit/themesystem';
 
 function ThemedComponent() {
   const { theme, themeName, config, toggleTheme, setMode } = useTheme();
@@ -127,8 +127,8 @@ function ThemedComponent() {
 ### Theme Selection Component
 
 ```tsx
-import { useTheme } from '@flowlab/theme-system';
-import { themes } from '@flowlab/theme-system/themes';
+import { useTheme } from '@flowlabkit/themesystem';
+import { themes } from '@flowlabkit/themesystem/themes';
 
 function ThemeSelector() {
   const { themeName, config, toggleTheme } = useTheme();
@@ -287,7 +287,7 @@ interface ThemeConfig {
 ### Manual CSS Variable Application
 
 ```tsx
-import { themeToCSSVariables, applyCSSVariables } from '@flowlab/theme-system';
+import { themeToCSSVariables, applyCSSVariables } from '@flowlabkit/themesystem';
 
 // Apply theme variables manually
 const variables = themeToCSSVariables(theme, config);
@@ -297,7 +297,7 @@ applyCSSVariables(variables);
 ### Custom Theme Creation
 
 ```tsx
-import { Theme, lightTheme } from '@flowlab/theme-system';
+import { Theme, lightTheme } from '@flowlabkit/themesystem';
 
 const customTheme: Theme = {
   ...lightTheme,
@@ -317,6 +317,25 @@ const customTheme: Theme = {
 - React 16.8+ (hooks required)
 - TypeScript 4.0+ recommended
 
+## 🎨 Live Demo & Documentation
+
+**[View Interactive Showcase →](https://skipmenow.github.io/flowlabkit-themesystem)**
+
+Experience all themes, components, and features with live examples and complete documentation.
+
+## Development
+
+```bash
+# Run the interactive showcase locally
+npm run showcase
+
+# Build showcase for production
+npm run showcase:build
+
+# Build the package
+npm run build
+```
+
 ## Migration from CSS Variables
 
 If you're migrating from a CSS variable-based theme system:
@@ -329,7 +348,17 @@ If you're migrating from a CSS variable-based theme system:
 
 ## Contributing
 
-See the main FlowLab repository for contribution guidelines.
+See the main FlowLabKit repository for contribution guidelines.
+
+## FlowLabKit Ecosystem
+
+This package is part of FlowLabKit - a comprehensive toolkit for building modern React applications:
+
+- `@flowlabkit/themesystem` - Theme system with 8 built-in themes ✅
+- `@flowlabkit/components` - Complete UI component library (coming soon)
+- `@flowlabkit/icons` - Icon library (coming soon)
+- `@flowlabkit/animations` - Animation utilities (coming soon)
+- `@flowlabkit/forms` - Form handling toolkit (coming soon)
 
 ## License
 
