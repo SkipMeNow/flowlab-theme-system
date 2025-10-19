@@ -18,6 +18,9 @@ export interface ThemeContextValue {
   setMode: (mode: ThemeMode) => void;
   setFontSize: (fontSize: FontSize) => void;
   setCompactMode: (compact: boolean) => void;
+  setTheme: (theme: Theme) => void;
+  setLightTheme: (theme: Theme) => void;  // NEW: Set light theme dynamically
+  setDarkTheme: (theme: Theme) => void;   // NEW: Set dark theme dynamically
   toggleTheme: () => void;
 }
 
@@ -25,8 +28,10 @@ export const ThemeContext = createContext<ThemeContextValue | undefined>(undefin
 
 export interface ThemeProviderProps {
   children: ReactNode;
-  lightTheme?: Theme; // Override default light theme
-  darkTheme?: Theme; // Override default dark theme
+  theme?: Theme; // Single theme that adapts to light/dark mode
+  themes?: Record<string, Theme>; // Available themes by name
+  lightTheme?: Theme; // Override default light theme (legacy)
+  darkTheme?: Theme; // Override default dark theme (legacy)
   initialConfig?: Partial<ThemeConfig>;
   persistToLocalStorage?: boolean;
   localStorageKey?: string;
@@ -41,6 +46,8 @@ const defaultConfig: ThemeConfig = {
 
 export function ThemeProvider({
   children,
+  theme: singleTheme,
+  themes = {},
   lightTheme: customLightTheme = lightTheme,
   darkTheme: customDarkTheme = darkTheme,
   initialConfig = {},
@@ -62,8 +69,17 @@ export function ThemeProvider({
     return { ...defaultConfig, ...initialConfig };
   });
 
-  // Use custom themes based on mode
-  const theme = config.mode === 'dark' ? customDarkTheme : customLightTheme;
+  // State for dynamic light/dark themes
+  const [dynamicLightTheme, setDynamicLightTheme] = useState<Theme>(customLightTheme);
+  const [dynamicDarkTheme, setDynamicDarkTheme] = useState<Theme>(customDarkTheme);
+
+  // Theme selection logic:
+  // 1. Use single theme if provided
+  // 2. Use theme from themes collection by name if themeName is in config
+  // 3. Fallback to light/dark theme switching (now uses dynamic themes)
+  const theme = singleTheme || 
+    (config.themeName && themes[config.themeName]) ||
+    (config.mode === 'dark' ? dynamicDarkTheme : dynamicLightTheme);
   const themeName = theme.name;
 
   const setMode = (mode: ThemeMode) => {
@@ -76,6 +92,20 @@ export function ThemeProvider({
 
   const setCompactMode = (compactMode: boolean) => {
     setConfig((prev: ThemeConfig) => ({ ...prev, compactMode }));
+  };
+
+  const setTheme = (newTheme: Theme) => {
+    setConfig((prev: ThemeConfig) => ({ ...prev, themeName: newTheme.name }));
+  };
+
+  // NEW: Set light theme dynamically
+  const setLightTheme = (newLightTheme: Theme) => {
+    setDynamicLightTheme(newLightTheme);
+  };
+
+  // NEW: Set dark theme dynamically
+  const setDarkTheme = (newDarkTheme: Theme) => {
+    setDynamicDarkTheme(newDarkTheme);
   };
 
   // Toggle between light and dark themes
@@ -121,6 +151,9 @@ export function ThemeProvider({
     setMode,
     setFontSize,
     setCompactMode,
+    setTheme,
+    setLightTheme,
+    setDarkTheme,
     toggleTheme,
   };
 

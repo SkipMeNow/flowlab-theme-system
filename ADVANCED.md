@@ -11,8 +11,8 @@ The `ThemeProvider` now supports both traditional light/dark mode switching and 
 ```tsx
 interface ThemeProviderProps {
   children: ReactNode;
-  lightTheme?: Theme;           // Override the default light theme
-  darkTheme?: Theme;            // Override the default dark theme
+  lightTheme?: Theme;           // Initial light theme (can be changed dynamically)
+  darkTheme?: Theme;            // Initial dark theme (can be changed dynamically)
   initialConfig?: Partial<ThemeConfig>;
   persistToLocalStorage?: boolean;
   localStorageKey?: string;
@@ -37,6 +37,8 @@ interface ThemeContextValue {
   setMode: (mode: ThemeMode) => void;
   setFontSize: (fontSize: FontSize) => void;
   setCompactMode: (compact: boolean) => void;
+  setLightTheme: (theme: Theme) => void;  // 🆕 Change light theme dynamically
+  setDarkTheme: (theme: Theme) => void;   // 🆕 Change dark theme dynamically
   toggleTheme: () => void;         // Toggle between light/dark
 }
 ```
@@ -111,11 +113,68 @@ function NatureApp() {
 }
 ```
 
-### 4. Dynamic Theme Switching
+### 4. Dynamic Theme Switching 🆕
+
+**NEW:** You can now change light and dark themes dynamically from anywhere in your app!
+
+```tsx
+import { useTheme } from '@flowlab/theme-system';
+import { oceanTheme, cyberpunkTheme, forestTheme } from '@flowlab/theme-system/themes';
+
+function ThemeSettings() {
+  const { 
+    config, 
+    themeName, 
+    setLightTheme, 
+    setDarkTheme, 
+    setMode 
+  } = useTheme();
+
+  const handleLightThemeChange = (theme: Theme) => {
+    setLightTheme(theme);  // Changes light theme immediately
+  };
+
+  const handleDarkThemeChange = (theme: Theme) => {
+    setDarkTheme(theme);   // Changes dark theme immediately
+  };
+
+  return (
+    <div>
+      <h3>Current: {themeName} ({config.mode} mode)</h3>
+      
+      <div>
+        <h4>Light Mode Theme:</h4>
+        <button onClick={() => handleLightThemeChange(oceanTheme)}>
+          Ocean
+        </button>
+        <button onClick={() => handleLightThemeChange(forestTheme)}>
+          Forest
+        </button>
+      </div>
+      
+      <div>
+        <h4>Dark Mode Theme:</h4>
+        <button onClick={() => handleDarkThemeChange(cyberpunkTheme)}>
+          Cyberpunk
+        </button>
+        <button onClick={() => handleDarkThemeChange(forestTheme)}>
+          Forest
+        </button>
+      </div>
+      
+      <button onClick={() => setMode(config.mode === 'light' ? 'dark' : 'light')}>
+        Switch to {config.mode === 'light' ? 'Dark' : 'Light'} Mode
+      </button>
+    </div>
+  );
+}
+```
+
+### 5. Advanced Dynamic Theme Patterns
 
 ```tsx
 import React, { useState } from 'react';
-import { ThemeProvider } from '@flowlab/theme-system';
+import { ThemeProvider, useTheme } from '@flowlab/theme-system';
 import { 
   lightTheme, 
   darkTheme, 
@@ -181,7 +240,7 @@ function ThemeSetSelector({ currentSet, onSetChange, sets }) {
 }
 ```
 
-### 5. Multi-App Theme Coordination
+### 6. Multi-App Theme Coordination
 
 ```tsx
 // Shared theme state across multiple apps
@@ -228,6 +287,72 @@ function MicroFrontendApp() {
       <AppContent />
     </ThemeProvider>
   );
+}
+```
+
+## Real-World Use Cases
+
+### 🎨 User Preferences
+```tsx
+function UserSettings() {
+  const { setLightTheme, setDarkTheme } = useTheme();
+  
+  const saveThemePreferences = async (lightTheme: string, darkTheme: string) => {
+    // Update themes immediately
+    setLightTheme(themes[lightTheme]);
+    setDarkTheme(themes[darkTheme]);
+    
+    // Save to user profile
+    await updateUserPreferences({ lightTheme, darkTheme });
+  };
+}
+```
+
+### 🏢 Brand Theme Updates
+```tsx
+function AdminPanel() {
+  const { setLightTheme, setDarkTheme } = useTheme();
+  
+  const applyBrandUpdate = () => {
+    // Update all users' themes in real-time
+    setLightTheme(newBrandLightTheme);
+    setDarkTheme(newBrandDarkTheme);
+  };
+}
+```
+
+### 🎃 Seasonal Themes
+```tsx
+function useSeasonalThemes() {
+  const { setLightTheme, setDarkTheme } = useTheme();
+  
+  useEffect(() => {
+    const season = getCurrentSeason();
+    switch (season) {
+      case 'spring':
+        setLightTheme(forestTheme);
+        setDarkTheme(forestTheme);
+        break;
+      case 'halloween':
+        setLightTheme(autumnTheme);
+        setDarkTheme(cyberpunkTheme);
+        break;
+      // ... more seasons
+    }
+  }, []);
+}
+```
+
+### 🎮 Game Themes
+```tsx
+function GameThemeManager() {
+  const { setLightTheme, setDarkTheme } = useTheme();
+  
+  const applyLevelTheme = (level: number) => {
+    const themeSet = getLevelThemes(level);
+    setLightTheme(themeSet.day);
+    setDarkTheme(themeSet.night);
+  };
 }
 ```
 

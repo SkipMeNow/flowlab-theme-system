@@ -7,6 +7,9 @@ export * from './themes';
 // Components
 export { ThemeProvider } from './components';
 
+// UI Components
+export * from './ui';
+
 // Hooks
 export { useTheme } from './hooks';
 

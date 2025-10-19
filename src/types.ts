@@ -220,6 +220,7 @@ export interface ThemeConfig {
   mode: ThemeMode;
   fontSize: FontSize;
   compactMode: CompactMode;
+  themeName?: string; // Name of the selected theme
   customTheme?: Partial<Theme>;
 }
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowLab Theme System - Examples</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        background-color: #f8fafc;
+      }
+      
+      .examples-nav {
+        background: white;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      
+      .examples-nav h1 {
+        margin: 0 0 1rem 0;
+        color: #1a202c;
+        font-size: 1.5rem;
+      }
+      
+      .examples-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        max-width: 800px;
+      }
+      
+      .example-link {
+        display: block;
+        padding: 0.75rem 1rem;
+        background: #4299e1;
+        color: white;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s;
+        font-weight: 500;
+      }
+      
+      .example-link:hover {
+        background: #3182ce;
+      }
+      
+      .app-container {
+        min-height: calc(100vh - 100px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="examples-nav">
+      <h1>🎨 FlowLab Theme System Examples</h1>
+      <div class="examples-grid">
+        <a href="?example=ValidationIconExample" class="example-link">🔍 Validation Icons</a>
+        <a href="?example=IconDebugExample" class="example-link">🐛 Icon Debug Test</a>
+        <a href="?example=SimpleValidationExample" class="example-link">📧 Email Validation</a>
+        <a href="?example=InputTypesExample" class="example-link">📝 Input Types</a>
+        <a href="?example=BadgeTestExample" class="example-link">🏷️ Badge Test</a>
+        <a href="?example=ButtonShapesExample" class="example-link">🔘 Button Shapes</a>
+        <a href="?example=InputFocusExample" class="example-link">🎯 Input Focus</a>
+        <a href="?example=DynamicThemeExample" class="example-link">🌈 Dynamic Theme</a>
+        <a href="?example=SimpleExample" class="example-link">🎨 Simple Theme</a>
+      </div>
+    </div>
+    
+    <div id="root" class="app-container"></div>
+    <script type="module" src="/main.tsx"></script>
+  </body>
+</html>

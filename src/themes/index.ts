@@ -30,7 +30,7 @@ export const themes = {
 export const defaultTheme = lightTheme;
 
 // Array of all theme names for easy iteration
-export const allThemes = [
+export const allThemeNames = [
   'light',
   'dark',
   'ocean',
@@ -41,4 +41,16 @@ export const allThemes = [
   'autumn',
 ] as const;
 
-export type ThemeName = typeof allThemes[number];
+// Array of all theme objects
+export const allThemes = [
+  lightTheme,
+  darkTheme,
+  oceanTheme,
+  forestTheme,
+  sunsetTheme,
+  lavenderTheme,
+  cyberpunkTheme,
+  autumnTheme,
+];
+
+export type ThemeName = typeof allThemeNames[number];
