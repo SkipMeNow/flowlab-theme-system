@@ -39,6 +39,17 @@ This showcase is built with:
 - **Vite** for fast development and building
 - **FlowLabKit Theme System** for theming
 - **GitHub Actions** for automatic deployment
+- **gh-pages** for easy manual deployment
+
+### Deployment Options
+
+#### Option 1: Manual Deployment (gh-pages)
+```bash
+npm run deploy
+```
+
+#### Option 2: Automatic Deployment (GitHub Actions)
+Push to main branch and GitHub Actions will automatically deploy the showcase.
 
 ## Repository
 

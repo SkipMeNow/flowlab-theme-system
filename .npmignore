@@ -4,6 +4,10 @@ showcase/
 preview/
 vite.config.ts
 
+# GitHub-related files
+.github/
+SHOWCASE.md
+
 # Build tools and configs
 rollup.config.js
 tsconfig.json

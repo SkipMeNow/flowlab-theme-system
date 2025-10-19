@@ -31,7 +31,9 @@
     "showcase": "vite",
     "showcase:build": "vite build",
     "showcase:preview": "vite preview",
-    "showcase:deploy": "npm run build && NODE_ENV=production npm run showcase:build",
+    "showcase:deploy": "npm run build && npm run showcase:build",
+    "deploy": "npm run showcase:deploy && gh-pages -d dist-showcase",
+    "deploy:ci": "gh-pages -d dist-showcase",
     "clean": "rimraf dist dist-showcase",
     "prepublishOnly": "npm run clean && npm run build",
     "type-check": "tsc --noEmit"
@@ -69,6 +71,7 @@
     "@types/react": "^18.3.26",
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^5.0.4",
+    "gh-pages": "^6.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.5",
