@@ -6,6 +6,7 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [react()],
   root: 'showcase',
+  base: process.env.NODE_ENV === 'production' ? '/flowlab-theme-system/' : '/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -18,5 +19,15 @@ export default defineConfig({
   },
   build: {
     outDir: '../dist-showcase',
+    assetsDir: 'assets',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          theme: ['../src/themes/index', '../src/components/ThemeProvider'],
+        },
+      },
+    },
   },
 })

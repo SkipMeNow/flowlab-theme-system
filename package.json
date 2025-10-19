@@ -31,7 +31,8 @@
     "showcase": "vite",
     "showcase:build": "vite build",
     "showcase:preview": "vite preview",
-    "clean": "rimraf dist",
+    "showcase:deploy": "npm run build && NODE_ENV=production npm run showcase:build",
+    "clean": "rimraf dist dist-showcase",
     "prepublishOnly": "npm run clean && npm run build",
     "type-check": "tsc --noEmit"
   },
@@ -85,5 +86,5 @@
   "bugs": {
     "url": "https://github.com/SkipMeNow/flowlabkit-themesystem/issues"
   },
-  "homepage": "https://github.com/SkipMeNow/flowlabkit-themesystem#readme"
+  "homepage": "https://skipmenow.github.io/flowlab-theme-system/"
 }
