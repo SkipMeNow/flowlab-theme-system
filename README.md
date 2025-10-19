@@ -319,7 +319,7 @@ const customTheme: Theme = {
 
 ## 🎨 Live Demo & Documentation
 
-**[View Interactive Showcase →](https://skipmenow.github.io/flowlabkit-themesystem)**
+**[View Interactive Showcase →](https://skipmenow.github.io/flowlab-theme-system/)**
 
 Experience all themes, components, and features with live examples and complete documentation.
 
@@ -349,6 +349,10 @@ If you're migrating from a CSS variable-based theme system:
 ## Contributing
 
 See the main FlowLabKit repository for contribution guidelines.
+
+## Repository
+
+**[Source Code →](https://github.com/SkipMeNow/flowlab-theme-system?tab=readme-ov-file)**
 
 ## FlowLabKit Ecosystem
 

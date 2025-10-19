@@ -83,10 +83,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SkipMeNow/flowlabkit-themesystem.git"
+    "url": "git+https://github.com/SkipMeNow/flowlab-theme-system.git"
   },
   "bugs": {
-    "url": "https://github.com/SkipMeNow/flowlabkit-themesystem/issues"
+    "url": "https://github.com/SkipMeNow/flowlab-theme-system/issues"
   },
   "homepage": "https://skipmenow.github.io/flowlab-theme-system/"
 }
