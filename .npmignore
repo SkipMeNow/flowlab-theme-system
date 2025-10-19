@@ -4,8 +4,7 @@ showcase/
 preview/
 vite.config.ts
 
-# GitHub-related files
-.github/
+# Documentation files
 SHOWCASE.md
 
 # Build tools and configs

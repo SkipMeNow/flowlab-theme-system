@@ -33,7 +33,6 @@
     "showcase:preview": "vite preview",
     "showcase:deploy": "npm run build && npm run showcase:build",
     "deploy": "npm run showcase:deploy && gh-pages -d dist-showcase",
-    "deploy:ci": "gh-pages -d dist-showcase",
     "clean": "rimraf dist dist-showcase",
     "prepublishOnly": "npm run clean && npm run build",
     "type-check": "tsc --noEmit"

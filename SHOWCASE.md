@@ -38,18 +38,19 @@ This showcase is built with:
 - **React 18** + **TypeScript**
 - **Vite** for fast development and building
 - **FlowLabKit Theme System** for theming
-- **GitHub Actions** for automatic deployment
-- **gh-pages** for easy manual deployment
+- **gh-pages** for easy deployment
 
-### Deployment Options
+### Deployment
 
-#### Option 1: Manual Deployment (gh-pages)
+Deploy the showcase to GitHub Pages:
 ```bash
 npm run deploy
 ```
 
-#### Option 2: Automatic Deployment (GitHub Actions)
-Push to main branch and GitHub Actions will automatically deploy the showcase.
+This command will:
+1. Build the theme system library
+2. Build the showcase with Vite
+3. Deploy to GitHub Pages using gh-pages
 
 ## Repository
 
