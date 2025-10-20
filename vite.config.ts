@@ -6,7 +6,7 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [react()],
   root: 'showcase',
-  base: process.env.NODE_ENV === 'production' ? '/flowlab-theme-system/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/flowlab_themesystem/' : '/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
