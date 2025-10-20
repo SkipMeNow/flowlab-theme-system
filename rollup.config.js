@@ -45,9 +45,75 @@ export default [
       'react/jsx-dev-runtime'
     ],
   },
-  // Themes bundle
+  // Core bundle (minimal theme system)
   {
-    input: 'src/themes/index.ts',
+    input: 'src/core/index.ts',
+    output: [
+      {
+        file: 'dist/core/index.js',
+        format: 'cjs',
+        sourcemap: true,
+        exports: 'named',
+      },
+      {
+        file: 'dist/core/index.esm.js',
+        format: 'esm',
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      resolve({
+        browser: true,
+      }),
+      commonjs(),
+      typescript({
+        tsconfig: './tsconfig.json',
+        exclude: ['**/*.test.*', '**/*.spec.*'],
+      }),
+    ],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime'
+    ],
+  },
+  // Components bundle (UI components only)
+  {
+    input: 'src/components-module/index.ts',
+    output: [
+      {
+        file: 'dist/components/index.js',
+        format: 'cjs',
+        sourcemap: true,
+        exports: 'named',
+      },
+      {
+        file: 'dist/components/index.esm.js',
+        format: 'esm',
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      resolve({
+        browser: true,
+      }),
+      commonjs(),
+      typescript({
+        tsconfig: './tsconfig.json',
+        exclude: ['**/*.test.*', '**/*.spec.*'],
+      }),
+    ],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime'
+    ],
+  },
+  // Themes bundle (additional themes only)
+  {
+    input: 'src/themes-module/index.ts',
     output: [
       {
         file: 'dist/themes/index.js',
@@ -90,9 +156,33 @@ export default [
       'react/jsx-dev-runtime'
     ],
   },
+  // Core types
+  {
+    input: 'src/core/index.ts',
+    output: [{ file: 'dist/core/index.d.ts', format: 'esm' }],
+    plugins: [dts()],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime'
+    ],
+  },
+  // Components types
+  {
+    input: 'src/components-module/index.ts',
+    output: [{ file: 'dist/components/index.d.ts', format: 'esm' }],
+    plugins: [dts()],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime'
+    ],
+  },
   // Themes types
   {
-    input: 'src/themes/index.ts',
+    input: 'src/themes-module/index.ts',
     output: [{ file: 'dist/themes/index.d.ts', format: 'esm' }],
     plugins: [dts()],
     external: [

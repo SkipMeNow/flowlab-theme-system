@@ -28,9 +28,44 @@ A comprehensive, TypeScript-first theme system for React applications with 8 bea
 
 ## Installation
 
+### Complete Package (Recommended)
+Install everything in one package - theme system, all themes, and UI components:
+
 ```bash
 npm install @flowlabkit/themesystem
 ```
+
+### Modular Installation (Smaller Bundle)
+Install only what you need for smaller bundle sizes:
+
+#### Core Only (Theme System + Light/Dark themes)
+```bash
+npm install @flowlabkit/themesystem
+# Then import from core module
+import { ThemeProvider, useTheme, lightTheme, darkTheme } from '@flowlabkit/themesystem/core';
+```
+
+#### Core + Additional Themes
+```bash
+npm install @flowlabkit/themesystem
+# Import core + specific themes
+import { ThemeProvider, lightTheme } from '@flowlabkit/themesystem/core';
+import { oceanTheme, cyberpunkTheme } from '@flowlabkit/themesystem/themes';
+```
+
+#### Core + UI Components
+```bash
+npm install @flowlabkit/themesystem
+# Import core + components
+import { ThemeProvider } from '@flowlabkit/themesystem/core';
+import { Button, Input, Card } from '@flowlabkit/themesystem/components';
+```
+
+### Bundle Size Comparison
+- **Full Package**: ~150KB (everything included)
+- **Core Only**: ~45KB (theme system + light/dark themes)
+- **Core + 2 themes**: ~65KB (core + 2 additional themes)
+- **Core + Components**: ~95KB (core + all UI components)
 
 ## Quick Start
 
@@ -140,6 +175,88 @@ function ThemeSelector() {
         Switch to {config.mode === 'light' ? 'dark' : 'light'}
       </button>
     </div>
+  );
+}
+```
+
+## Modular Usage (Tree-Shaking Friendly)
+
+### Core Only (Minimal Bundle - 45KB)
+Perfect for apps that only need theming with light/dark modes:
+
+```tsx
+// Only imports theme system + light/dark themes
+import { ThemeProvider, useTheme, lightTheme, darkTheme } from '@flowlabkit/themesystem/core';
+
+function MinimalApp() {
+  return (
+    <ThemeProvider lightTheme={lightTheme} darkTheme={darkTheme}>
+      <div style={{ 
+        backgroundColor: 'var(--bg-app)', 
+        color: 'var(--text-primary)' 
+      }}>
+        <h1>Minimal Theme System</h1>
+      </div>
+    </ThemeProvider>
+  );
+}
+```
+
+### Core + Additional Themes (65KB)
+Add beautiful themes as needed:
+
+```tsx
+// Import core + specific themes
+import { ThemeProvider } from '@flowlabkit/themesystem/core';
+import { oceanTheme, cyberpunkTheme, forestTheme } from '@flowlabkit/themesystem/themes';
+
+function ThemedApp() {
+  return (
+    <ThemeProvider lightTheme={oceanTheme} darkTheme={cyberpunkTheme}>
+      <YourContent />
+    </ThemeProvider>
+  );
+}
+```
+
+### Core + UI Components (95KB)
+Theme system + essential components:
+
+```tsx
+// Import core theme system + components
+import { ThemeProvider, lightTheme } from '@flowlabkit/themesystem/core';
+import { Button, Input, Card, Badge } from '@flowlabkit/themesystem/components';
+
+function ComponentApp() {
+  return (
+    <ThemeProvider lightTheme={lightTheme}>
+      <Card>
+        <Input placeholder="Enter text..." />
+        <Button variant="primary">Submit</Button>
+        <Badge variant="success">Complete</Badge>
+      </Card>
+    </ThemeProvider>
+  );
+}
+```
+
+### Mix and Match
+Combine modules for perfect bundle optimization:
+
+```tsx
+// Theme system + specific themes + select components
+import { ThemeProvider } from '@flowlabkit/themesystem/core';
+import { sunsetTheme, lavenderTheme } from '@flowlabkit/themesystem/themes';
+import { Button, Card } from '@flowlabkit/themesystem/components';
+
+function OptimizedApp() {
+  return (
+    <ThemeProvider lightTheme={sunsetTheme} darkTheme={lavenderTheme}>
+      <Card>
+        <h1>Perfect Bundle Size</h1>
+        <Button>Only what you need!</Button>
+      </Card>
+    </ThemeProvider>
   );
 }
 ```
