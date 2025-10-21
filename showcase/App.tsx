@@ -171,8 +171,7 @@ function AppContent() {
       {/* Content */}
       <main
         style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
+          width: "100%",
           padding: "var(--space-lg)",
         }}
       >
@@ -196,7 +195,7 @@ function AppContent() {
             margin: 0,
           }}
         >
-          Built with using @flowlabkit/themesystem
+          Built with using @flowlabkit/ui
         </p>
       </footer>
     </div>

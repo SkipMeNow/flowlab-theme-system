@@ -217,8 +217,8 @@ const ThemeShowcase: React.FC<ThemeShowcaseProps> = ({ onThemeSelect }) => {
           overflow: 'auto',
           fontFamily: 'Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
         }}>
-{`import { ThemeProvider } from '@flowlabkit/themesystem';
-import { oceanTheme, cyberpunkTheme } from '@flowlabkit/themesystem/themes';
+{`import { ThemeProvider } from '@flowlabkit/ui';
+import { oceanTheme, cyberpunkTheme } from '@flowlabkit/ui/themes';
 
 function App() {
   return (

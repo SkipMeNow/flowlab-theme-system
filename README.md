@@ -1,4 +1,4 @@
-# @flowlabkit/themesystem
+# @flowlabkit/ui
 
 A comprehensive, TypeScript-first theme system for React applications with 8 beautiful built-in themes, full CSS variable support, and extensive customization options. Part of the FlowLabKit ecosystem for building modern React applications.
 
@@ -28,44 +28,81 @@ A comprehensive, TypeScript-first theme system for React applications with 8 bea
 
 ## Installation
 
+### Requirements
+
+- **React**: 18.0.0 or higher (hooks and concurrent features required)
+- **TypeScript**: 4.0+ (recommended for full type safety)
+- **Browser Support**: Modern browsers with CSS Custom Properties support
+
 ### Complete Package (Recommended)
 Install everything in one package - theme system, all themes, and UI components:
 
 ```bash
-npm install @flowlabkit/themesystem
+npm install @flowlabkit/ui
 ```
 
-### Modular Installation (Smaller Bundle)
-Install only what you need for smaller bundle sizes:
+**Quick Start:**
+```tsx
+import React from 'react';
+import { ThemeProvider, Button, Card, CardBody } from '@flowlabkit/ui';
 
-#### Core Only (Theme System + Light/Dark themes)
-```bash
-npm install @flowlabkit/themesystem
-# Then import from core module
-import { ThemeProvider, useTheme, lightTheme, darkTheme } from '@flowlabkit/themesystem/core';
+function App() {
+  return (
+    <ThemeProvider initialConfig={{ mode: 'dark', fontSize: 'medium' }}>
+      <Card>
+        <CardBody>
+          <h1>Welcome to FlowLabKit UI!</h1>
+          <Button variant="primary">Get Started</Button>
+        </CardBody>
+      </Card>
+    </ThemeProvider>
+  );
+}
 ```
 
-#### Core + Additional Themes
+### Modular Installation (Tree-Shakable)
+Install only what you need for optimal bundle sizes:
+
+#### Core Only (~45KB)
+Theme system + Light/Dark themes only:
 ```bash
-npm install @flowlabkit/themesystem
-# Import core + specific themes
-import { ThemeProvider, lightTheme } from '@flowlabkit/themesystem/core';
-import { oceanTheme, cyberpunkTheme } from '@flowlabkit/themesystem/themes';
+npm install @flowlabkit/ui
+```
+```tsx
+import { ThemeProvider, useTheme, lightTheme, darkTheme } from '@flowlabkit/ui/core';
 ```
 
-#### Core + UI Components
-```bash
-npm install @flowlabkit/themesystem
-# Import core + components
-import { ThemeProvider } from '@flowlabkit/themesystem/core';
-import { Button, Input, Card } from '@flowlabkit/themesystem/components';
+#### Core + Additional Themes (~65KB)
+Add beautiful themes as needed:
+```tsx
+import { ThemeProvider } from '@flowlabkit/ui/core';
+import { oceanTheme, cyberpunkTheme, forestTheme } from '@flowlabkit/ui/themes';
+```
+
+#### Core + UI Components (~95KB)
+Theme system + essential components:
+```tsx
+import { ThemeProvider, lightTheme } from '@flowlabkit/ui/core';
+import { Button, Input, Card, Badge, Spinner } from '@flowlabkit/ui/components';
 ```
 
 ### Bundle Size Comparison
-- **Full Package**: ~150KB (everything included)
-- **Core Only**: ~45KB (theme system + light/dark themes)
-- **Core + 2 themes**: ~65KB (core + 2 additional themes)
-- **Core + Components**: ~95KB (core + all UI components)
+
+| Package | Size | What's Included |
+|---------|------|-----------------|
+| **Full Package** | ~150KB | Everything: theme system, 8 themes, all components |
+| **Core Only** | ~45KB | Theme system + light/dark themes |
+| **Core + 2 Themes** | ~65KB | Core + 2 additional themes of choice |
+| **Core + Components** | ~95KB | Core + all UI components |
+| **Mix & Match** | Custom | Choose exactly what you need |
+
+### Available Components
+
+- **Form Components**: Button, Input
+- **Display Components**: Text, Badge, Image
+- **Navigation Components**: Link
+- **Feedback Components**: Spinner, LoadingIndicator
+- **Layout Components**: Card, CardHeader, CardBody, CardFooter
 
 ## Quick Start
 
@@ -75,7 +112,7 @@ import { Button, Input, Card } from '@flowlabkit/themesystem/components';
 
 ```tsx
 import React from 'react';
-import { ThemeProvider } from '@flowlabkit/themesystem';
+import { ThemeProvider } from '@flowlabkit/ui';
 
 function App() {
   return (
@@ -90,8 +127,8 @@ function App() {
 
 ```tsx
 import React from 'react';
-import { ThemeProvider } from '@flowlabkit/themesystem';
-import { oceanTheme, cyberpunkTheme } from '@flowlabkit/themesystem/themes';
+import { ThemeProvider } from '@flowlabkit/ui';
+import { oceanTheme, cyberpunkTheme } from '@flowlabkit/ui/themes';
 
 function App() {
   return (
@@ -111,7 +148,7 @@ function App() {
 ### Theme Switching
 
 ```tsx
-import { themes, allThemes } from '@flowlabkit/themesystem/themes';
+import { themes, allThemes } from '@flowlabkit/ui/themes';
 
 function ThemeSelector({ onThemeChange }) {
   return (
@@ -132,7 +169,7 @@ function ThemeSelector({ onThemeChange }) {
 ### Using the Theme Hook
 
 ```tsx
-import { useTheme } from '@flowlabkit/themesystem';
+import { useTheme } from '@flowlabkit/ui';
 
 function ThemedComponent() {
   const { theme, themeName, config, toggleTheme, setMode } = useTheme();
@@ -162,8 +199,8 @@ function ThemedComponent() {
 ### Theme Selection Component
 
 ```tsx
-import { useTheme } from '@flowlabkit/themesystem';
-import { themes } from '@flowlabkit/themesystem/themes';
+import { useTheme } from '@flowlabkit/ui';
+import { themes } from '@flowlabkit/ui/themes';
 
 function ThemeSelector() {
   const { themeName, config, toggleTheme } = useTheme();
@@ -186,7 +223,7 @@ Perfect for apps that only need theming with light/dark modes:
 
 ```tsx
 // Only imports theme system + light/dark themes
-import { ThemeProvider, useTheme, lightTheme, darkTheme } from '@flowlabkit/themesystem/core';
+import { ThemeProvider, useTheme, lightTheme, darkTheme } from '@flowlabkit/ui/core';
 
 function MinimalApp() {
   return (
@@ -207,8 +244,8 @@ Add beautiful themes as needed:
 
 ```tsx
 // Import core + specific themes
-import { ThemeProvider } from '@flowlabkit/themesystem/core';
-import { oceanTheme, cyberpunkTheme, forestTheme } from '@flowlabkit/themesystem/themes';
+import { ThemeProvider } from '@flowlabkit/ui/core';
+import { oceanTheme, cyberpunkTheme, forestTheme } from '@flowlabkit/ui/themes';
 
 function ThemedApp() {
   return (
@@ -224,8 +261,8 @@ Theme system + essential components:
 
 ```tsx
 // Import core theme system + components
-import { ThemeProvider, lightTheme } from '@flowlabkit/themesystem/core';
-import { Button, Input, Card, Badge } from '@flowlabkit/themesystem/components';
+import { ThemeProvider, lightTheme } from '@flowlabkit/ui/core';
+import { Button, Input, Card, Badge } from '@flowlabkit/ui/components';
 
 function ComponentApp() {
   return (
@@ -245,9 +282,9 @@ Combine modules for perfect bundle optimization:
 
 ```tsx
 // Theme system + specific themes + select components
-import { ThemeProvider } from '@flowlabkit/themesystem/core';
-import { sunsetTheme, lavenderTheme } from '@flowlabkit/themesystem/themes';
-import { Button, Card } from '@flowlabkit/themesystem/components';
+import { ThemeProvider } from '@flowlabkit/ui/core';
+import { sunsetTheme, lavenderTheme } from '@flowlabkit/ui/themes';
+import { Button, Card } from '@flowlabkit/ui/components';
 
 function OptimizedApp() {
   return (
@@ -404,7 +441,7 @@ interface ThemeConfig {
 ### Manual CSS Variable Application
 
 ```tsx
-import { themeToCSSVariables, applyCSSVariables } from '@flowlabkit/themesystem';
+import { themeToCSSVariables, applyCSSVariables } from '@flowlabkit/ui';
 
 // Apply theme variables manually
 const variables = themeToCSSVariables(theme, config);
@@ -414,7 +451,7 @@ applyCSSVariables(variables);
 ### Custom Theme Creation
 
 ```tsx
-import { Theme, lightTheme } from '@flowlabkit/themesystem';
+import { Theme, lightTheme } from '@flowlabkit/ui';
 
 const customTheme: Theme = {
   ...lightTheme,
@@ -436,7 +473,7 @@ const customTheme: Theme = {
 
 ## 🎨 Live Demo & Documentation
 
-**[View Interactive Showcase →](https://skipmenow.github.io/flowlab_themesystem/)**
+**[View Interactive Showcase →](https://skipmenow.github.io/flowlabkit-ui/)**
 
 Experience all themes, components, and features with live examples and complete documentation.
 
@@ -469,13 +506,13 @@ See the main FlowLabKit repository for contribution guidelines.
 
 ## Repository
 
-**[Source Code →](https://github.com/SkipMeNow/flowlab_themesystem?tab=readme-ov-file)**
+**[Source Code →](https://github.com/SkipMeNow/flowlabkit-ui)**
 
 ## FlowLabKit Ecosystem
 
 This package is part of FlowLabKit - a comprehensive toolkit for building modern React applications:
 
-- `@flowlabkit/themesystem` - Theme system with 8 built-in themes ✅
+- `@flowlabkit/ui` - Theme system with 8 built-in themes ✅
 - `@flowlabkit/components` - Complete UI component library (coming soon)
 - `@flowlabkit/icons` - Icon library (coming soon)
 - `@flowlabkit/animations` - Animation utilities (coming soon)

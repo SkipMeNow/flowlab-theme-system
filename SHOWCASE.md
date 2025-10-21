@@ -1,6 +1,6 @@
 # FlowLabKit Theme System Showcase
 
-🚀 **Live Demo**: [https://skipmenow.github.io/flowlab_themesystem/](https://skipmenow.github.io/flowlab_themesystem/)
+🚀 **Live Demo**: [https://skipmenow.github.io/flowlabkit-ui/](https://skipmenow.github.io/flowlabkit-ui/)
 
 ## About
 
@@ -54,8 +54,8 @@ This command will:
 
 ## Repository
 
-Full source code: [https://github.com/SkipMeNow/flowlab_themesystem](https://github.com/SkipMeNow/flowlab_themesystem)
+Full source code: [https://github.com/SkipMeNow/flowlabkit-ui](https://github.com/SkipMeNow/flowlabkit-ui)
 
 ---
 
-Built with using @flowlabkit/themesystem
+Built with using @flowlabkit/ui

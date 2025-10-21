@@ -1,7 +1,7 @@
 {
-  "name": "@flowlabkit/themesystem",
-  "version": "1.1.1",
-  "description": "A comprehensive React theme system with dynamic switching, CSS variables, and complete UI component library - part of the FlowLabKit ecosystem",
+  "name": "@flowlabkit/ui",
+  "version": "1.2.0",
+  "description": "A comprehensive React UI library with theme system, essential components, and modular architecture - part of the FlowLabKit ecosystem",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -49,14 +49,14 @@
   },
   "keywords": [
     "flowlabkit",
-    "theme",
-    "design-system",
-    "css-variables",
+    "ui",
     "react",
+    "components",
+    "design-system",
+    "theme",
     "typescript",
-    "ui-components",
-    "toolkit",
-    "ecosystem"
+    "modular",
+    "css-variables"
   ],
   "author": "FlowLabKit Team",
   "license": "MIT",
@@ -93,10 +93,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SkipMeNow/flowlab_themesystem.git"
+    "url": "git+https://github.com/SkipMeNow/flowlabkit-ui.git"
   },
   "bugs": {
-    "url": "https://github.com/SkipMeNow/flowlab_themesystem/issues"
+    "url": "https://github.com/SkipMeNow/flowlabkit-ui/issues"
   },
-  "homepage": "https://skipmenow.github.io/flowlab_themesystem/"
+  "homepage": "https://skipmenow.github.io/flowlabkit-ui/"
 }

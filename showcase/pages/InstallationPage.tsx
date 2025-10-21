@@ -60,7 +60,7 @@ const InstallationPage: React.FC = () => {
             fontFamily: 'Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
             margin: '0 0 var(--space-lg) 0'
           }}>
-npm install @flowlabkit/themesystem
+npm install @flowlabkit/ui
           </pre>
 
           <h3 style={{
@@ -84,7 +84,7 @@ npm install @flowlabkit/themesystem
             margin: '0 0 var(--space-lg) 0'
           }}>
 {`import React from 'react';
-import { ThemeProvider } from '@flowlabkit/themesystem';
+import { ThemeProvider } from '@flowlabkit/ui';
 
 function App() {
   return (
@@ -117,7 +117,7 @@ export default App;`}
             fontFamily: 'Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
           }}>
 {`// Option 1: Use built-in components
-import { Button, Input, Card } from '@flowlabkit/themesystem';
+import { Button, Input, Card } from '@flowlabkit/ui';
 
 function MyComponent() {
   return (
@@ -173,8 +173,8 @@ function MyCustomComponent() {
             fontFamily: 'Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
           }}>
 {`import React from 'react';
-import { ThemeProvider } from '@flowlabkit/themesystem';
-import { oceanTheme, cyberpunkTheme } from '@flowlabkit/themesystem/themes';
+import { ThemeProvider } from '@flowlabkit/ui';
+import { oceanTheme, cyberpunkTheme } from '@flowlabkit/ui/themes';
 
 function App() {
   return (
