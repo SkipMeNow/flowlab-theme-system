@@ -1,6 +1,13 @@
 # @flowlabkit/ui
 
-A comprehensive, TypeScript-first theme system for React applications with 8 beautiful built-in themes, full CSS variable support, and extensive customization options. Part of the FlowLabKit ecosystem for building modern React applications.
+[![npm version](https://badge.fury.io/js/@flowlabkit%2Fui.svg)](https://badge.fury.io/js/@flowlabkit%2Fui)
+[![npm downloads](https://img.shields.io/npm/dm/@flowlabkit/ui.svg)](https://www.npmjs.com/package/@flowlabkit/ui)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+🎨 A comprehensive, TypeScript-first theme system for React applications with **8 beautiful built-in themes**, full CSS variable support, and extensive customization options. Part of the FlowLabKit ecosystem for building modern React applications.
+
+**[🚀 Live Demo & Documentation →](https://skipmenow.github.io/flowlabkit-ui/)**
 
 ## Features
 
@@ -27,22 +34,19 @@ A comprehensive, TypeScript-first theme system for React applications with 8 bea
 
 [View Theme Gallery →](./THEMES.md)
 
-## Installation
-
-### Requirements
-
-- **React**: 18.0.0 or higher (hooks and concurrent features required)
-- **TypeScript**: 4.0+ (recommended for full type safety)
-- **Browser Support**: Modern browsers with CSS Custom Properties support
-
-### Complete Package (Recommended)
-Install everything in one package - theme system, all themes, and UI components:
+## 📦 Installation
 
 ```bash
 npm install @flowlabkit/ui
 ```
 
-**Quick Start:**
+### Requirements
+
+- **React**: 18.0.0 or higher (hooks required)
+- **TypeScript**: 4.0+ (recommended for full type safety)
+- **Browser Support**: Modern browsers with CSS Custom Properties support
+
+## 🚀 Quick Start
 ```tsx
 import React from 'react';
 import { ThemeProvider, Button, Card, CardBody, PanelGroup, Panel } from '@flowlabkit/ui';

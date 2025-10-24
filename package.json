@@ -1,7 +1,7 @@
 {
   "name": "@flowlabkit/ui",
   "version": "1.6.1",
-  "description": "A comprehensive React UI library with theme system, essential components, and modular architecture - part of the FlowLabKit ecosystem",
+  "description": "🎨 React UI library with 8 beautiful themes, dark/light mode, TypeScript support, and comprehensive component system. Features resizable panels, CSS variables, and modular architecture.",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -32,7 +32,8 @@
   "files": [
     "dist",
     "src",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "rollup -c",
@@ -45,18 +46,28 @@
     "deploy": "npm run showcase:deploy && gh-pages -d dist-showcase",
     "clean": "rimraf dist dist-showcase",
     "prepublishOnly": "npm run clean && npm run build",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "stats": "node scripts/check-stats.js"
   },
   "keywords": [
-    "flowlabkit",
-    "ui",
     "react",
+    "ui",
     "components",
     "design-system",
     "theme",
     "typescript",
+    "css-variables",
+    "dark-mode",
+    "light-mode",
+    "theming",
+    "react-components",
+    "ui-library",
+    "flowlabkit",
     "modular",
-    "css-variables"
+    "responsive",
+    "themes",
+    "panels",
+    "layout"
   ],
   "author": "FlowLabKit Team",
   "license": "MIT",
