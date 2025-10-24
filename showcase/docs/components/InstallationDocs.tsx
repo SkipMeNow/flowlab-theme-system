@@ -41,7 +41,8 @@ export const InstallationDocs: React.FC = () => {
           </Text>
           <Text as="p" size="md" style={{ marginBottom: "var(--space-lg)", lineHeight: "1.6" }}>
             FlowLabKit UI is a comprehensive React UI library that includes a powerful theme system, 
-            essential components, and modular architecture. Choose the installation method that best fits your needs.
+            essential components, and modular architecture. Use our interactive installer for new projects 
+            or add to existing projects with npm.
           </Text>
           
           <div style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap" }}>
@@ -53,17 +54,100 @@ export const InstallationDocs: React.FC = () => {
         </CardBody>
       </Card>
 
-      {/* Complete Installation */}
+      {/* Interactive Installer */}
       <Card style={{ marginBottom: "var(--space-xl)" }}>
         <CardBody>
           <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-md)" }}>
             <Text as="h2" size="xl" weight="semibold" style={{ margin: 0 }}>
-              Complete Package
+              🚀 New Project (Interactive Installer)
             </Text>
             <Badge variant="success">Recommended</Badge>
           </div>
           <Text as="p" size="md" style={{ marginBottom: "var(--space-md)", lineHeight: "1.6" }}>
-            Install everything in one package - theme system, all themes, and UI components (~150KB):
+            Create a new project with FlowLabKit UI pre-configured using our Vite-style interactive installer:
+          </Text>
+          
+          <CodeBlock>npm create flowlabkit-app@latest my-app</CodeBlock>
+          
+          <div style={{ 
+            backgroundColor: "var(--accent-50)", 
+            padding: "var(--space-lg)", 
+            borderRadius: "var(--radius-md)",
+            border: "1px solid var(--accent-200)",
+            marginBottom: "var(--space-lg)"
+          }}>
+            <Text as="h4" size="md" weight="semibold" style={{ marginBottom: "var(--space-sm)", color: "var(--accent-700)" }}>
+              ✨ Interactive Flow:
+            </Text>
+            <ul style={{ 
+              margin: 0, 
+              paddingLeft: "var(--space-lg)", 
+              color: "var(--accent-700)",
+              fontSize: "var(--font-size-sm)",
+              lineHeight: "1.6"
+            }}>
+              <li>🖼️ <strong>Framework:</strong> React or Vanilla</li>
+              <li>⚙️ <strong>Language:</strong> TypeScript or JavaScript</li>
+              <li>📦 <strong>Setup:</strong> Full Components or Themes Only</li>
+              <li>🎨 <strong>Light Theme:</strong> Light, Ocean, Forest, Lavender, Autumn, Sunset</li>
+              <li>🌙 <strong>Dark Theme:</strong> Dark, Cyberpunk, Forest Dark, Ocean Dark</li>
+              <li>🎪 <strong>Additional Themes:</strong> Multi-select any remaining themes</li>
+            </ul>
+          </div>
+
+          <div style={{ 
+            display: "grid", 
+            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", 
+            gap: "var(--space-sm)",
+            marginBottom: "var(--space-lg)"
+          }}>
+            <div style={{ 
+              backgroundColor: "var(--bg-elevated)", 
+              padding: "var(--space-sm)", 
+              borderRadius: "var(--radius-sm)",
+              border: "1px solid var(--border-color)"
+            }}>
+              <Text as="div" size="xs" weight="semibold" style={{ marginBottom: "2px" }}>react-ts-full</Text>
+              <Text as="div" size="xs" color="secondary">React + TS + All Components (~150KB)</Text>
+            </div>
+            <div style={{ 
+              backgroundColor: "var(--bg-elevated)", 
+              padding: "var(--space-sm)", 
+              borderRadius: "var(--radius-sm)",
+              border: "1px solid var(--border-color)"
+            }}>
+              <Text as="div" size="xs" weight="semibold" style={{ marginBottom: "2px" }}>react-ts-themes</Text>
+              <Text as="div" size="xs" color="secondary">React + TS + Themes Only (~65KB)</Text>
+            </div>
+            <div style={{ 
+              backgroundColor: "var(--bg-elevated)", 
+              padding: "var(--space-sm)", 
+              borderRadius: "var(--radius-sm)",
+              border: "1px solid var(--border-color)"
+            }}>
+              <Text as="div" size="xs" weight="semibold" style={{ marginBottom: "2px" }}>vanilla-ts/js</Text>
+              <Text as="div" size="xs" color="secondary">Pure CSS Variables (~45KB)</Text>
+            </div>
+          </div>
+
+          <Text as="p" size="sm" color="secondary" style={{ marginBottom: "var(--space-sm)" }}>
+            Then just:
+          </Text>
+          <CodeBlock>cd my-app && npm install && npm run dev</CodeBlock>
+        </CardBody>
+      </Card>
+
+      {/* Existing Project */}
+      <Card style={{ marginBottom: "var(--space-xl)" }}>
+        <CardBody>
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)", marginBottom: "var(--space-md)" }}>
+            <Text as="h2" size="xl" weight="semibold" style={{ margin: 0 }}>
+              📚 Existing Project
+            </Text>
+            <Badge variant="info">Manual Installation</Badge>
+          </div>
+          <Text as="p" size="md" style={{ marginBottom: "var(--space-md)", lineHeight: "1.6" }}>
+            Add FlowLabKit UI to your existing React project:
           </Text>
           
           <CodeBlock>npm install @flowlabkit/ui</CodeBlock>
@@ -396,13 +480,24 @@ import { Button, Input, Card, Badge } from '@flowlabkit/ui/components';`}</CodeB
               <tbody>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>Interactive</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>npm create flowlabkit-app@latest</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <strong>Recommended:</strong> Interactive installer for new projects
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
                     <code>npm</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
                     <code>npm install @flowlabkit/ui</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Standard npm installation for most projects
+                    Standard npm installation for existing projects
                   </td>
                 </tr>
                 <tr>

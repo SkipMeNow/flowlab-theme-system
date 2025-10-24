@@ -22,17 +22,8 @@ const InstallationPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Installation */}
+      {/* Installation Methods */}
       <section style={{ marginBottom: 'var(--space-2xl)' }}>
-        <h2 style={{
-          fontSize: 'var(--font-size-xl)',
-          fontWeight: 'var(--font-weight-semibold)',
-          margin: '0 0 var(--space-lg) 0',
-          color: 'var(--text-primary)'
-        }}>
-          � Installation
-        </h2>
-        
         {/* New Project with Interactive Installer */}
         <div style={{
           backgroundColor: 'var(--bg-surface)',
