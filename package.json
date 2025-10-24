@@ -1,6 +1,6 @@
 {
   "name": "@flowlabkit/ui",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "A comprehensive React UI library with theme system, essential components, and modular architecture - part of the FlowLabKit ecosystem",
   "type": "module",
   "main": "dist/index.js",
