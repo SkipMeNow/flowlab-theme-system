@@ -1,0 +1,43 @@
+{
+  "name": "create-flowlabkit-app",
+  "version": "1.0.0",
+  "description": "🎨 Interactive installer for FlowLabKit UI - Create React apps with beautiful themes instantly",
+  "type": "module",
+  "bin": {
+    "create-flowlabkit-app": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "templates",
+    "utils"
+  ],
+  "scripts": {
+    "test": "node index.js test-app"
+  },
+  "keywords": [
+    "create-app",
+    "flowlabkit",
+    "react",
+    "themes",
+    "ui",
+    "typescript",
+    "vite",
+    "installer",
+    "cli"
+  ],
+  "author": "FlowLabKit Team",
+  "license": "MIT",
+  "dependencies": {
+    "prompts": "^2.4.2",
+    "kolorist": "^1.8.0",
+    "minimist": "^1.2.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SkipMeNow/create-flowlabkit-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SkipMeNow/create-flowlabkit-app/issues"
+  },
+  "homepage": "https://github.com/SkipMeNow/create-flowlabkit-app#readme"
+}

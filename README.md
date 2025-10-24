@@ -9,6 +9,21 @@
 
 **[🚀 Live Demo & Documentation →](https://skipmenow.github.io/flowlabkit-ui/)**
 
+## ⚡ Quick Start
+
+```bash
+# Interactive installer - like Vite!  
+npm create flowlabkit-app@latest my-app
+
+# Choose your setup:
+# ✅ React or Vanilla
+# ✅ TypeScript or JavaScript  
+# ✅ Full components or themes-only
+# ✅ Select specific themes
+
+cd my-app && npm install && npm run dev
+```
+
 ## Features
 
 - 🎨 **8 Built-in Themes**: Light, Dark, Ocean, Forest, Sunset, Lavender, Cyberpunk, and Autumn themes
@@ -36,11 +51,36 @@
 
 ## 📦 Installation
 
+### 🚀 Interactive Installer (Recommended)
+
+Create a new project with FlowLabKit UI pre-configured:
+
+```bash
+npm create flowlabkit-app@latest my-app
+```
+
+The installer will ask you to choose:
+- **Framework**: React or Vanilla  
+- **Language**: TypeScript or JavaScript
+- **Setup**: Full components or themes-only
+- **Themes**: Specific themes or all 8 themes
+
+Then just:
+```bash
+cd my-app
+npm install  
+npm run dev
+```
+
+### 📚 Manual Installation
+
+Add to existing project:
+
 ```bash
 npm install @flowlabkit/ui
 ```
 
-**That's it!** This single command installs everything: theme system, all 8 themes, and all UI components.
+**That's it!** This installs everything: theme system, all 8 themes, and all UI components.
 
 > 💡 **How it works**: You install once, but import only what you need. Modern bundlers (Webpack, Vite, etc.) automatically tree-shake unused code, so you only pay for what you use!
 
