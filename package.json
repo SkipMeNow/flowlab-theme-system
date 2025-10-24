@@ -8,24 +8,24 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.esm.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     },
     "./core": {
+      "types": "./dist/core/index.d.ts",
       "import": "./dist/core/index.esm.js",
-      "require": "./dist/core/index.js",
-      "types": "./dist/core/index.d.ts"
+      "require": "./dist/core/index.js"
     },
     "./themes": {
+      "types": "./dist/themes/index.d.ts",
       "import": "./dist/themes/index.esm.js",
-      "require": "./dist/themes/index.js",
-      "types": "./dist/themes/index.d.ts"
+      "require": "./dist/themes/index.js"
     },
     "./components": {
+      "types": "./dist/components/index.d.ts",
       "import": "./dist/components/index.esm.js",
-      "require": "./dist/components/index.js",
-      "types": "./dist/components/index.d.ts"
+      "require": "./dist/components/index.js"
     },
     "./package.json": "./package.json"
   },
