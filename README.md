@@ -49,21 +49,71 @@ cd my-app && npm install && npm run dev
 
 [View Theme Gallery →](./THEMES.md)
 
+## 🎯 Interactive Installer
+
+**The fastest way to get started!** Our interactive installer (`create-flowlabkit-app`) provides a Vite-like experience:
+
+```bash
+npm create flowlabkit-app@latest my-project
+```
+
+### Available Templates
+
+| Template | Framework | Language | Components | Bundle Size |
+|----------|-----------|----------|------------|-------------|
+| `react-ts-full` | React | TypeScript | ✅ Full Library | ~150KB |
+| `react-ts-themes` | React | TypeScript | 🎨 Themes Only | ~65KB |
+| `react-js-full` | React | JavaScript | ✅ Full Library | ~150KB |
+| `react-js-themes` | React | JavaScript | 🎨 Themes Only | ~65KB |
+| `vanilla-ts` | Vanilla | TypeScript | 🎨 CSS Variables | ~45KB |
+| `vanilla-js` | Vanilla | JavaScript | 🎨 CSS Variables | ~45KB |
+
+### Theme Selection Features
+
+- **Smart Defaults**: Choose your preferred light and dark themes
+- **Multi-Select**: Pick additional themes for variety
+- **Configuration Stored**: Theme preferences saved in package.json
+- **Live Preview**: See your selections before scaffolding
+
 ## 📦 Installation
 
 ### 🚀 Interactive Installer (Recommended)
 
-Create a new project with FlowLabKit UI pre-configured:
+Create a new project with FlowLabKit UI pre-configured using our **Vite-style interactive installer**:
 
 ```bash
 npm create flowlabkit-app@latest my-app
 ```
 
-The installer will ask you to choose:
-- **Framework**: React or Vanilla  
-- **Language**: TypeScript or JavaScript
-- **Setup**: Full components or themes-only
-- **Themes**: Specific themes or all 8 themes
+**✨ Enhanced Interactive Flow:**
+
+🖼️ **1. Choose Framework**
+- React (with full component library)
+- Vanilla (pure CSS variables + themes)
+
+⚙️ **2. Select Language**  
+- TypeScript (recommended)
+- JavaScript
+
+📦 **3. Choose Setup Type**
+- **Full Components**: Complete UI library + themes
+- **Themes Only**: Just the theme system (lighter bundle)
+
+🎨 **4. Default Light Theme**
+- Light, Ocean, Forest, Lavender, Autumn, or Sunset
+
+🌙 **5. Default Dark Theme**  
+- Dark, Cyberpunk, Forest Dark, or Ocean Dark
+
+🎪 **6. Additional Themes** (optional)
+- Multi-select any remaining themes you want
+
+**What you get:**
+- ✅ **6 Templates**: React TS/JS (full/themes), Vanilla TS/JS
+- ✅ **Pre-configured Vite** with optimal settings
+- ✅ **Working Examples** with theme switching
+- ✅ **Your Selected Themes** ready to use
+- ✅ **TypeScript Support** (if chosen)
 
 Then just:
 ```bash
@@ -71,6 +121,12 @@ cd my-app
 npm install  
 npm run dev
 ```
+
+**🎯 Perfect for:**
+- New projects starting from scratch
+- Learning FlowLabKit UI features  
+- Prototyping with specific themes
+- Testing different framework combinations
 
 ### 📚 Manual Installation
 
