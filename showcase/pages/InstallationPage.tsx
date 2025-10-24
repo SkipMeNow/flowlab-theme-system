@@ -208,15 +208,6 @@ npm run dev
           }}>
             Add FlowLabKit UI to an existing project:
           </p>
-
-          <h3 style={{
-            fontSize: 'var(--font-size-lg)',
-            fontWeight: 'var(--font-weight-medium)',
-            margin: '0 0 var(--space-md) 0',
-            color: 'var(--text-primary)'
-          }}>
-            1. Install the package
-          </h3>
           
           <pre style={{
             backgroundColor: 'var(--bg-elevated)',
@@ -232,49 +223,49 @@ npm run dev
 npm install @flowlabkit/ui
           </pre>
 
-          <h3 style={{
-            fontSize: 'var(--font-size-lg)',
-            fontWeight: 'var(--font-weight-medium)',
-            margin: '0 0 var(--space-md) 0',
-            color: 'var(--text-primary)'
-          }}>
-            2. Basic setup
-          </h3>
-          
-          <pre style={{
-            backgroundColor: 'var(--bg-elevated)',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-md)',
-            padding: 'var(--space-lg)',
+          <p style={{
             fontSize: 'var(--font-size-sm)',
-            color: 'var(--text-primary)',
-            overflow: 'auto',
-            fontFamily: 'Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-            margin: '0 0 var(--space-lg) 0'
+            color: 'var(--text-secondary)',
+            margin: '0',
+            lineHeight: 1.6
           }}>
-{`import React from 'react';
-import { ThemeProvider } from '@flowlabkit/ui';
+            Then wrap your app in <code style={{
+              backgroundColor: 'var(--bg-elevated)',
+              padding: '0.2em 0.4em',
+              borderRadius: 'var(--radius-sm)',
+              fontSize: '0.9em'
+            }}>ThemeProvider</code> and start using components or CSS variables. 
+            See the examples below for complete setup details.
+          </p>
+        </div>
+      </section>
 
-function App() {
-  return (
-    <ThemeProvider initialConfig={{ mode: 'dark', fontSize: 'medium' }}>
-      <YourAppContent />
-    </ThemeProvider>
-  );
-}
-
-export default App;`}
-          </pre>
-
+      {/* Setup Examples */}
+      <section style={{ marginBottom: 'var(--space-2xl)' }}>
+        <h2 style={{
+          fontSize: 'var(--font-size-xl)',
+          fontWeight: 'var(--font-weight-semibold)',
+          margin: '0 0 var(--space-lg) 0',
+          color: 'var(--text-primary)'
+        }}>
+          ⚙️ Setup Examples
+        </h2>
+        
+        <div style={{
+          backgroundColor: 'var(--bg-surface)',
+          border: '1px solid var(--border-color)',
+          borderRadius: 'var(--radius-lg)',
+          padding: 'var(--space-xl)',
+          marginBottom: 'var(--space-lg)'
+        }}>
           <h3 style={{
             fontSize: 'var(--font-size-lg)',
             fontWeight: 'var(--font-weight-medium)',
             margin: '0 0 var(--space-md) 0',
             color: 'var(--text-primary)'
           }}>
-            3. Use components or CSS variables
+            Basic Setup
           </h3>
-          
           <pre style={{
             backgroundColor: 'var(--bg-elevated)',
             border: '1px solid var(--border-color)',
@@ -285,52 +276,38 @@ export default App;`}
             overflow: 'auto',
             fontFamily: 'Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
           }}>
-{`// Option 1: Use built-in components
-import { Button, Input, Card } from '@flowlabkit/ui';
+{`import React from 'react';
+import { ThemeProvider, Button, Card } from '@flowlabkit/ui';
 
-function MyComponent() {
+function App() {
   return (
-    <Card>
-      <Input label="Your name" />
-      <Button variant="primary">Submit</Button>
-    </Card>
+    <ThemeProvider initialConfig={{ mode: 'dark', fontSize: 'medium' }}>
+      <Card>
+        <h1>Welcome to FlowLabKit UI!</h1>
+        <Button variant="primary">Get Started</Button>
+      </Card>
+    </ThemeProvider>
   );
 }
 
-// Option 2: Use CSS variables in your own components
-function MyCustomComponent() {
-  return (
-    <div style={{
-      backgroundColor: 'var(--bg-surface)',
-      color: 'var(--text-primary)',
-      padding: 'var(--space-lg)',
-      borderRadius: 'var(--radius-md)'
-    }}>
-      Themed content
-    </div>
-  );
-}`}
+export default App;`}
           </pre>
         </div>
-      </section>
 
-      {/* Advanced Setup */}
-      <section style={{ marginBottom: 'var(--space-2xl)' }}>
-        <h2 style={{
-          fontSize: 'var(--font-size-xl)',
-          fontWeight: 'var(--font-weight-semibold)',
-          margin: '0 0 var(--space-lg) 0',
-          color: 'var(--text-primary)'
-        }}>
-          Custom Theme Setup
-        </h2>
-        
         <div style={{
           backgroundColor: 'var(--bg-surface)',
           border: '1px solid var(--border-color)',
           borderRadius: 'var(--radius-lg)',
           padding: 'var(--space-xl)'
         }}>
+          <h3 style={{
+            fontSize: 'var(--font-size-lg)',
+            fontWeight: 'var(--font-weight-medium)',
+            margin: '0 0 var(--space-md) 0',
+            color: 'var(--text-primary)'
+          }}>
+            Custom Themes & Advanced Configuration
+          </h3>
           <pre style={{
             backgroundColor: 'var(--bg-elevated)',
             border: '1px solid var(--border-color)',
