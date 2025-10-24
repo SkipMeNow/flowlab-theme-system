@@ -18,11 +18,11 @@ const InstallationPage: React.FC = () => {
           margin: '0 0 var(--space-lg) 0',
           lineHeight: 1.6
         }}>
-          Get started with FlowLabKit theme system using our interactive installer or add it to existing projects.
+          Get started with FlowLabKit theme system - create new projects with our interactive installer or add to existing projects.
         </p>
       </div>
 
-      {/* Interactive Installer */}
+      {/* Installation */}
       <section style={{ marginBottom: 'var(--space-2xl)' }}>
         <h2 style={{
           fontSize: 'var(--font-size-xl)',
@@ -30,9 +30,10 @@ const InstallationPage: React.FC = () => {
           margin: '0 0 var(--space-lg) 0',
           color: 'var(--text-primary)'
         }}>
-          🚀 Interactive Installer (Recommended)
+          � Installation
         </h2>
         
+        {/* New Project with Interactive Installer */}
         <div style={{
           backgroundColor: 'var(--bg-surface)',
           border: '1px solid var(--border-color)',
@@ -40,6 +41,30 @@ const InstallationPage: React.FC = () => {
           padding: 'var(--space-xl)',
           marginBottom: 'var(--space-lg)'
         }}>
+          <h3 style={{
+            fontSize: 'var(--font-size-lg)',
+            fontWeight: 'var(--font-weight-semibold)',
+            margin: '0 0 var(--space-md) 0',
+            color: 'var(--text-primary)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-sm)'
+          }}>
+            🚀 New Project (Recommended)
+            <span style={{
+              fontSize: 'var(--font-size-xs)',
+              fontWeight: 'var(--font-weight-normal)',
+              backgroundColor: 'var(--accent-100)',
+              color: 'var(--accent-700)',
+              padding: '0.25rem 0.5rem',
+              borderRadius: 'var(--radius-sm)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>
+              Interactive
+            </span>
+          </h3>
+          
           <p style={{
             fontSize: 'var(--font-size-base)',
             color: 'var(--text-secondary)',
@@ -61,6 +86,7 @@ const InstallationPage: React.FC = () => {
             margin: '0 0 var(--space-lg) 0'
           }}>
 npm create flowlabkit-app@latest my-app
+cd my-app && npm install && npm run dev
           </pre>
 
           <div style={{
@@ -76,7 +102,7 @@ npm create flowlabkit-app@latest my-app
               margin: '0 0 var(--space-sm) 0',
               color: 'var(--accent-700)'
             }}>
-              ✨ Enhanced Interactive Flow:
+              ✨ Interactive Flow:
             </h4>
             <ul style={{
               color: 'var(--accent-700)',
@@ -85,128 +111,97 @@ npm create flowlabkit-app@latest my-app
               margin: 0,
               paddingLeft: 'var(--space-lg)'
             }}>
-              <li style={{ marginBottom: 'var(--space-xs)' }}>🖼️ <strong>Choose Framework:</strong> React or Vanilla</li>
-              <li style={{ marginBottom: 'var(--space-xs)' }}>⚙️ <strong>Select Language:</strong> TypeScript or JavaScript</li>
-              <li style={{ marginBottom: 'var(--space-xs)' }}>📦 <strong>Choose Setup:</strong> Full Components or Themes Only</li>
-              <li style={{ marginBottom: 'var(--space-xs)' }}>🎨 <strong>Default Light Theme:</strong> Light, Ocean, Forest, Lavender, Autumn, or Sunset</li>
-              <li style={{ marginBottom: 'var(--space-xs)' }}>🌙 <strong>Default Dark Theme:</strong> Dark, Cyberpunk, Forest Dark, or Ocean Dark</li>
+              <li style={{ marginBottom: 'var(--space-xs)' }}>🖼️ <strong>Framework:</strong> React or Vanilla</li>
+              <li style={{ marginBottom: 'var(--space-xs)' }}>⚙️ <strong>Language:</strong> TypeScript or JavaScript</li>
+              <li style={{ marginBottom: 'var(--space-xs)' }}>📦 <strong>Setup:</strong> Full Components or Themes Only</li>
+              <li style={{ marginBottom: 'var(--space-xs)' }}>🎨 <strong>Light Theme:</strong> Light, Ocean, Forest, Lavender, Autumn, Sunset</li>
+              <li style={{ marginBottom: 'var(--space-xs)' }}>🌙 <strong>Dark Theme:</strong> Dark, Cyberpunk, Forest Dark, Ocean Dark</li>
               <li>🎪 <strong>Additional Themes:</strong> Multi-select any remaining themes</li>
             </ul>
           </div>
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: 'var(--space-md)',
-            marginBottom: 'var(--space-lg)'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: 'var(--space-sm)',
           }}>
             <div style={{
               backgroundColor: 'var(--bg-elevated)',
               border: '1px solid var(--border-color)',
               borderRadius: 'var(--radius-sm)',
-              padding: 'var(--space-md)'
+              padding: 'var(--space-sm)'
             }}>
-              <h5 style={{
-                fontSize: 'var(--font-size-sm)',
-                fontWeight: 'var(--font-weight-semibold)',
-                margin: '0 0 var(--space-xs) 0',
-                color: 'var(--text-primary)'
-              }}>react-ts-full</h5>
-              <p style={{
+              <div style={{
                 fontSize: 'var(--font-size-xs)',
-                color: 'var(--text-secondary)',
-                margin: 0
-              }}>React + TypeScript + All Components (~150KB)</p>
+                fontWeight: 'var(--font-weight-semibold)',
+                color: 'var(--text-primary)',
+                marginBottom: '2px'
+              }}>react-ts-full</div>
+              <div style={{
+                fontSize: 'var(--font-size-xs)',
+                color: 'var(--text-secondary)'
+              }}>React + TS + All Components (~150KB)</div>
             </div>
             <div style={{
               backgroundColor: 'var(--bg-elevated)',
               border: '1px solid var(--border-color)',
               borderRadius: 'var(--radius-sm)',
-              padding: 'var(--space-md)'
+              padding: 'var(--space-sm)'
             }}>
-              <h5 style={{
-                fontSize: 'var(--font-size-sm)',
-                fontWeight: 'var(--font-weight-semibold)',
-                margin: '0 0 var(--space-xs) 0',
-                color: 'var(--text-primary)'
-              }}>react-ts-themes</h5>
-              <p style={{
+              <div style={{
                 fontSize: 'var(--font-size-xs)',
-                color: 'var(--text-secondary)',
-                margin: 0
-              }}>React + TypeScript + Themes Only (~65KB)</p>
+                fontWeight: 'var(--font-weight-semibold)',
+                color: 'var(--text-primary)',
+                marginBottom: '2px'
+              }}>react-ts-themes</div>
+              <div style={{
+                fontSize: 'var(--font-size-xs)',
+                color: 'var(--text-secondary)'
+              }}>React + TS + Themes Only (~65KB)</div>
             </div>
             <div style={{
               backgroundColor: 'var(--bg-elevated)',
               border: '1px solid var(--border-color)',
               borderRadius: 'var(--radius-sm)',
-              padding: 'var(--space-md)'
+              padding: 'var(--space-sm)'
             }}>
-              <h5 style={{
-                fontSize: 'var(--font-size-sm)',
-                fontWeight: 'var(--font-weight-semibold)',
-                margin: '0 0 var(--space-xs) 0',
-                color: 'var(--text-primary)'
-              }}>vanilla-ts</h5>
-              <p style={{
+              <div style={{
                 fontSize: 'var(--font-size-xs)',
-                color: 'var(--text-secondary)',
-                margin: 0
-              }}>Vanilla + TypeScript + CSS Variables (~45KB)</p>
+                fontWeight: 'var(--font-weight-semibold)',
+                color: 'var(--text-primary)',
+                marginBottom: '2px'
+              }}>vanilla-ts/js</div>
+              <div style={{
+                fontSize: 'var(--font-size-xs)',
+                color: 'var(--text-secondary)'
+              }}>Pure CSS Variables (~45KB)</div>
             </div>
           </div>
-
-          <p style={{
-            fontSize: 'var(--font-size-sm)',
-            color: 'var(--text-secondary)',
-            margin: '0 0 var(--space-md) 0',
-            lineHeight: 1.6
-          }}>
-            Then just:
-          </p>
-
-          <pre style={{
-            backgroundColor: 'var(--bg-elevated)',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-md)',
-            padding: 'var(--space-lg)',
-            fontSize: 'var(--font-size-sm)',
-            color: 'var(--text-primary)',
-            overflow: 'auto',
-            fontFamily: 'Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
-          }}>
-cd my-app
-npm install
-npm run dev
-          </pre>
         </div>
-      </section>
 
-      {/* Manual Installation */}
-      <section style={{ marginBottom: 'var(--space-2xl)' }}>
-        <h2 style={{
-          fontSize: 'var(--font-size-xl)',
-          fontWeight: 'var(--font-weight-semibold)',
-          margin: '0 0 var(--space-lg) 0',
-          color: 'var(--text-primary)'
-        }}>
-          📚 Manual Installation
-        </h2>
-        
+        {/* Existing Project */}
         <div style={{
           backgroundColor: 'var(--bg-surface)',
           border: '1px solid var(--border-color)',
           borderRadius: 'var(--radius-lg)',
-          padding: 'var(--space-xl)',
-          marginBottom: 'var(--space-lg)'
+          padding: 'var(--space-xl)'
         }}>
+          <h3 style={{
+            fontSize: 'var(--font-size-lg)',
+            fontWeight: 'var(--font-weight-semibold)',
+            margin: '0 0 var(--space-md) 0',
+            color: 'var(--text-primary)'
+          }}>
+            📚 Existing Project
+          </h3>
+          
           <p style={{
             fontSize: 'var(--font-size-base)',
             color: 'var(--text-secondary)',
             margin: '0 0 var(--space-lg) 0',
             lineHeight: 1.6
           }}>
-            Add FlowLabKit UI to an existing project:
+            Add FlowLabKit UI to your existing React project:
           </p>
           
           <pre style={{
@@ -218,7 +213,7 @@ npm run dev
             color: 'var(--text-primary)',
             overflow: 'auto',
             fontFamily: 'Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-            margin: '0 0 var(--space-lg) 0'
+            margin: '0 0 var(--space-md) 0'
           }}>
 npm install @flowlabkit/ui
           </pre>
@@ -235,7 +230,7 @@ npm install @flowlabkit/ui
               borderRadius: 'var(--radius-sm)',
               fontSize: '0.9em'
             }}>ThemeProvider</code> and start using components or CSS variables. 
-            See the examples below for complete setup details.
+            See the setup examples below.
           </p>
         </div>
       </section>
