@@ -1,5 +1,6 @@
 import React, { forwardRef, InputHTMLAttributes, useState, useEffect } from 'react';
 import { useTheme } from '../hooks/useTheme';
+import { useBreakpoint, useIsMobile } from '../hooks/useResponsive';
 import { inputFallbacks } from '../utils/css-fallbacks';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'className' | 'type'> {
@@ -18,6 +19,8 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   showValidationIcon?: boolean;
   // Password options
   showPasswordToggle?: boolean;
+  // Responsive options
+  responsive?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({
@@ -36,6 +39,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   enableValidation = true,
   showValidationIcon = true,
   showPasswordToggle = true,
+  responsive = true,
   onFocus,
   onBlur,
   onChange,
@@ -43,6 +47,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   ...props
 }, ref) => {
   const { theme } = useTheme();
+  const breakpoint = useBreakpoint();
+  const isMobile = useIsMobile();
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -52,6 +58,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   const hasError = isInvalid || !!errorMessage || !!validationError;
   const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
 
+  // Determine responsive size
+  const getResponsiveSize = () => {
+    if (!responsive) return size;
+    
+    // Auto-adjust size for mobile
+    if (isMobile) {
+      if (size === 'sm') return 'md'; // Increase touch target
+      if (size === 'lg') return 'md'; // Normalize for mobile
+    }
+    return size;
+  };
+
+  const responsiveSize = getResponsiveSize();
   // Validate initial value on mount
   useEffect(() => {
     if (enableValidation && value) {
@@ -172,7 +191,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
     return {
       display: 'flex',
       alignItems: 'center',
-      borderRadius: variant === 'flushed' ? '0' : inputFallbacks.radiusMd,
+      width: responsive && isMobile ? '100%' : 'auto',
+      borderRadius: variant === 'flushed' ? '0' : (responsive && isMobile ? 'var(--border-radius-lg)' : inputFallbacks.radiusMd),
       borderWidth: '1px',
       borderStyle: 'solid',
       borderColor,
@@ -187,7 +207,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
       paddingBottom: inputFallbacks.spaceXs,
       boxShadow,
       transition: inputFallbacks.transitionBase,
-      ...sizeStyles[size],
+      // Add mobile touch optimizations
+      minHeight: responsive && isMobile ? 'var(--mobile-touch-target)' : 'auto',
+      ...sizeStyles[responsiveSize],
     };
   };
 
@@ -461,7 +483,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
               display: 'flex',
               alignItems: 'center',
               color: inputFallbacks.textMuted,
-              fontSize: sizeStyles[size].fontSize,
+              fontSize: sizeStyles[responsiveSize].fontSize,
             }}
           >
             {getDefaultLeftIcon()}
@@ -479,7 +501,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
           onChange={handleChange}
           style={{
             ...inputStyles,
-            ...sizeStyles[size],
+            ...sizeStyles[responsiveSize],
             opacity: disabled ? 0.6 : 1,
             cursor: disabled ? 'not-allowed' : 'text',
           }}
@@ -493,7 +515,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
               display: 'flex',
               alignItems: 'center',
               color: inputFallbacks.textMuted,
-              fontSize: sizeStyles[size].fontSize,
+              fontSize: sizeStyles[responsiveSize].fontSize,
             }}
           >
             {getRightIcon()}

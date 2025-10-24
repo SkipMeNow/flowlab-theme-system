@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Card, CardBody, Badge } from "../../src/index";
+import { Text, Card, CardBody, Badge } from "../../../src/index";
 
 const CodeBlock: React.FC<{ children: string; language?: string }> = ({ children, language = "tsx" }) => (
   <pre

@@ -12,6 +12,7 @@ A comprehensive, TypeScript-first theme system for React applications with 8 bea
 - ⚡ **Performance Optimized**: CSS variables for efficient runtime theme changes
 - 💾 **Persistence**: LocalStorage integration for theme preferences
 - 🎛️ **Extensive Customization**: Over 100 CSS variables for complete control
+- 📐 **Resizable Panel System**: Comprehensive panel system with 10+ layout presets, full accessibility, and mobile optimization
 
 ## Available Themes
 
@@ -44,17 +45,30 @@ npm install @flowlabkit/ui
 **Quick Start:**
 ```tsx
 import React from 'react';
-import { ThemeProvider, Button, Card, CardBody } from '@flowlabkit/ui';
+import { ThemeProvider, Button, Card, CardBody, PanelGroup, Panel } from '@flowlabkit/ui';
 
 function App() {
   return (
     <ThemeProvider initialConfig={{ mode: 'dark', fontSize: 'medium' }}>
-      <Card>
-        <CardBody>
-          <h1>Welcome to FlowLabKit UI!</h1>
-          <Button variant="primary">Get Started</Button>
-        </CardBody>
-      </Card>
+      <PanelGroup direction="horizontal">
+        <Panel defaultSize={30} minSize={20}>
+          <Card>
+            <CardBody>
+              <h2>Sidebar</h2>
+              <Button variant="primary">Navigation</Button>
+            </CardBody>
+          </Card>
+        </Panel>
+        <Panel defaultSize={70}>
+          <Card>
+            <CardBody>
+              <h1>Welcome to FlowLabKit UI!</h1>
+              <p>Complete with resizable panels!</p>
+              <Button variant="primary">Get Started</Button>
+            </CardBody>
+          </Card>
+        </Panel>
+      </PanelGroup>
     </ThemeProvider>
   );
 }
@@ -80,10 +94,10 @@ import { oceanTheme, cyberpunkTheme, forestTheme } from '@flowlabkit/ui/themes';
 ```
 
 #### Core + UI Components (~95KB)
-Theme system + essential components:
+Theme system + essential components + panel system:
 ```tsx
 import { ThemeProvider, lightTheme } from '@flowlabkit/ui/core';
-import { Button, Input, Card, Badge, Spinner } from '@flowlabkit/ui/components';
+import { Button, Input, Card, Badge, Spinner, PanelGroup, Panel } from '@flowlabkit/ui/components';
 ```
 
 ### Bundle Size Comparison
@@ -93,16 +107,82 @@ import { Button, Input, Card, Badge, Spinner } from '@flowlabkit/ui/components';
 | **Full Package** | ~150KB | Everything: theme system, 8 themes, all components |
 | **Core Only** | ~45KB | Theme system + light/dark themes |
 | **Core + 2 Themes** | ~65KB | Core + 2 additional themes of choice |
-| **Core + Components** | ~95KB | Core + all UI components |
+| **Core + Components** | ~95KB | Core + all UI components + panel system |
 | **Mix & Match** | Custom | Choose exactly what you need |
 
-### Available Components
+#### Available Components
 
 - **Form Components**: Button, Input
 - **Display Components**: Text, Badge, Image
 - **Navigation Components**: Link
 - **Feedback Components**: Spinner, LoadingIndicator
 - **Layout Components**: Card, CardHeader, CardBody, CardFooter
+- **Panel System**: PanelGroup, Panel, PanelResizeHandle, PanelPresets (10+ layouts)
+
+## Panel System
+
+FlowLabKit UI includes a comprehensive resizable panel system similar to `react-resizable-panels`, enhanced with responsive behavior, touch support, and accessibility features.
+
+### Quick Panel Example
+
+```tsx
+import { PanelGroup, Panel, PanelResizeHandle } from '@flowlabkit/ui';
+
+function MyApp() {
+  return (
+    <PanelGroup direction="horizontal" className="h-screen">
+      <Panel defaultSize={30} minSize={20} collapsible>
+        <div>Sidebar Content</div>
+      </Panel>
+      <PanelResizeHandle />
+      <Panel defaultSize={70}>
+        <div>Main Content</div>
+      </Panel>
+    </PanelGroup>
+  );
+}
+```
+
+### Pre-built Layout Presets
+
+Choose from 10+ professionally designed layouts:
+
+```tsx
+import { SidebarLeftLayout, DashboardLayout, EmailLayout } from '@flowlabkit/ui';
+
+// Sidebar layout with collapsible navigation
+<SidebarLeftLayout 
+  sidebar={<Navigation />}
+  main={<Content />}
+  sidebarProps={{ minSize: 250, defaultSize: 300 }}
+/>
+
+// Dashboard with header and multiple panels
+<DashboardLayout
+  header={<DashboardHeader />}
+  sidebar={<Sidebar />}
+  main={<MainDashboard />}
+  rightPanel={<ActivityFeed />}
+/>
+
+// Email-style three-panel layout
+<EmailLayout
+  mailList={<MailList />}
+  mailContent={<MailContent />}
+  mailDetails={<MailDetails />}
+/>
+```
+
+### Features
+
+- **Resizable Panels**: Drag to resize, keyboard navigation, touch support
+- **Responsive Behavior**: Automatic mobile optimizations and direction switching
+- **Persistence**: Save panel sizes to localStorage automatically
+- **Accessibility**: Full ARIA support, keyboard navigation, screen reader friendly
+- **Mobile Optimized**: Touch-friendly handles, safe area support, auto-collapse
+- **TypeScript**: Complete type safety with extensive interfaces
+
+[Full Panel Documentation →](./docs/PANELS.md)
 
 ## Quick Start
 

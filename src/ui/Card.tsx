@@ -1,5 +1,6 @@
 import React, { forwardRef, HTMLAttributes } from 'react';
 import { useTheme } from '../hooks/useTheme';
+import { useBreakpoint, useIsMobile } from '../hooks/useResponsive';
 
 export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'className'> {
   variant?: 'elevated' | 'outlined' | 'filled';
@@ -8,6 +9,8 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'classNa
   shadow?: 'none' | 'sm' | 'md' | 'lg';
   hoverable?: boolean;
   className?: string;
+  /** Enable responsive behavior (default: true) */
+  responsive?: boolean;
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(({
@@ -17,10 +20,18 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(({
   shadow = 'md',
   hoverable = false,
   className = '',
+  responsive = true,
   children,
   ...props
 }, ref) => {
   const { theme } = useTheme();
+  const breakpoint = useBreakpoint();
+  const isMobile = useIsMobile();
+
+  // Apply responsive adjustments
+  const responsivePadding = responsive && isMobile && padding === 'lg' ? 'md' : 
+                           responsive && isMobile && padding === 'md' ? 'sm' : padding;
+  const responsiveRadius = responsive && isMobile && radius === 'lg' ? 'md' : radius;
 
   // Base styles
   const baseStyles: React.CSSProperties = {
@@ -29,6 +40,18 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(({
     position: 'relative',
     transition: 'var(--transition-base)',
     cursor: hoverable ? 'pointer' : 'default',
+    // Responsive margin and width adjustments
+    ...(responsive && isMobile && {
+      width: '100%',
+      maxWidth: '100%',
+      margin: '0',
+    }),
+    // Small screen layout adjustments
+    ...(responsive && (breakpoint === 'xs' || breakpoint === 'sm') && {
+      borderRadius: responsiveRadius === 'lg' ? 'var(--radius-md)' : 
+                   responsiveRadius === 'md' ? 'var(--radius-sm)' : 
+                   responsiveRadius === 'sm' ? 'var(--radius-sm)' : '0',
+    }),
   };
 
   // Variant styles
@@ -80,8 +103,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(({
   const combinedStyles: React.CSSProperties = {
     ...baseStyles,
     ...variantStyles[variant],
-    ...paddingStyles[padding],
-    ...radiusStyles[radius],
+    ...paddingStyles[responsivePadding],
+    ...radiusStyles[responsiveRadius],
     ...shadowStyles[shadow],
   };
 

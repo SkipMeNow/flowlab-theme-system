@@ -12,7 +12,7 @@ import {
   LoadingIndicator,
   Image,
   Video,
-} from "../../src/index";
+} from "../../../src/index";
 
 // Import component documentation
 import { ButtonDocs } from "../components/ButtonDocs";
@@ -28,6 +28,8 @@ import { CardDocs } from "../components/CardDocs";
 import { DropdownDocs } from "../components/DropdownDocs";
 import { ThemeSystemDocs } from "../components/ThemeSystemDocs";
 import { InstallationDocs } from "../components/InstallationDocs";
+import { MobileDocs } from "../components/MobileDocs";
+import { LayoutSystemDocs } from "../components/LayoutSystemDocs";
 
 export interface NavigationItem {
   id: string;
@@ -49,6 +51,18 @@ const navigationItems: NavigationItem[] = [
     label: "Theme System",
     category: "Getting Started",
     component: ThemeSystemDocs,
+  },
+  {
+    id: "mobile-support",
+    label: "Mobile Support",
+    category: "Getting Started",
+    component: MobileDocs,
+  },
+  {
+    id: "layout-system",
+    label: "Layout System",
+    category: "Getting Started",
+    component: LayoutSystemDocs,
   },
 
   // Form Components

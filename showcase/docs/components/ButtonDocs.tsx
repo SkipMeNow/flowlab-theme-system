@@ -1,5 +1,5 @@
-import React from "react";
-import { Spinner, Text, Card, CardBody, Badge } from "../../src/index";
+import React, { useState } from "react";
+import { Button, Text, Card, CardBody, Badge } from "../../../src/index";
 
 const CodeBlock: React.FC<{ children: string; language?: string }> = ({ children, language = "tsx" }) => (
   <pre
@@ -45,16 +45,23 @@ const DemoSection: React.FC<{
   </div>
 );
 
-export const SpinnerDocs: React.FC = () => {
+export const ButtonDocs: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleAsyncAction = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 2000);
+  };
+
   return (
     <div>
       {/* Header */}
       <div style={{ marginBottom: "var(--space-xl)" }}>
         <Text as="h1" size="3xl" weight="bold" style={{ marginBottom: "var(--space-sm)" }}>
-          Spinner
+          Button
         </Text>
         <Text as="p" size="lg" color="secondary">
-          Loading spinner component for indicating async operations and loading states
+          Interactive button component for user actions with multiple variants, sizes, and states
         </Text>
       </div>
 
@@ -65,15 +72,15 @@ export const SpinnerDocs: React.FC = () => {
             Overview
           </Text>
           <Text as="p" size="md" style={{ marginBottom: "var(--space-lg)", lineHeight: "1.6" }}>
-            The Spinner component provides visual feedback for loading states with multiple variants, sizes, 
-            and animation options. Perfect for indicating data fetching, form submissions, or any async operations.
+            The Button component provides a comprehensive interface for user interactions with support for 
+            different visual styles, sizes, loading states, and accessibility features.
           </Text>
           
           <div style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap" }}>
             <Badge variant="primary">6 Variants</Badge>
-            <Badge variant="success">5 Sizes</Badge>
-            <Badge variant="info">3 Thickness Options</Badge>
-            <Badge variant="secondary">3 Speed Settings</Badge>
+            <Badge variant="success">3 Sizes</Badge>
+            <Badge variant="info">Loading State</Badge>
+            <Badge variant="secondary">Fully Accessible</Badge>
           </div>
         </CardBody>
       </Card>
@@ -86,32 +93,26 @@ export const SpinnerDocs: React.FC = () => {
           </Text>
 
           <DemoSection title="Variants">
-            <Spinner variant="primary" />
-            <Spinner variant="accent" />
-            <Spinner variant="success" />
-            <Spinner variant="warning" />
-            <Spinner variant="error" />
-            <Spinner variant="secondary" />
+            <Button>Default</Button>
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="danger">Danger</Button>
           </DemoSection>
 
           <DemoSection title="Sizes">
-            <Spinner variant="accent" size="xs" />
-            <Spinner variant="accent" size="sm" />
-            <Spinner variant="accent" size="md" />
-            <Spinner variant="accent" size="lg" />
-            <Spinner variant="accent" size="xl" />
+            <Button variant="primary" size="sm">Small</Button>
+            <Button variant="primary" size="md">Medium</Button>
+            <Button variant="primary" size="lg">Large</Button>
           </DemoSection>
 
-          <DemoSection title="Thickness Options">
-            <Spinner variant="accent" thickness="thin" />
-            <Spinner variant="accent" thickness="medium" />
-            <Spinner variant="accent" thickness="thick" />
-          </DemoSection>
-
-          <DemoSection title="Speed Settings">
-            <Spinner variant="accent" speed="slow" />
-            <Spinner variant="accent" speed="normal" />
-            <Spinner variant="accent" speed="fast" />
+          <DemoSection title="States">
+            <Button variant="primary">Normal</Button>
+            <Button variant="primary" disabled>Disabled</Button>
+            <Button variant="primary" loading={loading} onClick={handleAsyncAction}>
+              {loading ? "Loading..." : "Click to Load"}
+            </Button>
           </DemoSection>
         </CardBody>
       </Card>
@@ -177,13 +178,13 @@ export const SpinnerDocs: React.FC = () => {
                     <code>variant</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'error'</code>
+                    <code>'default' | 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'primary'</code>
+                    <code>'default'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Color variant of the spinner
+                    Visual style variant of the button
                   </td>
                 </tr>
                 <tr>
@@ -191,41 +192,69 @@ export const SpinnerDocs: React.FC = () => {
                     <code>size</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'xs' | 'sm' | 'md' | 'lg' | 'xl'</code>
+                    <code>'sm' | 'md' | 'lg'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
                     <code>'md'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Size of the spinner (16px to 48px)
+                    Size of the button affecting padding and font size
                   </td>
                 </tr>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>thickness</code>
+                    <code>loading</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'thin' | 'medium' | 'thick'</code>
+                    <code>boolean</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'medium'</code>
+                    <code>false</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Thickness of the spinner border
+                    Shows loading spinner and disables interaction
                   </td>
                 </tr>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>speed</code>
+                    <code>disabled</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'slow' | 'normal' | 'fast'</code>
+                    <code>boolean</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'normal'</code>
+                    <code>false</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Animation speed (2s, 1s, 0.5s)
+                    Disables the button and prevents interaction
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>type</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>'button' | 'submit' | 'reset'</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>'button'</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    HTML button type attribute
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>onClick</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>(event: MouseEvent) =&gt; void</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>undefined</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    Click event handler
                   </td>
                 </tr>
                 <tr>
@@ -272,130 +301,176 @@ export const SpinnerDocs: React.FC = () => {
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
             Basic Usage
           </Text>
-          <CodeBlock>{`import { Spinner } from '@flowlabkit/ui';
+          <CodeBlock>{`import { Button } from '@flowlabkit/ui';
 
-function LoadingComponent() {
+function App() {
   return (
-    <div>
-      <p>Loading data...</p>
-      <Spinner variant="primary" size="md" />
-    </div>
+    <Button variant="primary" onClick={() => alert('Clicked!')}>
+      Click Me
+    </Button>
   );
 }`}</CodeBlock>
 
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            In Buttons
+            With Loading State
           </Text>
-          <CodeBlock>{`import { Button, Spinner } from '@flowlabkit/ui';
+          <CodeBlock>{`import { Button } from '@flowlabkit/ui';
+import { useState } from 'react';
 
-function SubmitButton({ loading }) {
+function AsyncButton() {
+  const [loading, setLoading] = useState(false);
+  
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      await fetch('/api/submit', { method: 'POST' });
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
-    <Button disabled={loading}>
-      {loading && <Spinner size="sm" />}
+    <Button 
+      variant="primary" 
+      loading={loading}
+      onClick={handleSubmit}
+    >
       {loading ? 'Submitting...' : 'Submit'}
     </Button>
   );
 }`}</CodeBlock>
 
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            Centered Loading Screen
+            Form Integration
           </Text>
-          <CodeBlock>{`import { Spinner } from '@flowlabkit/ui';
+          <CodeBlock>{`import { Button } from '@flowlabkit/ui';
 
-function LoadingScreen() {
+function MyForm() {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-      gap: '1rem'
-    }}>
-      <Spinner variant="accent" size="lg" />
-      <p>Loading your content...</p>
-    </div>
-  );
-}`}</CodeBlock>
-
-          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            Data Fetching Hook
-          </Text>
-          <CodeBlock>{`import { useState, useEffect } from 'react';
-import { Spinner } from '@flowlabkit/ui';
-
-function DataComponent() {
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
-  
-  useEffect(() => {
-    fetch('/api/data')
-      .then(res => res.json())
-      .then(data => {
-        setData(data);
-        setLoading(false);
-      });
-  }, []);
-  
-  if (loading) {
-    return (
-      <div style={{ textAlign: 'center', padding: '2rem' }}>
-        <Spinner variant="primary" size="lg" />
-        <p>Fetching data...</p>
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="name" />
+      
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <Button type="submit" variant="primary">
+          Submit
+        </Button>
+        <Button type="reset" variant="outline">
+          Reset
+        </Button>
+        <Button type="button" variant="ghost" onClick={handleCancel}>
+          Cancel
+        </Button>
       </div>
-    );
-  }
-  
-  return <div>{/* Render data */}</div>;
+    </form>
+  );
 }`}</CodeBlock>
         </CardBody>
       </Card>
 
       {/* Accessibility */}
-      <Card>
+      <Card style={{ marginBottom: "var(--space-xl)" }}>
         <CardBody>
           <Text as="h2" size="xl" weight="semibold" style={{ marginBottom: "var(--space-md)" }}>
             Accessibility
           </Text>
           
-          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
-            Built-in Features
-          </Text>
-          <ul style={{ marginLeft: "var(--space-lg)", lineHeight: "1.6", marginBottom: "var(--space-md)" }}>
-            <li>Proper ARIA attributes for screen readers</li>
-            <li>Respects user's motion preferences</li>
-            <li>Semantic role as "status" for live updates</li>
-            <li>Hidden from focus as it's not interactive</li>
-          </ul>
+          <div style={{ marginBottom: "var(--space-md)" }}>
+            <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
+              Built-in Features
+            </Text>
+            <ul style={{ marginLeft: "var(--space-lg)", lineHeight: "1.6" }}>
+              <li>Proper focus management with visible focus indicators</li>
+              <li>Keyboard navigation support (Enter and Space keys)</li>
+              <li>Screen reader compatible with proper ARIA attributes</li>
+              <li>Loading state announced to assistive technologies</li>
+              <li>Disabled state properly communicated</li>
+            </ul>
+          </div>
           
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
             Best Practices
           </Text>
-          <CodeBlock>{`// Provide context with aria-label
-<Spinner aria-label="Loading user data" />
+          <CodeBlock>{`// Use descriptive text
+<Button variant="primary">Save Changes</Button>
 
-// Use with descriptive text
-<div>
-  <Spinner size="sm" />
-  <span>Saving changes...</span>
-</div>
+// Add aria-label for icon-only buttons
+<Button variant="ghost" aria-label="Close dialog">
+  ×
+</Button>
 
-// Announce completion to screen readers
-function AsyncOperation() {
-  const [loading, setLoading] = useState(false);
-  const [complete, setComplete] = useState(false);
+// Use loading state for async operations
+<Button loading={isSubmitting} disabled={isSubmitting}>
+  {isSubmitting ? 'Submitting...' : 'Submit'}
+</Button>
+
+// Provide feedback for destructive actions
+<Button 
+  variant="danger" 
+  onClick={handleDelete}
+  aria-describedby="delete-warning"
+>
+  Delete Account
+</Button>`}</CodeBlock>
+        </CardBody>
+      </Card>
+
+      {/* Styling */}
+      <Card>
+        <CardBody>
+          <Text as="h2" size="xl" weight="semibold" style={{ marginBottom: "var(--space-md)" }}>
+            Styling & Customization
+          </Text>
+          
+          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
+            CSS Variables
+          </Text>
+          <Text as="p" size="md" style={{ marginBottom: "var(--space-md)", lineHeight: "1.6" }}>
+            Button components use theme CSS variables that can be customized:
+          </Text>
+          
+          <CodeBlock language="css">{`.custom-button {
+  /* Background colors */
+  --btn-bg: var(--accent-500);
+  --btn-bg-hover: var(--accent-600);
+  --btn-bg-active: var(--accent-700);
   
-  return (
-    <div>
-      {loading && <Spinner aria-label="Processing request" />}
-      {complete && (
-        <div role="alert" aria-live="polite">
-          Operation completed successfully
-        </div>
-      )}
-    </div>
-  );
+  /* Text colors */
+  --btn-text: var(--text-on-accent);
+  
+  /* Border */
+  --btn-border: 1px solid var(--accent-500);
+  
+  /* Spacing */
+  --btn-padding-x: var(--space-md);
+  --btn-padding-y: var(--space-sm);
+  
+  /* Typography */
+  --btn-font-size: var(--font-size-base);
+  --btn-font-weight: var(--font-weight-medium);
+  
+  /* Border radius */
+  --btn-radius: var(--radius-md);
 }`}</CodeBlock>
+
+          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
+            Custom Styling
+          </Text>
+          <CodeBlock>{`// Using style prop
+<Button 
+  variant="primary" 
+  style={{
+    borderRadius: '20px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.1em'
+  }}
+>
+  Custom Style
+</Button>
+
+// Using className with CSS
+<Button variant="primary" className="my-custom-button">
+  Styled Button
+</Button>`}</CodeBlock>
         </CardBody>
       </Card>
     </div>

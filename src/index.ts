@@ -12,6 +12,13 @@ export * from './ui';
 
 // Hooks
 export { useTheme } from './hooks';
+export { 
+  useBreakpoint, 
+  useIsMobile, 
+  useOrientation, 
+  useResponsiveValue, 
+  useHoverSupport 
+} from './hooks';
 
 // Utils
 export * from './utils';

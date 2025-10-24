@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Video, Button, Text, Card, CardHeader, CardBody, Badge } from '../../src/index';
+import { Video, Button, Text, Card, CardHeader, CardBody, Badge } from '../../../src/index';
 
 export const VideoDocs: React.FC = () => {
   const [activeSize, setActiveSize] = useState<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full'>('md');

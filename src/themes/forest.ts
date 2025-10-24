@@ -1,4 +1,5 @@
 import { Theme } from '../types';
+import { defaultBreakpoints, getMobileConfig } from '../utils/mobile-defaults';
 
 export const forestTheme: Theme = {
   name: 'forest',
@@ -173,4 +174,6 @@ export const forestTheme: Theme = {
     base: '200ms cubic-bezier(0.4, 0, 0.2, 1)',
     slow: '300ms cubic-bezier(0.4, 0, 0.2, 1)',
   },
+  breakpoints: defaultBreakpoints,
+  mobile: getMobileConfig('#16a34a'),
 };

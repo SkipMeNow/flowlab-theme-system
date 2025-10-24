@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useRef, useEffect, ReactNode, HTMLAttributes } from 'react';
 import { useTheme } from '../hooks/useTheme';
+import { useBreakpoint, useIsMobile } from '../hooks/useResponsive';
 
 export interface DropdownItemProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'className'> {
   leftIcon?: ReactNode;
@@ -194,6 +195,7 @@ export interface DropdownProps {
   align?: 'start' | 'center' | 'end';
   side?: 'top' | 'bottom' | 'left' | 'right';
   sideOffset?: number;
+  responsive?: boolean;
   className?: string;
 }
 
@@ -206,11 +208,14 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
   align = 'start',
   side = 'bottom',
   sideOffset = 4,
+  responsive = true,
   className = '',
 }, ref) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = controlledOpen !== undefined;
   const isOpen = isControlled ? controlledOpen : internalOpen;
+  const breakpoint = useBreakpoint();
+  const isMobile = useIsMobile();
   
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLElement>(null);
@@ -259,7 +264,19 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
     const styles: React.CSSProperties = {
       position: 'absolute',
       zIndex: 'var(--z-dropdown)',
+      minWidth: responsive && isMobile ? '100vw' : 'max-content',
+      maxWidth: responsive && isMobile ? '100vw' : '400px',
     };
+
+    // Responsive positioning for mobile
+    if (responsive && isMobile) {
+      // On mobile, dropdown takes full width and appears at bottom
+      styles.top = 'calc(100% + 8px)';
+      styles.left = '0';
+      styles.right = '0';
+      styles.transform = 'none';
+      return styles;
+    }
 
     // Side positioning
     switch (side) {

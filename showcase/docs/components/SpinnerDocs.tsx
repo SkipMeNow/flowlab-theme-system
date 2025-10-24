@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Input, Text, Card, CardBody, Badge } from "../../src/index";
+import React from "react";
+import { Spinner, Text, Card, CardBody, Badge } from "../../../src/index";
 
 const CodeBlock: React.FC<{ children: string; language?: string }> = ({ children, language = "tsx" }) => (
   <pre
@@ -35,8 +35,9 @@ const DemoSection: React.FC<{
         borderRadius: "var(--radius-sm)",
         border: "1px solid var(--border-color)",
         display: "flex",
-        flexDirection: "column",
+        flexWrap: "wrap",
         gap: "var(--space-md)",
+        alignItems: "center",
       }}
     >
       {children}
@@ -44,19 +45,16 @@ const DemoSection: React.FC<{
   </div>
 );
 
-export const InputDocs: React.FC = () => {
-  const [textValue, setTextValue] = useState("");
-  const [emailValue, setEmailValue] = useState("");
-
+export const SpinnerDocs: React.FC = () => {
   return (
     <div>
       {/* Header */}
       <div style={{ marginBottom: "var(--space-xl)" }}>
         <Text as="h1" size="3xl" weight="bold" style={{ marginBottom: "var(--space-sm)" }}>
-          Input
+          Spinner
         </Text>
         <Text as="p" size="lg" color="secondary">
-          Form input component with validation states and various configurations
+          Loading spinner component for indicating async operations and loading states
         </Text>
       </div>
 
@@ -67,16 +65,15 @@ export const InputDocs: React.FC = () => {
             Overview
           </Text>
           <Text as="p" size="md" style={{ marginBottom: "var(--space-lg)", lineHeight: "1.6" }}>
-            The Input component provides a comprehensive form input solution with support for different 
-            input types, validation states, sizes, and accessibility features. Built with modern web standards 
-            and React best practices.
+            The Spinner component provides visual feedback for loading states with multiple variants, sizes, 
+            and animation options. Perfect for indicating data fetching, form submissions, or any async operations.
           </Text>
           
           <div style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap" }}>
-            <Badge variant="primary">Multiple Types</Badge>
-            <Badge variant="success">3 Sizes</Badge>
-            <Badge variant="info">Validation States</Badge>
-            <Badge variant="secondary">Fully Accessible</Badge>
+            <Badge variant="primary">6 Variants</Badge>
+            <Badge variant="success">5 Sizes</Badge>
+            <Badge variant="info">3 Thickness Options</Badge>
+            <Badge variant="secondary">3 Speed Settings</Badge>
           </div>
         </CardBody>
       </Card>
@@ -88,36 +85,33 @@ export const InputDocs: React.FC = () => {
             Examples
           </Text>
 
-          <DemoSection title="Input Types">
-            <Input 
-              placeholder="Text input" 
-              value={textValue} 
-              onChange={(e) => setTextValue(e.target.value)} 
-            />
-            <Input 
-              type="email" 
-              placeholder="Email input" 
-              value={emailValue} 
-              onChange={(e) => setEmailValue(e.target.value)} 
-            />
-            <Input type="password" placeholder="Password input" />
-            <Input type="number" placeholder="Number input" />
-            <Input type="search" placeholder="Search input" />
-            <Input type="url" placeholder="URL input" />
+          <DemoSection title="Variants">
+            <Spinner variant="primary" />
+            <Spinner variant="accent" />
+            <Spinner variant="success" />
+            <Spinner variant="warning" />
+            <Spinner variant="error" />
+            <Spinner variant="secondary" />
           </DemoSection>
 
           <DemoSection title="Sizes">
-            <Input placeholder="Small input" size="sm" />
-            <Input placeholder="Medium input" size="md" />
-            <Input placeholder="Large input" size="lg" />
+            <Spinner variant="accent" size="xs" />
+            <Spinner variant="accent" size="sm" />
+            <Spinner variant="accent" size="md" />
+            <Spinner variant="accent" size="lg" />
+            <Spinner variant="accent" size="xl" />
           </DemoSection>
 
-          <DemoSection title="States">
-            <Input placeholder="Normal input" />
-            <Input placeholder="Disabled input" disabled />
-            <Input placeholder="Error input" isInvalid />
-            <Input placeholder="Readonly input" readOnly value="Cannot edit this" />
-            <Input placeholder="Required input" required />
+          <DemoSection title="Thickness Options">
+            <Spinner variant="accent" thickness="thin" />
+            <Spinner variant="accent" thickness="medium" />
+            <Spinner variant="accent" thickness="thick" />
+          </DemoSection>
+
+          <DemoSection title="Speed Settings">
+            <Spinner variant="accent" speed="slow" />
+            <Spinner variant="accent" speed="normal" />
+            <Spinner variant="accent" speed="fast" />
           </DemoSection>
         </CardBody>
       </Card>
@@ -180,16 +174,16 @@ export const InputDocs: React.FC = () => {
               <tbody>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>type</code>
+                    <code>variant</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'text' | 'email' | 'password' | 'number' | 'search' | 'url' | 'tel'</code>
+                    <code>'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'error'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'text'</code>
+                    <code>'primary'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    HTML input type attribute
+                    Color variant of the spinner
                   </td>
                 </tr>
                 <tr>
@@ -197,97 +191,41 @@ export const InputDocs: React.FC = () => {
                     <code>size</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'sm' | 'md' | 'lg'</code>
+                    <code>'xs' | 'sm' | 'md' | 'lg' | 'xl'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
                     <code>'md'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Size of the input affecting padding and font size
+                    Size of the spinner (16px to 48px)
                   </td>
                 </tr>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>isInvalid</code>
+                    <code>thickness</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>boolean</code>
+                    <code>'thin' | 'medium' | 'thick'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>false</code>
+                    <code>'medium'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Shows error state styling
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>disabled</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>boolean</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>false</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Disables the input and prevents interaction
+                    Thickness of the spinner border
                   </td>
                 </tr>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>readOnly</code>
+                    <code>speed</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>boolean</code>
+                    <code>'slow' | 'normal' | 'fast'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>false</code>
+                    <code>'normal'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Makes the input read-only
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>placeholder</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>string</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>undefined</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Placeholder text when input is empty
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>value</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>string</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>undefined</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Controlled input value
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>onChange</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>(event: ChangeEvent) =&gt; void</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>undefined</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Change event handler
+                    Animation speed (2s, 1s, 0.5s)
                   </td>
                 </tr>
                 <tr>
@@ -332,94 +270,83 @@ export const InputDocs: React.FC = () => {
           </Text>
 
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
-            Controlled Input
+            Basic Usage
           </Text>
-          <CodeBlock>{`import { Input } from '@flowlabkit/ui';
-import { useState } from 'react';
+          <CodeBlock>{`import { Spinner } from '@flowlabkit/ui';
 
-function ContactForm() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  
-  return (
-    <form>
-      <Input
-        type="text"
-        placeholder="Your name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-      <Input
-        type="email"
-        placeholder="your@email.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-    </form>
-  );
-}`}</CodeBlock>
-
-          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            With Validation
-          </Text>
-          <CodeBlock>{`import { Input } from '@flowlabkit/ui';
-import { useState } from 'react';
-
-function ValidatedInput() {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  
-  const validateEmail = (value: string) => {
-    const isValid = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(value);
-    setError(isValid ? '' : 'Please enter a valid email');
-  };
-  
+function LoadingComponent() {
   return (
     <div>
-      <Input
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
-          validateEmail(e.target.value);
-        }}
-        isInvalid={!!error}
-        aria-describedby={error ? "email-error" : undefined}
-      />
-      {error && (
-        <p id="email-error" style={{ color: 'var(--error)', fontSize: 'var(--font-size-sm)' }}>
-          {error}
-        </p>
-      )}
+      <p>Loading data...</p>
+      <Spinner variant="primary" size="md" />
     </div>
   );
 }`}</CodeBlock>
 
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            Search Input with Custom Styling
+            In Buttons
           </Text>
-          <CodeBlock>{`import { Input } from '@flowlabkit/ui';
+          <CodeBlock>{`import { Button, Spinner } from '@flowlabkit/ui';
 
-function SearchBar() {
+function SubmitButton({ loading }) {
   return (
-    <Input
-      type="search"
-      placeholder="Search products..."
-      size="lg"
-      className="search-input"
-      style={{
-        borderRadius: 'var(--radius-full)',
-        paddingLeft: '3rem',
-        backgroundImage: 'url(search-icon.svg)',
-        backgroundPosition: '1rem center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: '1rem'
-      }}
-    />
+    <Button disabled={loading}>
+      {loading && <Spinner size="sm" />}
+      {loading ? 'Submitting...' : 'Submit'}
+    </Button>
   );
+}`}</CodeBlock>
+
+          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
+            Centered Loading Screen
+          </Text>
+          <CodeBlock>{`import { Spinner } from '@flowlabkit/ui';
+
+function LoadingScreen() {
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+      gap: '1rem'
+    }}>
+      <Spinner variant="accent" size="lg" />
+      <p>Loading your content...</p>
+    </div>
+  );
+}`}</CodeBlock>
+
+          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
+            Data Fetching Hook
+          </Text>
+          <CodeBlock>{`import { useState, useEffect } from 'react';
+import { Spinner } from '@flowlabkit/ui';
+
+function DataComponent() {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    fetch('/api/data')
+      .then(res => res.json())
+      .then(data => {
+        setData(data);
+        setLoading(false);
+      });
+  }, []);
+  
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', padding: '2rem' }}>
+        <Spinner variant="primary" size="lg" />
+        <p>Fetching data...</p>
+      </div>
+    );
+  }
+  
+  return <div>{/* Render data */}</div>;
 }`}</CodeBlock>
         </CardBody>
       </Card>
@@ -435,43 +362,40 @@ function SearchBar() {
             Built-in Features
           </Text>
           <ul style={{ marginLeft: "var(--space-lg)", lineHeight: "1.6", marginBottom: "var(--space-md)" }}>
-            <li>Proper focus management with visible focus indicators</li>
-            <li>Support for all standard HTML input attributes</li>
-            <li>Screen reader compatible with proper labeling</li>
-            <li>Validation states announced to assistive technologies</li>
-            <li>Keyboard navigation support</li>
+            <li>Proper ARIA attributes for screen readers</li>
+            <li>Respects user's motion preferences</li>
+            <li>Semantic role as "status" for live updates</li>
+            <li>Hidden from focus as it's not interactive</li>
           </ul>
           
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
             Best Practices
           </Text>
-          <CodeBlock>{`// Always provide labels
-<label htmlFor="email">Email Address</label>
-<Input id="email" type="email" placeholder="Enter your email" />
+          <CodeBlock>{`// Provide context with aria-label
+<Spinner aria-label="Loading user data" />
 
-// Use aria-describedby for error messages
-<Input
-  type="email"
-  isInvalid={hasError}
-  aria-describedby="email-error"
-/>
-{hasError && <p id="email-error">Please enter a valid email</p>}
+// Use with descriptive text
+<div>
+  <Spinner size="sm" />
+  <span>Saving changes...</span>
+</div>
 
-// Mark required fields
-<Input
-  type="text"
-  placeholder="Name"
-  required
-  aria-required="true"
-/>
-
-// Use fieldset for related inputs
-<fieldset>
-  <legend>Contact Information</legend>
-  <Input type="text" placeholder="First Name" />
-  <Input type="text" placeholder="Last Name" />
-  <Input type="email" placeholder="Email" />
-</fieldset>`}</CodeBlock>
+// Announce completion to screen readers
+function AsyncOperation() {
+  const [loading, setLoading] = useState(false);
+  const [complete, setComplete] = useState(false);
+  
+  return (
+    <div>
+      {loading && <Spinner aria-label="Processing request" />}
+      {complete && (
+        <div role="alert" aria-live="polite">
+          Operation completed successfully
+        </div>
+      )}
+    </div>
+  );
+}`}</CodeBlock>
         </CardBody>
       </Card>
     </div>

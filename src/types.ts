@@ -201,6 +201,29 @@ export interface ThemeTransitions {
   slow: string;
 }
 
+export interface ThemeBreakpoints {
+  xs: string;    // Mobile portrait (320px+)
+  sm: string;    // Mobile landscape (480px+)
+  md: string;    // Tablet (768px+)
+  lg: string;    // Desktop (1024px+)
+  xl: string;    // Large desktop (1200px+)
+  xxl: string;   // Extra large (1400px+)
+}
+
+export interface ThemeMobile {
+  touchTargetSize: string;      // Minimum touch target size (44px)
+  scrollPadding: string;        // Safe area for scroll containers
+  tapHighlightColor: string;    // Touch highlight color
+  userSelect: string;           // Text selection behavior
+  overscrollBehavior: string;   // Scroll boundary behavior
+  safeAreaInsets: {
+    top: string;
+    right: string;
+    bottom: string;
+    left: string;
+  };
+}
+
 export interface Theme {
   name: string;
   colors: ThemeColors;
@@ -210,6 +233,8 @@ export interface Theme {
   shadows: ThemeShadows;
   zIndex: ThemeZIndex;
   transitions: ThemeTransitions;
+  breakpoints: ThemeBreakpoints;
+  mobile: ThemeMobile;
 }
 
 export type ThemeMode = 'light' | 'dark';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Documentation from '../../docs/pages/Documentation';
+import Documentation from '../docs/pages/Documentation';
 
 const DocumentationPage: React.FC = () => {
   return (

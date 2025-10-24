@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Text, Card, CardBody, Badge, Button } from "../../src/index";
+import { Badge, Text, Card, CardBody } from "../../../src/index";
 
 const CodeBlock: React.FC<{ children: string; language?: string }> = ({ children, language = "tsx" }) => (
   <pre
@@ -36,7 +36,7 @@ const DemoSection: React.FC<{
         border: "1px solid var(--border-color)",
         display: "flex",
         flexWrap: "wrap",
-        gap: "var(--space-md)",
+        gap: "var(--space-sm)",
         alignItems: "center",
       }}
     >
@@ -45,16 +45,16 @@ const DemoSection: React.FC<{
   </div>
 );
 
-export const LinkDocs: React.FC = () => {
+export const BadgeDocs: React.FC = () => {
   return (
     <div>
       {/* Header */}
       <div style={{ marginBottom: "var(--space-xl)" }}>
         <Text as="h1" size="3xl" weight="bold" style={{ marginBottom: "var(--space-sm)" }}>
-          Link
+          Badge
         </Text>
         <Text as="p" size="lg" color="secondary">
-          Navigation component for internal and external links with accessibility support
+          Small status descriptors for labeling, categorizing, and displaying metadata
         </Text>
       </div>
 
@@ -65,16 +65,16 @@ export const LinkDocs: React.FC = () => {
             Overview
           </Text>
           <Text as="p" size="md" style={{ marginBottom: "var(--space-lg)", lineHeight: "1.6" }}>
-            The Link component provides consistent navigation styling and behavior for both internal 
-            and external links. It includes hover states, focus management, and accessibility features 
-            while maintaining design system consistency.
+            Badges are small components used to display status, notifications, or metadata. They're 
+            perfect for showing counts, labels, categories, or any short piece of information that 
+            needs to stand out from the main content.
           </Text>
           
           <div style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap" }}>
-            <Badge variant="primary">Multiple Variants</Badge>
+            <Badge variant="primary">7 Variants</Badge>
             <Badge variant="success">3 Sizes</Badge>
-            <Badge variant="info">Hover States</Badge>
-            <Badge variant="secondary">Accessible</Badge>
+            <Badge variant="info">3 Shapes</Badge>
+            <Badge variant="secondary">Flexible Content</Badge>
           </div>
         </CardBody>
       </Card>
@@ -87,41 +87,46 @@ export const LinkDocs: React.FC = () => {
           </Text>
 
           <DemoSection title="Variants">
-            <Link href="#" variant="primary">Primary Link</Link>
-            <Link href="#" variant="secondary">Secondary Link</Link>
-            <Link href="#" variant="accent">Accent Link</Link>
-            <Link href="#" variant="muted">Muted Link</Link>
-          </DemoSection>
-
-          <DemoSection title="Underline Styles">
-            <Link href="#" underline="always">Always Underlined</Link>
-            <Link href="#" underline="hover">Underline on Hover</Link>
-            <Link href="#" underline="never">Never Underlined</Link>
+            <Badge variant="default">Default</Badge>
+            <Badge variant="primary">Primary</Badge>
+            <Badge variant="secondary">Secondary</Badge>
+            <Badge variant="success">Success</Badge>
+            <Badge variant="warning">Warning</Badge>
+            <Badge variant="error">Error</Badge>
+            <Badge variant="info">Info</Badge>
           </DemoSection>
 
           <DemoSection title="Sizes">
-            <Link href="#" size="sm">Small Link</Link>
-            <Link href="#" size="md">Medium Link</Link>
-            <Link href="#" size="lg">Large Link</Link>
+            <Badge size="sm">Small Badge</Badge>
+            <Badge size="md">Medium Badge</Badge>
+            <Badge size="lg">Large Badge</Badge>
           </DemoSection>
 
-          <DemoSection title="States">
-            <Link href="#">Normal Link</Link>
-            <Link href="#" disabled>Disabled Link</Link>
-            <Link href="https://example.com" external>External Link ↗</Link>
+          <DemoSection title="Shapes">
+            <Badge shape="rounded">Rounded</Badge>
+            <Badge shape="square">Square</Badge>
+            <Badge shape="pill">Pill Shape</Badge>
+            <Badge dot size="md" variant="primary" />
           </DemoSection>
 
-          <DemoSection title="Usage in Context">
+          <DemoSection title="Real-world Usage">
             <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-md)" }}>
-              <Text as="p">
-                Visit our <Link href="#" variant="primary">documentation</Link> to learn more about the components.
-              </Text>
-              <Text as="p">
-                For support, contact us at <Link href="#" variant="accent" underline="always">support@example.com</Link>.
-              </Text>
-              <Text as="p">
-                Check out our <Link href="#" external variant="secondary">GitHub repository ↗</Link> for the source code.
-              </Text>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)" }}>
+                <Text>Messages</Text>
+                <Badge variant="primary" shape="pill" size="sm">3</Badge>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)" }}>
+                <Text>Status:</Text>
+                <Badge variant="success" size="sm">Active</Badge>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)" }}>
+                <Text>Priority:</Text>
+                <Badge variant="error" size="sm">High</Badge>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--space-sm)" }}>
+                <Text>Version:</Text>
+                <Badge variant="info" shape="pill">v2.1.0</Badge>
+              </div>
             </div>
           </DemoSection>
         </CardBody>
@@ -185,30 +190,16 @@ export const LinkDocs: React.FC = () => {
               <tbody>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>href</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>string</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>required</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    URL or path for the link destination
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
                     <code>variant</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'primary' | 'secondary' | 'accent' | 'muted'</code>
+                    <code>'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'primary'</code>
+                    <code>'default'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Visual style variant affecting color and decoration
+                    Visual style variant affecting color scheme
                   </td>
                 </tr>
                 <tr>
@@ -222,26 +213,26 @@ export const LinkDocs: React.FC = () => {
                     <code>'md'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Font size of the link text
+                    Size of the badge affecting padding and font size
                   </td>
                 </tr>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>underline</code>
+                    <code>shape</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'always' | 'hover' | 'never'</code>
+                    <code>'rounded' | 'square' | 'pill'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'hover'</code>
+                    <code>'rounded'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Text decoration behavior for the link
+                    Shape style of the badge corners
                   </td>
                 </tr>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>disabled</code>
+                    <code>dot</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
                     <code>boolean</code>
@@ -250,21 +241,7 @@ export const LinkDocs: React.FC = () => {
                     <code>false</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Disables the link and prevents navigation
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>external</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>boolean</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>false</code>
-                  </td>
-                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Opens link in new tab with security attributes
+                    Renders as a circular dot without content
                   </td>
                 </tr>
                 <tr>
@@ -278,7 +255,7 @@ export const LinkDocs: React.FC = () => {
                     <code>undefined</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Link text content or nested elements
+                    Content to display inside the badge
                   </td>
                 </tr>
                 <tr>
@@ -323,127 +300,114 @@ export const LinkDocs: React.FC = () => {
           </Text>
 
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
-            Navigation Menu
+            Notification Badges
           </Text>
-          <CodeBlock>{`import { Link } from '@flowlabkit/ui';
+          <CodeBlock>{`import { Badge, Text } from '@flowlabkit/ui';
 
-function NavigationMenu() {
+function NotificationBell() {
+  const notificationCount = 5;
+  
   return (
-    <nav>
-      <ul style={{ display: 'flex', gap: '1rem', listStyle: 'none' }}>
-        <li><Link href="/">Home</Link></li>
-        <li><Link href="/about">About</Link></li>
-        <li><Link href="/products" variant="primary">Products</Link></li>
-        <li><Link href="/contact">Contact</Link></li>
-      </ul>
-    </nav>
-  );
-}`}</CodeBlock>
-
-          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            Content Links
-          </Text>
-          <CodeBlock>{`import { Link, Text } from '@flowlabkit/ui';
-
-function BlogPost() {
-  return (
-    <article>
-      <Text as="h1" size="2xl">Understanding React Hooks</Text>
-      
-      <Text as="p" style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
-        React Hooks have revolutionized how we write components. 
-        Learn more in the{' '}
-        <Link 
-          href="https://reactjs.org/docs/hooks-intro.html" 
-          external 
-          variant="primary"
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      <button>🔔</button>
+      {notificationCount > 0 && (
+        <Badge
+          variant="error"
+          shape="circle"
+          size="sm"
+          style={{
+            position: 'absolute',
+            top: '-8px',
+            right: '-8px',
+            minWidth: '20px',
+            height: '20px'
+          }}
         >
-          official React documentation
-        </Link>
-        .
-      </Text>
-      
-      <Text as="p">
-        For advanced patterns, check out our{' '}
-        <Link href="/guides/advanced-hooks" variant="accent" underline="always">
-          advanced hooks guide
-        </Link>
-        .
-      </Text>
-    </article>
-  );
-}`}</CodeBlock>
-
-          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            Custom Styled Links
-          </Text>
-          <CodeBlock>{`import { Link } from '@flowlabkit/ui';
-
-function CustomLinks() {
-  return (
-    <div>
-      {/* Button-like link */}
-      <Link
-        href="/signup"
-        variant="primary"
-        className="button-link"
-        style={{
-          display: 'inline-block',
-          padding: '0.75rem 1.5rem',
-          backgroundColor: 'var(--accent-500)',
-          color: 'white',
-          borderRadius: 'var(--radius-md)',
-          textDecoration: 'none',
-          fontWeight: 'var(--font-weight-semibold)',
-          transition: 'var(--transition-base)'
-        }}
-      >
-        Get Started
-      </Link>
-      
-      {/* Subtle link */}
-      <Link
-        href="/privacy"
-        variant="muted"
-        size="sm"
-        style={{
-          textDecoration: 'none',
-          borderBottom: '1px dotted var(--text-muted)'
-        }}
-      >
-        Privacy Policy
-      </Link>
+          {notificationCount > 99 ? '99+' : notificationCount}
+        </Badge>
+      )}
     </div>
   );
 }`}</CodeBlock>
 
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            Conditional Link States
+            Status Labels
           </Text>
-          <CodeBlock>{`import { Link } from '@flowlabkit/ui';
+          <CodeBlock>{`import { Badge, Text } from '@flowlabkit/ui';
 
-function ConditionalLink({ 
-  isAuthenticated, 
-  href, 
-  children 
-}: { 
-  isAuthenticated: boolean; 
-  href: string; 
-  children: React.ReactNode; 
-}) {
+function UserStatus({ user }: { user: User }) {
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'active':
+        return <Badge variant="success" size="sm">Active</Badge>;
+      case 'inactive':
+        return <Badge variant="secondary" size="sm">Inactive</Badge>;
+      case 'pending':
+        return <Badge variant="warning" size="sm">Pending</Badge>;
+      case 'blocked':
+        return <Badge variant="error" size="sm">Blocked</Badge>;
+      default:
+        return <Badge variant="default" size="sm">Unknown</Badge>;
+    }
+  };
+  
   return (
-    <Link
-      href={href}
-      disabled={!isAuthenticated}
-      variant={isAuthenticated ? 'primary' : 'muted'}
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <Text>{user.name}</Text>
+      {getStatusBadge(user.status)}
+    </div>
+  );
+}`}</CodeBlock>
+
+          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
+            Category Tags
+          </Text>
+          <CodeBlock>{`import { Badge } from '@flowlabkit/ui';
+
+function BlogPost({ post }: { post: Post }) {
+  return (
+    <article>
+      <h2>{post.title}</h2>
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+        {post.categories.map((category) => (
+          <Badge
+            key={category}
+            variant="outline"
+            shape="pill"
+            size="sm"
+          >
+            {category}
+          </Badge>
+        ))}
+      </div>
+      <p>{post.excerpt}</p>
+    </article>
+  );
+}`}</CodeBlock>
+
+          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
+            Custom Styled Badge
+          </Text>
+          <CodeBlock>{`import { Badge } from '@flowlabkit/ui';
+
+function PremiumBadge() {
+  return (
+    <Badge
+      variant="primary"
+      shape="pill"
+      className="premium-badge"
       style={{
-        cursor: isAuthenticated ? 'pointer' : 'not-allowed',
-        opacity: isAuthenticated ? 1 : 0.6
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        color: 'white',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        letterSpacing: '0.5px',
+        border: 'none',
+        boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)'
       }}
     >
-      {children}
-      {!isAuthenticated && ' (Login Required)'}
-    </Link>
+      ✨ Premium
+    </Badge>
   );
 }`}</CodeBlock>
         </CardBody>
@@ -460,55 +424,47 @@ function ConditionalLink({
             Built-in Features
           </Text>
           <ul style={{ marginLeft: "var(--space-lg)", lineHeight: "1.6", marginBottom: "var(--space-md)" }}>
-            <li>Semantic HTML anchor elements for proper navigation</li>
-            <li>Keyboard navigation support with focus indicators</li>
-            <li>Screen reader compatible link descriptions</li>
-            <li>External links include security attributes (rel="noopener noreferrer")</li>
-            <li>Disabled state prevents navigation and keyboard access</li>
+            <li>Semantic HTML structure with proper contrast ratios</li>
+            <li>Screen reader friendly text content</li>
+            <li>Color combinations meet WCAG AA standards</li>
+            <li>Keyboard navigation support when used as interactive elements</li>
           </ul>
           
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
             Best Practices
           </Text>
-          <CodeBlock>{`// Provide descriptive link text
-❌ <Link href="/docs">Click here</Link>
-✅ <Link href="/docs">View documentation</Link>
+          <CodeBlock>{`// Use aria-label for icon-only badges
+<Badge variant="error" shape="circle" aria-label="3 unread notifications">
+  3
+</Badge>
 
-// Use aria-label for context when needed
-<Link 
-  href="/profile" 
-  aria-label="View your user profile"
+// Provide context for screen readers
+<Badge 
+  variant="success" 
+  aria-label="Status: Active user account"
 >
-  Profile
-</Link>
+  Active
+</Badge>
 
-// Indicate external links
-<Link 
-  href="https://example.com" 
-  external
-  aria-label="Visit example.com (opens in new tab)"
+// Use role="status" for live updates
+<Badge 
+  variant="warning" 
+  role="status" 
+  aria-live="polite"
 >
-  External Resource ↗
-</Link>
+  {connectionStatus}
+</Badge>
 
-// Handle disabled states properly
-<Link 
-  href="/premium-feature" 
-  disabled={!isPremium}
-  aria-disabled={!isPremium}
-  title={!isPremium ? "Upgrade to premium to access this feature" : undefined}
+// Ensure sufficient color contrast
+<Badge
+  variant="custom"
+  style={{
+    backgroundColor: '#1f2937', // Dark background
+    color: '#f9fafb'           // Light text for contrast
+  }}
 >
-  Premium Feature
-</Link>
-
-// Use semantic markup for navigation
-<nav aria-label="Main navigation">
-  <ul>
-    <li><Link href="/">Home</Link></li>
-    <li><Link href="/about">About</Link></li>
-    <li><Link href="/contact">Contact</Link></li>
-  </ul>
-</nav>`}</CodeBlock>
+  High Contrast
+</Badge>`}</CodeBlock>
         </CardBody>
       </Card>
     </div>

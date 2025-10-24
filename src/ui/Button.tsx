@@ -1,5 +1,6 @@
 import React, { forwardRef, ButtonHTMLAttributes } from 'react';
 import { useTheme } from '../hooks/useTheme';
+import { useIsMobile, useHoverSupport } from '../hooks/useResponsive';
 
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
@@ -10,6 +11,8 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   className?: string;
+  /** Mobile-specific optimizations */
+  mobileOptimized?: boolean;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
@@ -22,10 +25,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   leftIcon,
   rightIcon,
   className = '',
+  mobileOptimized = true,
   children,
   ...props
 }, ref) => {
   const { theme } = useTheme();
+  const isMobile = useIsMobile();
+  const supportsHover = useHoverSupport();
+
+  // Apply mobile optimizations
+  const effectiveSize = mobileOptimized && isMobile && size === 'sm' ? 'md' : size;
 
   // Base styles
   const baseStyles: React.CSSProperties = {
@@ -36,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     fontFamily: 'var(--font-family)',
     fontWeight: 'var(--font-weight-medium)',
     border: '1px solid transparent',
-    transition: 'var(--transition-base)',
+    transition: supportsHover ? 'var(--transition-base)' : 'none',
     cursor: disabled || loading ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.6 : 1,
     width: fullWidth ? '100%' : 'auto',
@@ -44,6 +53,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     overflow: 'hidden',
     textAlign: 'center',
     whiteSpace: shape === 'circle' ? 'nowrap' : 'normal',
+    // Mobile optimizations
+    ...(mobileOptimized && isMobile && {
+      minHeight: 'var(--touch-target-size)',
+      WebkitTapHighlightColor: 'var(--tap-highlight-color)',
+      touchAction: 'manipulation',
+      userSelect: 'none',
+    }),
   };
 
   // Variant styles
@@ -109,15 +125,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
       borderRadius: '50%',
       aspectRatio: '1',
       padding: '0',
-      minWidth: shape === 'circle' && size === 'sm' ? '2rem' : 
-                shape === 'circle' && size === 'md' ? '2.5rem' : 
-                shape === 'circle' && size === 'lg' ? '3rem' : 'auto',
-      width: shape === 'circle' && size === 'sm' ? '2rem' : 
-             shape === 'circle' && size === 'md' ? '2.5rem' : 
-             shape === 'circle' && size === 'lg' ? '3rem' : 'auto',
-      height: shape === 'circle' && size === 'sm' ? '2rem' : 
-              shape === 'circle' && size === 'md' ? '2.5rem' : 
-              shape === 'circle' && size === 'lg' ? '3rem' : 'auto',
+      minWidth: shape === 'circle' && effectiveSize === 'sm' ? '2rem' : 
+                shape === 'circle' && effectiveSize === 'md' ? '2.5rem' : 
+                shape === 'circle' && effectiveSize === 'lg' ? '3rem' : 'auto',
+      width: shape === 'circle' && effectiveSize === 'sm' ? '2rem' : 
+             shape === 'circle' && effectiveSize === 'md' ? '2.5rem' : 
+             shape === 'circle' && effectiveSize === 'lg' ? '3rem' : 'auto',
+      height: shape === 'circle' && effectiveSize === 'sm' ? '2rem' : 
+              shape === 'circle' && effectiveSize === 'md' ? '2.5rem' : 
+              shape === 'circle' && effectiveSize === 'lg' ? '3rem' : 'auto',
     },
   };
 
@@ -182,7 +198,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   const combinedStyles: React.CSSProperties = {
     ...baseStyles,
     ...variantStyles[variant],
-    ...sizeStyles[size],
+    ...sizeStyles[effectiveSize],
     ...shapeStyles[shape],
   };
 
@@ -214,40 +230,61 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
           }
+          
+          .flowlab-button {
+            transition: var(--transition-base);
+          }
+          
+          .flowlab-button:not(:disabled):hover {
+            background-color: var(--btn-bg-hover);
+          }
+          
+          .flowlab-button.variant-primary:not(:disabled):hover {
+            background-color: var(--btn-primary-bg-hover);
+          }
+          
+          .flowlab-button.variant-ghost:not(:disabled):hover {
+            background-color: var(--bg-hover);
+          }
+          
+          .flowlab-button.variant-danger:not(:disabled):hover {
+            background-color: var(--error-color);
+            filter: brightness(0.9);
+          }
         `}
       </style>
       <button
         ref={ref}
         disabled={disabled || loading}
         style={combinedStyles}
-        className={className}
-        onMouseEnter={(e) => {
+        className={`flowlab-button variant-${variant} ${className}`.trim()}
+        onMouseEnter={supportsHover ? (e) => {
           if (!disabled && !loading) {
-            Object.assign(e.currentTarget.style, {
-              ...combinedStyles,
-              ...getHoverStyles(variant),
+            // Only apply hover styles, preserve existing styles
+            const hoverStyles = getHoverStyles(variant);
+            Object.assign(e.currentTarget.style, hoverStyles);
+          }
+        } : undefined}
+        onMouseLeave={supportsHover ? (e) => {
+          if (!disabled && !loading) {
+            // Only restore the specific properties we changed
+            const hoverStyles = getHoverStyles(variant);
+            Object.keys(hoverStyles).forEach((key) => {
+              const cssKey = key as keyof React.CSSProperties;
+              (e.currentTarget.style as any)[cssKey] = combinedStyles[cssKey] || '';
             });
           }
-        }}
-        onMouseLeave={(e) => {
-          if (!disabled && !loading) {
-            Object.assign(e.currentTarget.style, combinedStyles);
-          }
-        }}
+        } : undefined}
         onMouseDown={(e) => {
           if (!disabled && !loading) {
-            Object.assign(e.currentTarget.style, {
-              ...combinedStyles,
-              ...getActiveStyles(variant),
-            });
+            const activeStyles = getActiveStyles(variant);
+            Object.assign(e.currentTarget.style, activeStyles);
           }
         }}
         onMouseUp={(e) => {
           if (!disabled && !loading) {
-            Object.assign(e.currentTarget.style, {
-              ...combinedStyles,
-              ...getHoverStyles(variant),
-            });
+            const hoverStyles = supportsHover ? getHoverStyles(variant) : {};
+            Object.assign(e.currentTarget.style, hoverStyles);
           }
         }}
         {...props}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Text, Card, CardBody, Badge } from "../../src/index";
+import { Input, Text, Card, CardBody, Badge } from "../../../src/index";
 
 const CodeBlock: React.FC<{ children: string; language?: string }> = ({ children, language = "tsx" }) => (
   <pre
@@ -35,9 +35,8 @@ const DemoSection: React.FC<{
         borderRadius: "var(--radius-sm)",
         border: "1px solid var(--border-color)",
         display: "flex",
-        flexWrap: "wrap",
+        flexDirection: "column",
         gap: "var(--space-md)",
-        alignItems: "center",
       }}
     >
       {children}
@@ -45,23 +44,19 @@ const DemoSection: React.FC<{
   </div>
 );
 
-export const ButtonDocs: React.FC = () => {
-  const [loading, setLoading] = useState(false);
-
-  const handleAsyncAction = () => {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 2000);
-  };
+export const InputDocs: React.FC = () => {
+  const [textValue, setTextValue] = useState("");
+  const [emailValue, setEmailValue] = useState("");
 
   return (
     <div>
       {/* Header */}
       <div style={{ marginBottom: "var(--space-xl)" }}>
         <Text as="h1" size="3xl" weight="bold" style={{ marginBottom: "var(--space-sm)" }}>
-          Button
+          Input
         </Text>
         <Text as="p" size="lg" color="secondary">
-          Interactive button component for user actions with multiple variants, sizes, and states
+          Form input component with validation states and various configurations
         </Text>
       </div>
 
@@ -72,14 +67,15 @@ export const ButtonDocs: React.FC = () => {
             Overview
           </Text>
           <Text as="p" size="md" style={{ marginBottom: "var(--space-lg)", lineHeight: "1.6" }}>
-            The Button component provides a comprehensive interface for user interactions with support for 
-            different visual styles, sizes, loading states, and accessibility features.
+            The Input component provides a comprehensive form input solution with support for different 
+            input types, validation states, sizes, and accessibility features. Built with modern web standards 
+            and React best practices.
           </Text>
           
           <div style={{ display: "flex", gap: "var(--space-md)", flexWrap: "wrap" }}>
-            <Badge variant="primary">6 Variants</Badge>
+            <Badge variant="primary">Multiple Types</Badge>
             <Badge variant="success">3 Sizes</Badge>
-            <Badge variant="info">Loading State</Badge>
+            <Badge variant="info">Validation States</Badge>
             <Badge variant="secondary">Fully Accessible</Badge>
           </div>
         </CardBody>
@@ -92,27 +88,36 @@ export const ButtonDocs: React.FC = () => {
             Examples
           </Text>
 
-          <DemoSection title="Variants">
-            <Button>Default</Button>
-            <Button variant="primary">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="danger">Danger</Button>
+          <DemoSection title="Input Types">
+            <Input 
+              placeholder="Text input" 
+              value={textValue} 
+              onChange={(e) => setTextValue(e.target.value)} 
+            />
+            <Input 
+              type="email" 
+              placeholder="Email input" 
+              value={emailValue} 
+              onChange={(e) => setEmailValue(e.target.value)} 
+            />
+            <Input type="password" placeholder="Password input" />
+            <Input type="number" placeholder="Number input" />
+            <Input type="search" placeholder="Search input" />
+            <Input type="url" placeholder="URL input" />
           </DemoSection>
 
           <DemoSection title="Sizes">
-            <Button variant="primary" size="sm">Small</Button>
-            <Button variant="primary" size="md">Medium</Button>
-            <Button variant="primary" size="lg">Large</Button>
+            <Input placeholder="Small input" size="sm" />
+            <Input placeholder="Medium input" size="md" />
+            <Input placeholder="Large input" size="lg" />
           </DemoSection>
 
           <DemoSection title="States">
-            <Button variant="primary">Normal</Button>
-            <Button variant="primary" disabled>Disabled</Button>
-            <Button variant="primary" loading={loading} onClick={handleAsyncAction}>
-              {loading ? "Loading..." : "Click to Load"}
-            </Button>
+            <Input placeholder="Normal input" />
+            <Input placeholder="Disabled input" disabled />
+            <Input placeholder="Error input" isInvalid />
+            <Input placeholder="Readonly input" readOnly value="Cannot edit this" />
+            <Input placeholder="Required input" required />
           </DemoSection>
         </CardBody>
       </Card>
@@ -175,16 +180,16 @@ export const ButtonDocs: React.FC = () => {
               <tbody>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>variant</code>
+                    <code>type</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'default' | 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'</code>
+                    <code>'text' | 'email' | 'password' | 'number' | 'search' | 'url' | 'tel'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'default'</code>
+                    <code>'text'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Visual style variant of the button
+                    HTML input type attribute
                   </td>
                 </tr>
                 <tr>
@@ -198,12 +203,12 @@ export const ButtonDocs: React.FC = () => {
                     <code>'md'</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Size of the button affecting padding and font size
+                    Size of the input affecting padding and font size
                   </td>
                 </tr>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>loading</code>
+                    <code>isInvalid</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
                     <code>boolean</code>
@@ -212,7 +217,7 @@ export const ButtonDocs: React.FC = () => {
                     <code>false</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Shows loading spinner and disables interaction
+                    Shows error state styling
                   </td>
                 </tr>
                 <tr>
@@ -226,35 +231,63 @@ export const ButtonDocs: React.FC = () => {
                     <code>false</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Disables the button and prevents interaction
+                    Disables the input and prevents interaction
                   </td>
                 </tr>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>type</code>
+                    <code>readOnly</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'button' | 'submit' | 'reset'</code>
+                    <code>boolean</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>'button'</code>
+                    <code>false</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    HTML button type attribute
+                    Makes the input read-only
                   </td>
                 </tr>
                 <tr>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>onClick</code>
+                    <code>placeholder</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    <code>(event: MouseEvent) =&gt; void</code>
+                    <code>string</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
                     <code>undefined</code>
                   </td>
                   <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
-                    Click event handler
+                    Placeholder text when input is empty
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>value</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>string</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>undefined</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    Controlled input value
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>onChange</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>(event: ChangeEvent) =&gt; void</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    <code>undefined</code>
+                  </td>
+                  <td style={{ padding: "var(--space-md)", borderBottom: "1px solid var(--border-color)" }}>
+                    Change event handler
                   </td>
                 </tr>
                 <tr>
@@ -299,178 +332,146 @@ export const ButtonDocs: React.FC = () => {
           </Text>
 
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
-            Basic Usage
+            Controlled Input
           </Text>
-          <CodeBlock>{`import { Button } from '@flowlabkit/ui';
+          <CodeBlock>{`import { Input } from '@flowlabkit/ui';
+import { useState } from 'react';
 
-function App() {
+function ContactForm() {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  
   return (
-    <Button variant="primary" onClick={() => alert('Clicked!')}>
-      Click Me
-    </Button>
+    <form>
+      <Input
+        type="text"
+        placeholder="Your name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <Input
+        type="email"
+        placeholder="your@email.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+    </form>
   );
 }`}</CodeBlock>
 
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            With Loading State
+            With Validation
           </Text>
-          <CodeBlock>{`import { Button } from '@flowlabkit/ui';
+          <CodeBlock>{`import { Input } from '@flowlabkit/ui';
 import { useState } from 'react';
 
-function AsyncButton() {
-  const [loading, setLoading] = useState(false);
+function ValidatedInput() {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   
-  const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      await fetch('/api/submit', { method: 'POST' });
-    } finally {
-      setLoading(false);
-    }
+  const validateEmail = (value: string) => {
+    const isValid = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(value);
+    setError(isValid ? '' : 'Please enter a valid email');
   };
   
   return (
-    <Button 
-      variant="primary" 
-      loading={loading}
-      onClick={handleSubmit}
-    >
-      {loading ? 'Submitting...' : 'Submit'}
-    </Button>
+    <div>
+      <Input
+        type="email"
+        placeholder="Enter your email"
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          validateEmail(e.target.value);
+        }}
+        isInvalid={!!error}
+        aria-describedby={error ? "email-error" : undefined}
+      />
+      {error && (
+        <p id="email-error" style={{ color: 'var(--error)', fontSize: 'var(--font-size-sm)' }}>
+          {error}
+        </p>
+      )}
+    </div>
   );
 }`}</CodeBlock>
 
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            Form Integration
+            Search Input with Custom Styling
           </Text>
-          <CodeBlock>{`import { Button } from '@flowlabkit/ui';
+          <CodeBlock>{`import { Input } from '@flowlabkit/ui';
 
-function MyForm() {
+function SearchBar() {
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="name" />
-      
-      <div style={{ display: 'flex', gap: '1rem' }}>
-        <Button type="submit" variant="primary">
-          Submit
-        </Button>
-        <Button type="reset" variant="outline">
-          Reset
-        </Button>
-        <Button type="button" variant="ghost" onClick={handleCancel}>
-          Cancel
-        </Button>
-      </div>
-    </form>
+    <Input
+      type="search"
+      placeholder="Search products..."
+      size="lg"
+      className="search-input"
+      style={{
+        borderRadius: 'var(--radius-full)',
+        paddingLeft: '3rem',
+        backgroundImage: 'url(search-icon.svg)',
+        backgroundPosition: '1rem center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '1rem'
+      }}
+    />
   );
 }`}</CodeBlock>
         </CardBody>
       </Card>
 
       {/* Accessibility */}
-      <Card style={{ marginBottom: "var(--space-xl)" }}>
+      <Card>
         <CardBody>
           <Text as="h2" size="xl" weight="semibold" style={{ marginBottom: "var(--space-md)" }}>
             Accessibility
           </Text>
           
-          <div style={{ marginBottom: "var(--space-md)" }}>
-            <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
-              Built-in Features
-            </Text>
-            <ul style={{ marginLeft: "var(--space-lg)", lineHeight: "1.6" }}>
-              <li>Proper focus management with visible focus indicators</li>
-              <li>Keyboard navigation support (Enter and Space keys)</li>
-              <li>Screen reader compatible with proper ARIA attributes</li>
-              <li>Loading state announced to assistive technologies</li>
-              <li>Disabled state properly communicated</li>
-            </ul>
-          </div>
+          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
+            Built-in Features
+          </Text>
+          <ul style={{ marginLeft: "var(--space-lg)", lineHeight: "1.6", marginBottom: "var(--space-md)" }}>
+            <li>Proper focus management with visible focus indicators</li>
+            <li>Support for all standard HTML input attributes</li>
+            <li>Screen reader compatible with proper labeling</li>
+            <li>Validation states announced to assistive technologies</li>
+            <li>Keyboard navigation support</li>
+          </ul>
           
           <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
             Best Practices
           </Text>
-          <CodeBlock>{`// Use descriptive text
-<Button variant="primary">Save Changes</Button>
+          <CodeBlock>{`// Always provide labels
+<label htmlFor="email">Email Address</label>
+<Input id="email" type="email" placeholder="Enter your email" />
 
-// Add aria-label for icon-only buttons
-<Button variant="ghost" aria-label="Close dialog">
-  ×
-</Button>
+// Use aria-describedby for error messages
+<Input
+  type="email"
+  isInvalid={hasError}
+  aria-describedby="email-error"
+/>
+{hasError && <p id="email-error">Please enter a valid email</p>}
 
-// Use loading state for async operations
-<Button loading={isSubmitting} disabled={isSubmitting}>
-  {isSubmitting ? 'Submitting...' : 'Submit'}
-</Button>
+// Mark required fields
+<Input
+  type="text"
+  placeholder="Name"
+  required
+  aria-required="true"
+/>
 
-// Provide feedback for destructive actions
-<Button 
-  variant="danger" 
-  onClick={handleDelete}
-  aria-describedby="delete-warning"
->
-  Delete Account
-</Button>`}</CodeBlock>
-        </CardBody>
-      </Card>
-
-      {/* Styling */}
-      <Card>
-        <CardBody>
-          <Text as="h2" size="xl" weight="semibold" style={{ marginBottom: "var(--space-md)" }}>
-            Styling & Customization
-          </Text>
-          
-          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)" }}>
-            CSS Variables
-          </Text>
-          <Text as="p" size="md" style={{ marginBottom: "var(--space-md)", lineHeight: "1.6" }}>
-            Button components use theme CSS variables that can be customized:
-          </Text>
-          
-          <CodeBlock language="css">{`.custom-button {
-  /* Background colors */
-  --btn-bg: var(--accent-500);
-  --btn-bg-hover: var(--accent-600);
-  --btn-bg-active: var(--accent-700);
-  
-  /* Text colors */
-  --btn-text: var(--text-on-accent);
-  
-  /* Border */
-  --btn-border: 1px solid var(--accent-500);
-  
-  /* Spacing */
-  --btn-padding-x: var(--space-md);
-  --btn-padding-y: var(--space-sm);
-  
-  /* Typography */
-  --btn-font-size: var(--font-size-base);
-  --btn-font-weight: var(--font-weight-medium);
-  
-  /* Border radius */
-  --btn-radius: var(--radius-md);
-}`}</CodeBlock>
-
-          <Text as="h3" size="lg" weight="medium" style={{ marginBottom: "var(--space-sm)", marginTop: "var(--space-lg)" }}>
-            Custom Styling
-          </Text>
-          <CodeBlock>{`// Using style prop
-<Button 
-  variant="primary" 
-  style={{
-    borderRadius: '20px',
-    textTransform: 'uppercase',
-    letterSpacing: '0.1em'
-  }}
->
-  Custom Style
-</Button>
-
-// Using className with CSS
-<Button variant="primary" className="my-custom-button">
-  Styled Button
-</Button>`}</CodeBlock>
+// Use fieldset for related inputs
+<fieldset>
+  <legend>Contact Information</legend>
+  <Input type="text" placeholder="First Name" />
+  <Input type="text" placeholder="Last Name" />
+  <Input type="email" placeholder="Email" />
+</fieldset>`}</CodeBlock>
         </CardBody>
       </Card>
     </div>

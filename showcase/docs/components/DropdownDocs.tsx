@@ -10,7 +10,7 @@ import {
   CardHeader, 
   CardBody, 
   Badge 
-} from '../../src/index';
+} from '../../../src/index';
 
 export const DropdownDocs: React.FC = () => {
   const [selectedValue, setSelectedValue] = useState<string>('option1');

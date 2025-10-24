@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardHeader, CardBody, CardFooter, Text, Button, Badge, Image } from "../../src/index";
+import { Card, CardHeader, CardBody, CardFooter, Text, Button, Badge, Image } from "../../../src/index";
 
 const CodeBlock: React.FC<{ children: string; language?: string }> = ({ children, language = "tsx" }) => (
   <pre
