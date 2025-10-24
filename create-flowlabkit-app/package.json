@@ -1,6 +1,6 @@
 {
   "name": "create-flowlabkit-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "🎨 Interactive installer for FlowLabKit UI - Create React apps with beautiful themes instantly",
   "type": "module",
   "bin": {
