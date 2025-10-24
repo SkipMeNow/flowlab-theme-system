@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowLabKit Vanilla App</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>🎨 FlowLabKit Themes</h1>
+        <p>Vanilla JavaScript + CSS Variables</p>
+      </header>
+      
+      <main>
+        <section class="theme-controls">
+          <h3>Theme Controls</h3>
+          <div class="button-group">
+            <button id="toggle-theme" class="btn btn-primary">Toggle Theme</button>
+            <button id="light-mode" class="btn btn-outline">Light Mode</button>
+            <button id="dark-mode" class="btn btn-outline">Dark Mode</button>
+          </div>
+          <div class="status">
+            <span id="current-theme" class="badge">Current: dark mode</span>
+          </div>
+        </section>
+        
+        <section class="color-palette">
+          <h3>Color Palette</h3>
+          <div class="colors">
+            <div class="color-item">
+              <div class="color-box" style="background-color: var(--accent-500)"></div>
+              <span>Primary</span>
+            </div>
+            <div class="color-item">
+              <div class="color-box" style="background-color: var(--success)"></div>
+              <span>Success</span>
+            </div>
+            <div class="color-item">
+              <div class="color-box" style="background-color: var(--warning)"></div>
+              <span>Warning</span>
+            </div>
+            <div class="color-item">
+              <div class="color-box" style="background-color: var(--error)"></div>
+              <span>Error</span>
+            </div>
+            <div class="color-item">
+              <div class="color-box" style="background-color: var(--info)"></div>
+              <span>Info</span>
+            </div>
+          </div>
+        </section>
+        
+        <section class="next-steps">
+          <h3>🚀 Next Steps</h3>
+          <ul>
+            <li>Edit <code>src/main.js</code> to customize your app</li>
+            <li>Use CSS variables like <code>var(--bg-app)</code>, <code>var(--text-primary)</code></li>
+            <li>Try different themes from <code>@flowlabkit/ui/themes</code></li>
+            <li>Check the <a href="https://skipmenow.github.io/flowlabkit-ui/" target="_blank" rel="noopener noreferrer">documentation</a></li>
+          </ul>
+          
+          <div class="tip">
+            <p><strong>💡 Tip:</strong> This template uses only CSS variables and themes. Perfect for vanilla JS projects or custom component libraries.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

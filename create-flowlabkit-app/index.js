@@ -14,34 +14,46 @@ const frameworks = [
   {
     name: 'react',
     display: 'React',
-    color: cyan,
-    variants: [
-      { name: 'react-ts-full', display: 'TypeScript + Components', color: cyan },
-      { name: 'react-ts-themes', display: 'TypeScript + Themes Only', color: cyan },
-      { name: 'react-js-full', display: 'JavaScript + Components', color: yellow },
-      { name: 'react-js-themes', display: 'JavaScript + Themes Only', color: yellow }
-    ]
+    color: cyan
   },
   {
     name: 'vanilla',
     display: 'Vanilla',
-    color: yellow,
-    variants: [
-      { name: 'vanilla-ts', display: 'TypeScript', color: cyan },
-      { name: 'vanilla-js', display: 'JavaScript', color: yellow }
-    ]
+    color: yellow
   }
 ]
 
-const themes = [
-  { name: 'core', display: 'Light & Dark only', color: dim },
-  { name: 'ocean', display: '+ Ocean theme', color: cyan },
-  { name: 'forest', display: '+ Forest theme', color: green },
-  { name: 'cyberpunk', display: '+ Cyberpunk theme', color: magenta },
-  { name: 'all', display: 'All 8 themes', color: yellow }
+const languages = [
+  { name: 'typescript', display: 'TypeScript', color: cyan },
+  { name: 'javascript', display: 'JavaScript', color: yellow }
 ]
 
-const TEMPLATES = frameworks.map(f => f.variants.map(v => v.name)).flat()
+const lightThemes = [
+  { name: 'light', display: 'Light (default)', color: dim },
+  { name: 'ocean', display: 'Ocean', color: cyan },
+  { name: 'forest', display: 'Forest', color: green },
+  { name: 'lavender', display: 'Lavender', color: magenta },
+  { name: 'autumn', display: 'Autumn', color: yellow },
+  { name: 'sunset', display: 'Sunset', color: red }
+]
+
+const darkThemes = [
+  { name: 'dark', display: 'Dark (default)', color: dim },
+  { name: 'cyberpunk', display: 'Cyberpunk', color: magenta },
+  { name: 'forest-dark', display: 'Forest Dark', color: green },
+  { name: 'ocean-dark', display: 'Ocean Dark', color: cyan }
+]
+
+const additionalThemes = [
+  { name: 'ocean', display: 'Ocean', color: cyan },
+  { name: 'forest', display: 'Forest', color: green },
+  { name: 'cyberpunk', display: 'Cyberpunk', color: magenta },
+  { name: 'lavender', display: 'Lavender', color: magenta },
+  { name: 'autumn', display: 'Autumn', color: yellow },
+  { name: 'sunset', display: 'Sunset', color: red }
+]
+
+const TEMPLATES = ['react-ts-full', 'react-ts-themes', 'react-js-full', 'react-js-themes', 'vanilla-ts', 'vanilla-js']
 
 function isValidPackageName(projectName) {
   return /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(projectName)
@@ -156,30 +168,61 @@ async function init() {
             const frameworkColor = framework.color
             return {
               title: frameworkColor(framework.display || framework.name),
-              value: framework
-            }
-          })
-        },
-        {
-          type: (framework) => framework && framework.variants ? 'select' : null,
-          name: 'variant',
-          message: 'Select setup type:',
-          choices: (framework) => framework.variants.map((variant) => {
-            const variantColor = variant.color
-            return {
-              title: variantColor(variant.display || variant.name),
-              value: variant.name
+              value: framework.name
             }
           })
         },
         {
           type: 'select',
-          name: 'themes',
-          message: 'Select themes to include:',
-          choices: themes.map((theme) => ({
+          name: 'language',
+          message: 'Select a language:',
+          initial: 0,
+          choices: languages.map((lang) => ({
+            title: lang.color(lang.display),
+            value: lang.name
+          }))
+        },
+        {
+          type: 'confirm',
+          name: 'includeComponents',
+          message: 'Install FlowLabKit components?',
+          initial: true
+        },
+        {
+          type: 'select',
+          name: 'defaultLightTheme',
+          message: 'Select default light theme:',
+          initial: 0,
+          choices: lightThemes.map((theme) => ({
             title: theme.color(theme.display),
             value: theme.name
           }))
+        },
+        {
+          type: 'select',
+          name: 'defaultDarkTheme',
+          message: 'Select default dark theme:',
+          initial: 0,
+          choices: darkThemes.map((theme) => ({
+            title: theme.color(theme.display),
+            value: theme.name
+          }))
+        },
+        {
+          type: 'multiselect',
+          name: 'additionalThemes',
+          message: 'Select additional themes (optional):',
+          choices: (prev, values) => {
+            // Filter out already selected themes
+            const selected = [values.defaultLightTheme, values.defaultDarkTheme]
+            return additionalThemes
+              .filter(theme => !selected.includes(theme.name))
+              .map((theme) => ({
+                title: theme.color(theme.display),
+                value: theme.name,
+                selected: false
+              }))
+          }
         }
       ],
       {
@@ -194,7 +237,16 @@ async function init() {
   }
 
   // user choice associated with prompts
-  const { framework, overwrite, packageName, variant, themes: selectedThemes } = result
+  const { 
+    framework, 
+    language, 
+    includeComponents, 
+    overwrite, 
+    packageName, 
+    defaultLightTheme,
+    defaultDarkTheme,
+    additionalThemes
+  } = result
 
   const root = path.join(process.cwd(), targetDir)
 
@@ -204,10 +256,32 @@ async function init() {
     fs.mkdirSync(root, { recursive: true })
   }
 
-  // determine template
-  const template = variant || framework?.name || argTemplate
+  // determine template based on framework, language, and components choice
+  let template = argTemplate
+  if (!template) {
+    if (framework === 'react') {
+      if (language === 'typescript') {
+        template = includeComponents ? 'react-ts-full' : 'react-ts-themes'
+      } else {
+        template = includeComponents ? 'react-js-full' : 'react-js-themes'
+      }
+    } else if (framework === 'vanilla') {
+      template = language === 'typescript' ? 'vanilla-ts' : 'vanilla-js'
+      // Vanilla doesn't have component distinction, always themes-only
+    }
+  }
 
   console.log(`\\nScaffolding project in ${root}...`)
+  console.log(`\\n${cyan('Configuration:')}`)
+  console.log(`  Framework: ${framework}`)
+  console.log(`  Language: ${language}`)
+  console.log(`  Components: ${includeComponents ? 'Yes' : 'No (themes only)'}`)
+  console.log(`  Default Light Theme: ${defaultLightTheme}`)
+  console.log(`  Default Dark Theme: ${defaultDarkTheme}`)
+  if (additionalThemes && additionalThemes.length > 0) {
+    console.log(`  Additional Themes: ${additionalThemes.join(', ')}`)
+  }
+  console.log(`  Template: ${template}\\n`)
 
   const templateDir = path.resolve(__dirname, 'templates', template)
 
@@ -231,18 +305,22 @@ async function init() {
 
   pkg.name = packageName || getProjectName()
 
-  // Update dependencies based on theme selection
-  if (selectedThemes === 'core') {
-    // Keep only core themes
-    if (pkg.dependencies && pkg.dependencies['@flowlabkit/ui']) {
-      // Template will use core imports
-    }
-  } else if (selectedThemes !== 'all') {
-    // Add specific theme note to package.json
-    pkg.flowlabkit = {
-      themes: [selectedThemes],
-      note: `This project includes ${selectedThemes} theme. You can import additional themes from @flowlabkit/ui/themes`
-    }
+  // Store theme configuration for project setup
+  const allSelectedThemes = [defaultLightTheme, defaultDarkTheme, ...(additionalThemes || [])]
+  const uniqueThemes = [...new Set(allSelectedThemes)].filter(Boolean)
+  
+  pkg.flowlabkit = {
+    framework,
+    language,
+    includeComponents,
+    themes: {
+      defaultLight: defaultLightTheme,
+      defaultDark: defaultDarkTheme,
+      additional: additionalThemes || [],
+      all: uniqueThemes
+    },
+    template,
+    note: `FlowLabKit project with ${framework} + ${language}${includeComponents ? ' + components' : ' (themes only)'}`
   }
 
   write('package.json', JSON.stringify(pkg, null, 2) + '\\n')
