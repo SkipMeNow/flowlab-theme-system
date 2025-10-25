@@ -1,230 +1,152 @@
 import React, { useState } from "react";
-import { ThemeProvider, Text, Layout, useTheme } from "../../src";
+import { 
+  ThemeProvider, 
+  Layout, 
+  useTheme, 
+  useIsMobile, 
+  useBreakpoint,
+  ResponsiveProvider,
+  ResponsiveWrapper
+} from "../../src";
 import { lightTheme, darkTheme } from "../../src/themes";
+import { Navigation } from "./components";
+import { PageId } from "./types";
+import {
+  OverviewPage,
+  InstallationPage,
+  ButtonPage,
+  TextPage,
+  InputPage,
+  CardPage,
+  BadgePage,
+  LayoutPage,
+  LinkPage,
+  LoadingPage,
+  SpinnerPage,
+  ImagePage,
+  VideoPage,
+  DropdownPage,
+} from "./components/pages";
 
-const ShowcaseContent: React.FC<{ onToggleTheme: () => void }> = ({
-  onToggleTheme,
-}) => {
+const DocContent: React.FC<{
+  currentPage: PageId;
+  onPageChange: (pageId: PageId) => void;
+  onToggleTheme: () => void;
+}> = ({ currentPage, onPageChange, onToggleTheme }) => {
   const { variables, theme } = useTheme();
+  const isMobile = useIsMobile();
+  const breakpoint = useBreakpoint();
+
+  // Debug: Log responsive state changes
+  React.useEffect(() => {
+    console.log('Responsive Debug:', { breakpoint, isMobile, windowWidth: window.innerWidth });
+  }, [breakpoint, isMobile]);
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case "overview":
+        return <OverviewPage />;
+      case "installation":
+        return <InstallationPage />;
+      case "button":
+        return <ButtonPage />;
+      case "text":
+        return <TextPage />;
+      case "input":
+        return <InputPage />;
+      case "card":
+        return <CardPage />;
+      case "badge":
+        return <BadgePage />;
+      case "layout":
+        return <LayoutPage />;
+      case "link":
+        return <LinkPage />;
+      case "loading":
+        return <LoadingPage />;
+      case "spinner":
+        return <SpinnerPage />;
+      case "image":
+        return <ImagePage />;
+      case "video":
+        return <VideoPage />;
+      case "dropdown":
+        return <DropdownPage />;
+      default:
+        return <OverviewPage />;
+    }
+  };
 
   return (
-    <Layout
-      direction="column"
-      gap="xl"
-      padding="xl"
-      layoutWidth="full"
-      centered
+    <div
       style={{
         minHeight: "100vh",
         backgroundColor: variables.colors.background.app,
-        color: variables.colors.text.primary,
-        boxSizing: "border-box",
-        overflow: "auto",
+        position: 'relative',
+        width: '100%',
+        overflow: 'hidden', // Prevent horizontal scroll
       }}
     >
-      {/* Header */}
-      <Layout
-        direction="row"
-        justify="between"
-        align="center"
-        padding="lg"
-        layoutWidth="full"
-        style={{
-          backgroundColor: variables.colors.background.surface,
-          borderRadius: variables.borderRadius.lg,
-          boxShadow: variables.shadows.sm,
-        }}
-      >
-        <Text
-          as="h1"
-          size="2xl"
-          weight="bold"
-          style={{ color: variables.colors.accent[600] }}
-        >
-          FlowLabKit
-        </Text>
-        <button
-          onClick={onToggleTheme}
-          style={{
-            padding: `${variables.spacing.sm} ${variables.spacing.md}`,
-            backgroundColor: "transparent",
-            border: `2px solid ${variables.colors.accent[600]}`,
-            borderRadius: variables.borderRadius.md,
-            color: variables.colors.accent[600],
-            cursor: "pointer",
-            fontFamily: variables.typography.fontFamily,
-            transition: variables.transitions.base,
-          }}
-        >
-          {theme.name === "Light" ? "🌙 Dark" : "☀️ Light"}
-        </button>
-      </Layout>
+      {/* Navigation Sidebar with Responsive Behavior */}
+      <ResponsiveWrapper behavior="Navigation">
+        <Navigation
+          currentPage={currentPage}
+          onPageChange={onPageChange}
+          data-layout="layout"
+        />
+      </ResponsiveWrapper>
 
-      {/* Hero Section */}
-      <Layout
-        direction="column"
-        align="center"
-        layoutWidth="full"
-        style={{ textAlign: "center", width: "100%" }}
-      >
+      {/* Header with Responsive Behavior */}
+      <ResponsiveWrapper behavior="Header">
         <div
           style={{
-            display: "inline-block",
-            padding: `${variables.spacing.xs} ${variables.spacing.sm}`,
-            backgroundColor: variables.colors.accent[100],
-            color: variables.colors.accent[700],
-            borderRadius: variables.borderRadius.full,
-            fontSize: variables.typography.fontSize.sm,
-            fontWeight: variables.typography.fontWeight.medium,
-            marginBottom: variables.spacing.md,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
-          React Component Library
-        </div>
-        <Text
-          as="h2"
-          size="3xl"
-          weight="bold"
-          style={{ marginBottom: variables.spacing.md }}
-        >
-          Build Beautiful Apps Faster
-        </Text>
-        <Text
-          size="lg"
-          color="secondary"
-          style={{ marginBottom: variables.spacing.xl }}
-        >
-          FlowLabKit provides everything you need to create modern, accessible
-          React applications with TypeScript support and powerful theming
-          capabilities.
-        </Text>
-      </Layout>
-
-      {/* Typography Showcase */}
-      <Layout
-        direction="column"
-        gap="xl"
-        padding="xl"
-        layoutWidth="full"
-        align="center"
-        style={{
-          backgroundColor: variables.colors.background.surface,
-          borderRadius: variables.borderRadius.lg,
-          boxShadow: variables.shadows.sm,
-        }}
-      >
-        <Text as="h3" size="2xl" weight="bold" style={{ textAlign: "center" }}>
-          Typography System
-        </Text>
-
-        <Layout direction="column" gap="md" layoutWidth="auto">
-          <Text as="h1" size="3xl" weight="bold">
-            3XL Heading - Hero Title
-          </Text>
-          <Text as="h2" size="2xl" weight="semibold">
-            2XL Heading - Section Title
-          </Text>
-          <Text as="h3" size="xl" weight="medium">
-            XL Heading - Subsection
-          </Text>
-          <Text size="lg">Large text - Important content</Text>
-          <Text size="md">Medium text - Regular body text</Text>
-          <Text size="sm" color="secondary">
-            Small secondary text - Helper text
-          </Text>
-        </Layout>
-      </Layout>
-
-      {/* Theme Demo */}
-      <Layout
-        direction="column"
-        gap="xl"
-        padding="xl"
-        layoutWidth="full"
-        align="center"
-        style={{
-          backgroundColor: variables.colors.background.surface,
-          borderRadius: variables.borderRadius.lg,
-          boxShadow: variables.shadows.sm,
-        }}
-      >
-        <Text as="h3" size="2xl" weight="bold" style={{ textAlign: "center" }}>
-          Theme System
-        </Text>
-
-        <Layout
-          direction="column"
-          align="center"
-          layoutWidth="full"
-          style={{ textAlign: "center" }}
-        >
-          <Text size="lg">
-            Current theme: <strong>{theme.name}</strong>
-          </Text>
-          <Text size="sm" color="secondary">
-            FlowLabKit uses organized theme variables for dynamic theming.
-            Switch between themes to see the magic!
-          </Text>
-
-          <Layout
-            direction="row"
-            justify="center"
-            gap="md"
-            wrap
-            layoutWidth="auto"
+          {/* Debug indicator */}
+          <div style={{ 
+            padding: '0.5rem', 
+            fontSize: '0.75rem', 
+            color: variables.colors.text.secondary,
+            backgroundColor: variables.colors.background.elevated,
+            borderRadius: variables.borderRadius.sm,
+            fontFamily: 'monospace'
+          }}>
+            {breakpoint} {isMobile ? '📱' : '💻'} ({window.innerWidth}px)
+          </div>
+          <button
+            onClick={onToggleTheme}
+            style={{
+              padding: `${variables.spacing.sm} ${variables.spacing.md}`,
+              backgroundColor: "transparent",
+              border: `2px solid ${variables.colors.accent[600]}`,
+              borderRadius: variables.borderRadius.md,
+              color: variables.colors.accent[600],
+              cursor: "pointer",
+              fontFamily: variables.typography.fontFamily,
+              transition: variables.transitions.base,
+            }}
           >
-            <button
-              onClick={onToggleTheme}
-              style={{
-                padding: `${variables.spacing.md} ${variables.spacing.lg}`,
-                backgroundColor: variables.colors.accent[600],
-                color: variables.colors.text.inverse,
-                border: "none",
-                borderRadius: variables.borderRadius.md,
-                cursor: "pointer",
-                fontWeight: variables.typography.fontWeight.medium,
-                fontFamily: variables.typography.fontFamily,
-                transition: variables.transitions.base,
-              }}
-            >
-              Switch Theme
-            </button>
+            {theme.name === "Light" ? "🌙 Dark" : "☀️ Light"}
+          </button>
+        </div>
+      </ResponsiveWrapper>
 
-            <Layout direction="row" gap="sm" align="center" layoutWidth="auto">
-              <span
-                style={{
-                  padding: `${variables.spacing.xs} ${variables.spacing.sm}`,
-                  backgroundColor: variables.colors.semantic.infoLight,
-                  color: variables.colors.semantic.info,
-                  borderRadius: variables.borderRadius.full,
-                  fontSize: variables.typography.fontSize.xs,
-                  fontWeight: variables.typography.fontWeight.medium,
-                }}
-              >
-                Theme Variables
-              </span>
-              <span
-                style={{
-                  padding: `${variables.spacing.xs} ${variables.spacing.sm}`,
-                  backgroundColor: variables.colors.semantic.successLight,
-                  color: variables.colors.semantic.success,
-                  borderRadius: variables.borderRadius.full,
-                  fontSize: variables.typography.fontSize.xs,
-                  fontWeight: variables.typography.fontWeight.medium,
-                }}
-              >
-                TypeScript
-              </span>
-            </Layout>
-          </Layout>
-        </Layout>
-      </Layout>
-    </Layout>
+      {/* Main Content Area with Responsive Behavior */}
+      <ResponsiveWrapper behavior="Content">
+        <div>
+          {renderPage()}
+        </div>
+      </ResponsiveWrapper>
+    </div>
   );
 };
 
 const App: React.FC = () => {
   const [currentTheme, setCurrentTheme] = useState(lightTheme);
+  const [currentPage, setCurrentPage] = useState<PageId>("overview");
 
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === lightTheme ? darkTheme : lightTheme);
@@ -232,7 +154,13 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={currentTheme}>
-      <ShowcaseContent onToggleTheme={toggleTheme} />
+      <ResponsiveProvider>
+        <DocContent
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          onToggleTheme={toggleTheme}
+        />
+      </ResponsiveProvider>
     </ThemeProvider>
   );
 };

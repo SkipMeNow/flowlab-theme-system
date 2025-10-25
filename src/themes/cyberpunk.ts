@@ -172,4 +172,15 @@ export const cyberpunkTheme: Theme = {
     fast: '100ms linear',
     base: '150ms linear',
     slow: '200ms linear',
-  },};
+  },
+  breakpoints: {
+    xs: '480px',
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px',
+    xxl: '1536px',
+  },
+};
+
+

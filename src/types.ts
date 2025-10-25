@@ -201,6 +201,15 @@ export interface ThemeTransitions {
   slow: string;
 }
 
+export interface ThemeBreakpoints {
+  xs: string;
+  sm: string;
+  md: string;
+  lg: string;
+  xl: string;
+  xxl: string;
+}
+
 export interface Theme {
   name: string;
   colors: ThemeColors;
@@ -210,6 +219,7 @@ export interface Theme {
   shadows: ThemeShadows;
   zIndex: ThemeZIndex;
   transitions: ThemeTransitions;
+  breakpoints: ThemeBreakpoints;
 }
 
 export type ThemeMode = 'light' | 'dark';

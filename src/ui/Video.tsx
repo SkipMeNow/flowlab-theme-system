@@ -755,6 +755,7 @@ export const Video = forwardRef<HTMLVideoElement, VideoProps>(({
       <video
         ref={actualRef}
         src={src}
+        controls={false}
         style={combinedStyles}
         onLoadStart={handleLoadStart}
         onLoadedData={handleLoadedData}
