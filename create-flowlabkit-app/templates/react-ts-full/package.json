@@ -10,20 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@flowlabkit/ui": "latest"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@flowlabkit/ui": "^1.7.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.55.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.6"
   }
 }

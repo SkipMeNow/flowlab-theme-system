@@ -114,8 +114,9 @@ function pkgFromUserAgent(userAgent) {
 }
 
 async function init() {
-  const argTargetDir = process.argv[2]
-  const argTemplate = process.argv[3]
+  const argv = minimist(process.argv.slice(2), { string: ['_'] })
+  const argTargetDir = argv._[0]
+  const argTemplate = argv.template
 
   let targetDir = argTargetDir || 'flowlabkit-project'
 
@@ -215,7 +216,15 @@ async function init() {
           choices: (prev, values) => {
             // Filter out already selected themes
             const selected = [values.defaultLightTheme, values.defaultDarkTheme]
-            return additionalThemes
+            const allAdditionalThemes = [
+              { name: 'ocean', display: 'Ocean', color: cyan },
+              { name: 'forest', display: 'Forest', color: green },
+              { name: 'cyberpunk', display: 'Cyberpunk', color: magenta },
+              { name: 'lavender', display: 'Lavender', color: magenta },
+              { name: 'autumn', display: 'Autumn', color: yellow },
+              { name: 'sunset', display: 'Sunset', color: red }
+            ]
+            return allAdditionalThemes
               .filter(theme => !selected.includes(theme.name))
               .map((theme) => ({
                 title: theme.color(theme.display),
@@ -237,7 +246,7 @@ async function init() {
   }
 
   // user choice associated with prompts
-  const { 
+  let { 
     framework, 
     language, 
     includeComponents, 
@@ -269,10 +278,21 @@ async function init() {
       template = language === 'typescript' ? 'vanilla-ts' : 'vanilla-js'
       // Vanilla doesn't have component distinction, always themes-only
     }
+  } else {
+    // Derive framework and language from template when using --template
+    if (template.startsWith('react-')) {
+      framework = 'react'
+      language = template.includes('-ts-') ? 'typescript' : 'javascript'
+      includeComponents = template.includes('-full')
+    } else if (template.startsWith('vanilla-')) {
+      framework = 'vanilla'
+      language = template.endsWith('-ts') ? 'typescript' : 'javascript'
+      includeComponents = false // vanilla doesn't have full components
+    }
   }
 
-  console.log(`\\nScaffolding project in ${root}...`)
-  console.log(`\\n${cyan('Configuration:')}`)
+  console.log(`\nScaffolding project in ${root}...`)
+  console.log(`\n${cyan('Configuration:')}`)
   console.log(`  Framework: ${framework}`)
   console.log(`  Language: ${language}`)
   console.log(`  Components: ${includeComponents ? 'Yes' : 'No (themes only)'}`)
@@ -281,7 +301,7 @@ async function init() {
   if (additionalThemes && additionalThemes.length > 0) {
     console.log(`  Additional Themes: ${additionalThemes.join(', ')}`)
   }
-  console.log(`  Template: ${template}\\n`)
+  console.log(`  Template: ${template}\n`)
 
   const templateDir = path.resolve(__dirname, 'templates', template)
 
@@ -323,7 +343,7 @@ async function init() {
     note: `FlowLabKit project with ${framework} + ${language}${includeComponents ? ' + components' : ' (themes only)'}`
   }
 
-  write('package.json', JSON.stringify(pkg, null, 2) + '\\n')
+  write('package.json', JSON.stringify(pkg, null, 2) + '\n')
 
   const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent)
   const pkgManager = pkgInfo ? pkgInfo.name : 'npm'
