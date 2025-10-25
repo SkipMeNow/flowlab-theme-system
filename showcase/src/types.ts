@@ -16,6 +16,7 @@ export type PageId =
   | 'installation' 
   | 'getting-started'
   | 'theming'
+  | 'responsive'
   | 'text'
   | 'button'
   | 'input'

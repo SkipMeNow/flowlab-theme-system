@@ -17,6 +17,7 @@ const navigationItems = [
       { id: "installation", label: "Installation" },
       { id: "getting-started", label: "Getting Started" },
       { id: "theming", label: "Theming" },
+      { id: "responsive", label: "Responsive System" },
     ],
   },
   {

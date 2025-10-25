@@ -1,5 +1,8 @@
 export { OverviewPage } from './OverviewPage';
 export { InstallationPage } from './InstallationPage';
+export { GettingStartedPage } from './GettingStartedPage';
+export { ThemingPage } from './ThemingPage';
+export { ResponsivePage } from './ResponsivePage';
 export { ButtonPage } from './ButtonPage';
 export { TextPage } from './TextPage';
 export { InputPage } from './InputPage';

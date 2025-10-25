@@ -7,9 +7,10 @@
 This is the interactive showcase and documentation for the FlowLabKit Theme System - a comprehensive React theming solution with:
 
 -  **8 Built-in Themes**: Light, Dark, Ocean, Forest, Sunset, Lavender, Cyberpunk, Autumn
+-  **Advanced Responsive System**: CSS-like responsive behavior with unified layout components
 -  **Complete UI Components**: Buttons, Cards, Inputs, Typography, Badges, Links
 -  **Dynamic Theme Switching**: Real-time theme changes
--  **Responsive Design**: Works on all devices
+-  **Mobile-First Design**: Responsive breakpoints, touch interactions, and mobile optimizations
 -  **Customizable Settings**: Font size, compact mode, separate light/dark themes
 -  **CSS Variables**: Easy customization and integration
 
@@ -20,17 +21,26 @@ This is the interactive showcase and documentation for the FlowLabKit Theme Syst
 - Theme switching capabilities
 - Color palette and design system overview
 
+### Responsive System Demo
+- Real-time breakpoint detection and display
+- ResponsiveWrapper behavior demonstrations
+- Mobile navigation with hamburger menu
+- Tablet and desktop layout variations
+- Interactive resize testing
+
 ### Component Library
 - Complete UI component examples
 - All variants, sizes, and states
 - Interactive demonstrations
 - Code examples for each component
+- Responsive behavior across all screen sizes
 
 ### Documentation
 - Installation and setup guide
 - Usage examples
 - API documentation
-- Integration instructions
+- Responsive system integration
+- Mobile testing instructions
 
 ## Development
 

@@ -14,6 +14,9 @@ import { PageId } from "./types";
 import {
   OverviewPage,
   InstallationPage,
+  GettingStartedPage,
+  ThemingPage,
+  ResponsivePage,
   ButtonPage,
   TextPage,
   InputPage,
@@ -48,6 +51,12 @@ const DocContent: React.FC<{
         return <OverviewPage />;
       case "installation":
         return <InstallationPage />;
+      case "getting-started":
+        return <GettingStartedPage />;
+      case "theming":
+        return <ThemingPage />;
+      case "responsive":
+        return <ResponsivePage />;
       case "button":
         return <ButtonPage />;
       case "text":

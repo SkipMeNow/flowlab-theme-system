@@ -5,7 +5,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A comprehensive, TypeScript-first theme system for React applications with **8 beautiful built-in themes**, full CSS variable support, and extensive customization options. Part of the FlowLabKit ecosystem for building modern React applications.
+A comprehensive, TypeScript-first theme system for React applications with **8 beautiful built-in themes**, **advanced responsive system**, full CSS variable support, and extensive customization options. Part of the FlowLabKit ecosystem for building modern React applications.
 
 **[Live Demo & Documentation →](https://skipmenow.github.io/flowlabkit-ui/)**
 
@@ -27,6 +27,7 @@ cd my-app && npm install && npm run dev
 ## Features
 
 - **8 Built-in Themes**: Light, Dark, Ocean, Forest, Sunset, Lavender, Cyberpunk, and Autumn themes
+- **Advanced Responsive System**: CSS-like responsive behavior with unified layout components, real-time breakpoint detection, and mobile-first design
 - **Dark/Light Mode**: Seamless theme switching with automatic CSS variable updates  
 - **Responsive Typography**: Font size scaling (small/medium/large) with proper line heights
 - **Compact Mode**: Space-efficient layout option for dense interfaces
@@ -149,30 +150,60 @@ npm install @flowlabkit/ui
 ## Quick Start
 ```tsx
 import React from 'react';
-import { ThemeProvider, Button, Card, CardBody, PanelGroup, Panel } from '@flowlabkit/ui';
+import { 
+  ThemeProvider, 
+  ResponsiveProvider, 
+  ResponsiveWrapper, 
+  Button, 
+  Card, 
+  CardBody, 
+  PanelGroup, 
+  Panel,
+  useIsMobile 
+} from '@flowlabkit/ui';
 
 function App() {
   return (
     <ThemeProvider initialConfig={{ mode: 'dark', fontSize: 'medium' }}>
-      <PanelGroup direction="horizontal">
-        <Panel defaultSize={30} minSize={20}>
-          <Card>
-            <CardBody>
-              <h2>Sidebar</h2>
-              <Button variant="primary">Navigation</Button>
-            </CardBody>
-          </Card>
-        </Panel>
-        <Panel defaultSize={70}>
-          <Card>
-            <CardBody>
-              <h1>Welcome to FlowLabKit UI!</h1>
-              <p>Complete with resizable panels!</p>
-              <Button variant="primary">Get Started</Button>
-            </CardBody>
-          </Card>
-        </Panel>
-      </PanelGroup>
+      <ResponsiveProvider>
+        <div style={{ minHeight: "100vh", position: 'relative' }}>
+          {/* Navigation with responsive behavior */}
+          <ResponsiveWrapper behavior="Navigation">
+            <Navigation onPageChange={setCurrentPage} />
+          </ResponsiveWrapper>
+
+          {/* Header with responsive behavior */}
+          <ResponsiveWrapper behavior="Header">
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <h1>FlowLabKit UI</h1>
+              <Button variant="primary">Toggle Theme</Button>
+            </div>
+          </ResponsiveWrapper>
+
+          {/* Content with responsive behavior */}
+          <ResponsiveWrapper behavior="Content">
+            <PanelGroup direction="horizontal">
+              <Panel defaultSize={30} minSize={20}>
+                <Card>
+                  <CardBody>
+                    <h2>Responsive Sidebar</h2>
+                    <p>Adapts to mobile, tablet, and desktop automatically!</p>
+                  </CardBody>
+                </Card>
+              </Panel>
+              <Panel defaultSize={70}>
+                <Card>
+                  <CardBody>
+                    <h1>Welcome to FlowLabKit UI!</h1>
+                    <p>Complete with responsive design and resizable panels!</p>
+                    <Button variant="primary">Get Started</Button>
+                  </CardBody>
+                </Card>
+              </Panel>
+            </PanelGroup>
+          </ResponsiveWrapper>
+        </div>
+      </ResponsiveProvider>
     </ThemeProvider>
   );
 }
@@ -219,6 +250,7 @@ import { Button, Card } from '@flowlabkit/ui/components';
 - **Feedback Components**: Spinner, LoadingIndicator
 - **Layout Components**: Card, CardHeader, CardBody, CardFooter
 - **Panel System**: PanelGroup, Panel, PanelResizeHandle, PanelPresets (10+ layouts)
+- **Responsive System**: ResponsiveProvider, ResponsiveWrapper, useBreakpoint, useIsMobile, useOrientation, useResponsiveValue
 
 ## Panel System
 
@@ -284,6 +316,90 @@ import { SidebarLeftLayout, DashboardLayout, EmailLayout } from '@flowlabkit/ui'
 - **TypeScript**: Complete type safety with extensive interfaces
 
 [Full Panel Documentation →](./docs/PANELS.md)
+
+## Responsive System
+
+FlowLabKit UI includes a comprehensive responsive system that works like CSS media queries but with React components.
+
+### Three Approaches to Responsive Design
+
+#### 1. ResponsiveWrapper (CSS-Like Override System)
+```tsx
+import { ResponsiveProvider, ResponsiveWrapper } from '@flowlabkit/ui';
+
+function ResponsiveApp() {
+  return (
+    <ResponsiveProvider>
+      {/* Navigation: Desktop sidebar, tablet drawer, mobile hamburger */}
+      <ResponsiveWrapper behavior="Navigation">
+        <Navigation />
+      </ResponsiveWrapper>
+
+      {/* Content: Responsive margins, spacing, and mobile optimizations */}
+      <ResponsiveWrapper behavior="Content">
+        <div style={{ maxWidth: '1200px', padding: '2rem' }}>
+          {/* ResponsiveWrapper overrides these styles based on screen size */}
+        </div>
+      </ResponsiveWrapper>
+
+      {/* Header: Responsive positioning and spacing */}
+      <ResponsiveWrapper behavior="Header">
+        <Header />
+      </ResponsiveWrapper>
+    </ResponsiveProvider>
+  );
+}
+```
+
+#### 2. Responsive Hooks (Manual Control)
+```tsx
+import { useBreakpoint, useIsMobile, useOrientation } from '@flowlabkit/ui';
+
+function CustomResponsiveComponent() {
+  const isMobile = useIsMobile();
+  const breakpoint = useBreakpoint();
+  const orientation = useOrientation();
+  
+  return (
+    <div style={{
+      padding: isMobile ? '1rem' : '2rem',
+      maxWidth: breakpoint === 'xs' ? '100%' : '1200px',
+      flexDirection: orientation === 'portrait' ? 'column' : 'row'
+    }}>
+      <h1>Breakpoint: {breakpoint}</h1>
+      <p>Mobile: {isMobile ? 'Yes' : 'No'}</p>
+      <p>Orientation: {orientation}</p>
+    </div>
+  );
+}
+```
+
+#### 3. Hardcoded CSS (Static)
+```tsx
+// Traditional approach - no responsiveness
+<div style={{ padding: '2rem', maxWidth: '1200px' }}>
+  Static content
+</div>
+```
+
+### Responsive Features
+
+- **Real-Time Updates**: All hooks update immediately on window resize
+- **Mobile-First Design**: Optimized for touch interactions and small screens
+- **Unified Layout Components**: NavigationLayout, ContentLayout, HeaderLayout handle all screen sizes internally
+- **CSS-Like Override System**: ResponsiveWrapper always takes precedence over wrapped component styles
+- **Accessibility**: Full ARIA support, keyboard navigation, screen reader friendly
+- **TypeScript Support**: Complete type safety with comprehensive interfaces
+
+### Breakpoints
+- **xs**: 0-479px (Mobile portrait)
+- **sm**: 480-639px (Mobile landscape)  
+- **md**: 640-767px (Small tablet)
+- **lg**: 768-1023px (Tablet/small desktop)
+- **xl**: 1024-1279px (Desktop)
+- **xxl**: 1280px+ (Large desktop)
+
+[Full Responsive Documentation →](./RESPONSIVE_SYSTEM.md)
 
 ## Quick Start
 
