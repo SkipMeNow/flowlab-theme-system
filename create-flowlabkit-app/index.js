@@ -212,26 +212,36 @@ async function init() {
         {
           type: 'multiselect',
           name: 'additionalThemes',
-          message: 'Select additional themes (optional):',
+          message: 'Select additional themes (Space to select, A to toggle all, Enter to confirm):',
+          hint: '- Space to select/deselect, A to toggle all, Enter to confirm',
+          instructions: false,
           choices: (prev, values) => {
             // Filter out already selected themes
             const selected = [values.defaultLightTheme, values.defaultDarkTheme]
             const allAdditionalThemes = [
-              { name: 'ocean', display: 'Ocean', color: cyan },
-              { name: 'forest', display: 'Forest', color: green },
-              { name: 'cyberpunk', display: 'Cyberpunk', color: magenta },
-              { name: 'lavender', display: 'Lavender', color: magenta },
-              { name: 'autumn', display: 'Autumn', color: yellow },
-              { name: 'sunset', display: 'Sunset', color: red }
+              { name: 'ocean', display: '🌊 Ocean', color: cyan },
+              { name: 'forest', display: '🌲 Forest', color: green },
+              { name: 'cyberpunk', display: '🔮 Cyberpunk', color: magenta },
+              { name: 'lavender', display: '💜 Lavender', color: magenta },
+              { name: 'autumn', display: '🍂 Autumn', color: yellow },
+              { name: 'sunset', display: '🌅 Sunset', color: red }
             ]
-            return allAdditionalThemes
-              .filter(theme => !selected.includes(theme.name))
-              .map((theme) => ({
+            const availableThemes = allAdditionalThemes.filter(theme => !selected.includes(theme.name))
+            
+            return [
+              {
+                title: dim('📦 Select All Available Themes'),
+                value: '__SELECT_ALL__',
+                selected: false
+              },
+              ...availableThemes.map((theme) => ({
                 title: theme.color(theme.display),
                 value: theme.name,
                 selected: false
               }))
-          }
+            ]
+          },
+
         }
       ],
       {
@@ -256,6 +266,16 @@ async function init() {
     defaultDarkTheme,
     additionalThemes
   } = result
+
+  // Handle "Select All" option for additional themes
+  if (additionalThemes && additionalThemes.includes('__SELECT_ALL__')) {
+    const selected = [defaultLightTheme, defaultDarkTheme]
+    const allAdditionalThemes = ['ocean', 'forest', 'cyberpunk', 'lavender', 'autumn', 'sunset']
+    additionalThemes = allAdditionalThemes.filter(theme => !selected.includes(theme))
+  } else if (additionalThemes) {
+    // Filter out the select all option if it wasn't selected
+    additionalThemes = additionalThemes.filter(theme => theme !== '__SELECT_ALL__')
+  }
 
   const root = path.join(process.cwd(), targetDir)
 
@@ -363,7 +383,7 @@ async function init() {
       break
   }
   console.log()
-  console.log(cyan('Happy theming with FlowLabKit!'))
+  console.log(cyan('🎨 Your FlowLabKit app is ready to flow! Start building something amazing!'))
 }
 
 init().catch((e) => {
