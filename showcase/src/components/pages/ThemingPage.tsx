@@ -43,11 +43,13 @@ export const ThemingPage: React.FC = () => {
   };
 
   const handleLightThemeChange = (themeName: string) => {
+    console.log('Setting light theme to:', themeName);
     setSelectedLightTheme(themeName);
     setLightTheme(themeMap[themeName]);
   };
 
   const handleDarkThemeChange = (themeName: string) => {
+    console.log('Setting dark theme to:', themeName);
     setSelectedDarkTheme(themeName);
     setDarkTheme(themeMap[themeName]);
   };
@@ -198,7 +200,10 @@ function ThemeSelector() {
                   <Button
                     variant={config.compactMode ? "primary" : "outline"}
                     size="sm"
-                    onClick={() => setCompactMode(!config.compactMode)}
+                    onClick={() => {
+                      console.log('Toggling compact mode from:', config.compactMode, 'to:', !config.compactMode);
+                      setCompactMode(!config.compactMode);
+                    }}
                   >
                     {config.compactMode ? '📦 Compact ON' : '📦 Compact OFF'}
                   </Button>
@@ -262,16 +267,31 @@ function ThemeSelector() {
                 </Layout>
               </Layout>
               
-              <Text size="sm" style={{ 
-                fontStyle: 'italic', 
-                color: '#475569',
-                backgroundColor: '#f1f5f9',
-                padding: '12px',
-                borderRadius: '8px',
-                borderLeft: '4px solid #3b82f6'
-              }}>
-                💡 <strong>Tip:</strong> Switch between light and dark mode using the theme toggle in the top navigation to see your selected themes in action!
-              </Text>
+              <Layout direction="column" gap="sm">
+                <Text size="sm" style={{ 
+                  fontStyle: 'italic', 
+                  color: '#475569',
+                  backgroundColor: '#f1f5f9',
+                  padding: '12px',
+                  borderRadius: '8px',
+                  borderLeft: '4px solid #3b82f6'
+                }}>
+                  💡 <strong>Tip:</strong> Switch between light and dark mode using the theme toggle in the top navigation to see your selected themes in action!
+                </Text>
+                
+                {/* Debug Info */}
+                <Text size="xs" style={{ 
+                  color: '#64748b',
+                  backgroundColor: '#f8fafc',
+                  padding: '8px',
+                  borderRadius: '4px',
+                  fontFamily: 'monospace'
+                }}>
+                  <strong>Current State:</strong> Compact: {config.compactMode ? 'ON' : 'OFF'} | 
+                  Light: {selectedLightTheme} | Dark: {selectedDarkTheme} | 
+                  Mode: {config.mode}
+                </Text>
+              </Layout>
             </Layout>
           </CardBody>
         </Card>

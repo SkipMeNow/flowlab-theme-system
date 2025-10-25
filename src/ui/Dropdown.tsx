@@ -1,4 +1,5 @@
 import React, { forwardRef, useState, useRef, useEffect, ReactNode, HTMLAttributes } from 'react';
+import { createPortal } from 'react-dom';
 import { useTheme } from '../hooks/useTheme';
 
 export interface DropdownItemProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'className'> {
@@ -262,61 +263,124 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
-  // Position dropdown content
-  const getContentStyles = (): React.CSSProperties => {
-    const styles: React.CSSProperties = {
-      position: 'absolute',
-      zIndex: variables.zIndex.dropdown,
-      minWidth: 'max-content',
-      maxWidth: '400px',
+  // Handle window resize and scroll to reposition dropdown
+  const [contentStyles, setContentStyles] = useState<React.CSSProperties>({});
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const updatePosition = () => {
+      setContentStyles(getContentStyles());
     };
 
-    // Removed responsive mobile positioning
+    // Initial positioning
+    updatePosition();
 
-    // Side positioning
+    // Update position on scroll and resize
+    const handlePositionUpdate = () => {
+      updatePosition();
+    };
+
+    window.addEventListener('scroll', handlePositionUpdate, true);
+    window.addEventListener('resize', handlePositionUpdate);
+
+    return () => {
+      window.removeEventListener('scroll', handlePositionUpdate, true);
+      window.removeEventListener('resize', handlePositionUpdate);
+    };
+  }, [isOpen, side, align, sideOffset]);
+
+  // Position dropdown content with fixed positioning to avoid clipping
+  const getContentStyles = (): React.CSSProperties => {
+    if (!triggerRef.current) {
+      return {
+        position: 'fixed',
+        zIndex: variables.zIndex.modal, // Use modal z-index for highest priority
+        minWidth: 'max-content',
+        maxWidth: '400px',
+        visibility: 'hidden',
+      };
+    }
+
+    const triggerRect = triggerRef.current.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    const styles: React.CSSProperties = {
+      position: 'fixed', // Use fixed positioning to avoid parent container clipping
+      zIndex: variables.zIndex.modal, // Use highest z-index to ensure it's on top
+      minWidth: Math.max(triggerRect.width, 200), // Minimum width based on trigger
+      maxWidth: Math.min(400, viewportWidth - 20), // Responsive max width
+      maxHeight: viewportHeight - 20, // Prevent overflow
+      overflow: 'auto', // Allow scrolling if content is too tall
+    };
+
+    // Calculate position based on side preference
+    let top = triggerRect.bottom + sideOffset;
+    let left = triggerRect.left;
+
+    // Handle side positioning
     switch (side) {
       case 'top':
-        styles.bottom = `calc(100% + ${sideOffset}px)`;
+        top = triggerRect.top - sideOffset;
         break;
       case 'bottom':
-        styles.top = `calc(100% + ${sideOffset}px)`;
+        top = triggerRect.bottom + sideOffset;
         break;
       case 'left':
-        styles.right = `calc(100% + ${sideOffset}px)`;
+        left = triggerRect.left - sideOffset;
+        top = triggerRect.top;
         break;
       case 'right':
-        styles.left = `calc(100% + ${sideOffset}px)`;
+        left = triggerRect.right + sideOffset;
+        top = triggerRect.top;
         break;
     }
 
-    // Alignment
+    // Handle alignment
     if (side === 'top' || side === 'bottom') {
       switch (align) {
         case 'start':
-          styles.left = '0';
+          left = triggerRect.left;
           break;
         case 'center':
-          styles.left = '50%';
+          left = triggerRect.left + triggerRect.width / 2;
           styles.transform = 'translateX(-50%)';
           break;
         case 'end':
-          styles.right = '0';
-          break;
-      }
-    } else {
-      switch (align) {
-        case 'start':
-          styles.top = '0';
-          break;
-        case 'center':
-          styles.top = '50%';
-          styles.transform = 'translateY(-50%)';
-          break;
-        case 'end':
-          styles.bottom = '0';
+          left = triggerRect.right;
+          styles.transform = 'translateX(-100%)';
           break;
       }
     }
+
+    // Prevent dropdown from going off-screen
+    const dropdownWidth = styles.minWidth as number;
+    
+    // Adjust horizontal position if it would go off-screen
+    if (left + dropdownWidth > viewportWidth) {
+      left = viewportWidth - dropdownWidth - 10;
+    }
+    if (left < 10) {
+      left = 10;
+    }
+
+    // Adjust vertical position if it would go off-screen
+    const estimatedHeight = 300; // Estimate dropdown height
+    if (top + estimatedHeight > viewportHeight && triggerRect.top > estimatedHeight) {
+      // Flip to top if there's more space above
+      top = triggerRect.top - sideOffset;
+      if (side === 'bottom') {
+        styles.transform = (styles.transform || '') + ' translateY(-100%)';
+      }
+    }
+
+    if (top < 10) {
+      top = 10;
+    }
+
+    styles.top = top;
+    styles.left = left;
 
     return styles;
   };
@@ -343,8 +407,10 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
       <div ref={containerRef}>
         {triggerElement}
         
-        {isOpen && (
-          <div style={getContentStyles()}>
+        
+        {/* Render dropdown content as portal to document.body to avoid clipping */}
+        {isOpen && typeof document !== 'undefined' && createPortal(
+          <div style={contentStyles}>
             <DropdownContent
               ref={contentRef}
               align={align}
@@ -386,7 +452,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
                 return child;
               })}
             </DropdownContent>
-          </div>
+          </div>,
+          document.body
         )}
       </div>
     </div>
