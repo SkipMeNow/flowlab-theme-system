@@ -195,6 +195,30 @@ function MyComponent() {
             All values update in real-time as you change the window size.
           </Text>
           
+          {/* Browser DevTools Instructions */}
+          <Card style={{ backgroundColor: '#f0f9ff', borderColor: '#0ea5e9' }}>
+            <CardBody>
+              <Layout direction="column" gap="sm">
+                <Text weight="semibold" size="lg" style={{ color: '#0369a1' }}>
+                  🔍 Use Browser DevTools for Best Testing
+                </Text>
+                <Text size="md" style={{ lineHeight: 1.6 }}>
+                  <strong>To see the responsive system in action:</strong>
+                </Text>
+                <Layout direction="column" gap="xs" style={{ marginLeft: '1rem' }}>
+                  <Text size="sm">1. <strong>Press F12</strong> or <strong>Right-click → Inspect</strong> to open DevTools</Text>
+                  <Text size="sm">2. <strong>Click the device icon</strong> (📱) or press <strong>Ctrl+Shift+M</strong> to toggle device simulation</Text>
+                  <Text size="sm">3. <strong>Select different devices</strong> from the dropdown (iPhone, iPad, etc.)</Text>
+                  <Text size="sm">4. <strong>Use the responsive slider</strong> to manually adjust width/height</Text>
+                  <Text size="sm">5. <strong>Rotate the device</strong> using the rotate icon to test portrait/landscape</Text>
+                </Layout>
+                <Text size="sm" style={{ fontStyle: 'italic', color: '#0369a1' }}>
+                  Watch how the demo values below change as you simulate different devices and screen sizes!
+                </Text>
+              </Layout>
+            </CardBody>
+          </Card>
+          
           <Card>
             <CardBody>
               <Layout direction="column" gap="md">

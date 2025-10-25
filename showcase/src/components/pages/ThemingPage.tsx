@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Text, Layout, Card, CardBody, Button } from "../../../../src";
+import { 
+  Text, 
+  Layout, 
+  Card, 
+  CardBody, 
+  Button, 
+  Dropdown, 
+  DropdownContent, 
+  DropdownItem 
+} from "../../../../src";
+import { useTheme } from "../../../../src/hooks";
 import { DocPageLayout } from "../DocPageLayout";
 import { CodeExample } from "../CodeExample";
 import { 
@@ -14,9 +24,33 @@ import {
 } from "../../../../src/themes";
 
 export const ThemingPage: React.FC = () => {
+  const { config, setCompactMode, setLightTheme, setDarkTheme } = useTheme();
   const [selectedTheme, setSelectedTheme] = useState('light');
+  const [selectedLightTheme, setSelectedLightTheme] = useState('light');
+  const [selectedDarkTheme, setSelectedDarkTheme] = useState('dark');
   
   const allThemes = ['light', 'dark', 'ocean', 'forest', 'sunset', 'lavender', 'cyberpunk', 'autumn'];
+  
+  const themeMap: Record<string, any> = {
+    light: lightTheme,
+    dark: darkTheme,
+    ocean: oceanTheme,
+    forest: forestTheme,
+    sunset: sunsetTheme,
+    lavender: lavenderTheme,
+    cyberpunk: cyberpunkTheme,
+    autumn: autumnTheme
+  };
+
+  const handleLightThemeChange = (themeName: string) => {
+    setSelectedLightTheme(themeName);
+    setLightTheme(themeMap[themeName]);
+  };
+
+  const handleDarkThemeChange = (themeName: string) => {
+    setSelectedDarkTheme(themeName);
+    setDarkTheme(themeMap[themeName]);
+  };
 
   const basicThemingCode = `import { ThemeProvider } from '@flowlabkit/ui';
 import { oceanTheme, cyberpunkTheme } from '@flowlabkit/ui/themes';
@@ -138,21 +172,7 @@ function ThemeSelector() {
   );
 }`;
 
-  const getThemeByName = (name: string) => {
-    const themeMap: Record<string, any> = {
-      light: lightTheme,
-      dark: darkTheme,
-      ocean: oceanTheme,
-      forest: forestTheme,
-      sunset: sunsetTheme,
-      lavender: lavenderTheme,
-      cyberpunk: cyberpunkTheme,
-      autumn: autumnTheme
-    };
-    return themeMap[name] || lightTheme;
-  };
-
-  const selectedThemeObj = getThemeByName(selectedTheme);
+  const selectedThemeObj = themeMap[selectedTheme] || lightTheme;
 
   return (
     <DocPageLayout
@@ -160,6 +180,102 @@ function ThemeSelector() {
       description="Learn how to customize themes, create your own, and integrate the theming system into your application."
     >
       <Layout direction="column" gap="xl">
+        {/* Interactive Theme Controls */}
+        <Card style={{ backgroundColor: '#f8fafc', borderColor: '#e2e8f0' }}>
+          <CardBody>
+            <Layout direction="column" gap="md">
+              <Text weight="semibold" size="lg" style={{ color: '#1e293b' }}>
+                🎨 Interactive Theme Controls
+              </Text>
+              <Text size="md" style={{ lineHeight: 1.6 }}>
+                Try out the theme system features below. Changes apply instantly to the entire page!
+              </Text>
+              
+              <Layout direction="row" gap="lg" wrap>
+                {/* Compact Mode Toggle */}
+                <Layout direction="column" gap="sm">
+                  <Text weight="medium" size="sm">Compact Mode</Text>
+                  <Button
+                    variant={config.compactMode ? "primary" : "outline"}
+                    size="sm"
+                    onClick={() => setCompactMode(!config.compactMode)}
+                  >
+                    {config.compactMode ? '📦 Compact ON' : '📦 Compact OFF'}
+                  </Button>
+                  <Text size="xs" style={{ color: '#64748b', maxWidth: '200px' }}>
+                    Reduces spacing and component sizes for dense layouts
+                  </Text>
+                </Layout>
+
+                {/* Light Theme Selector */}
+                <Layout direction="column" gap="sm">
+                  <Text weight="medium" size="sm">Light Theme</Text>
+                  <Dropdown
+                    trigger={
+                      <Button variant="outline" size="sm">
+                        ☀️ {selectedLightTheme.charAt(0).toUpperCase() + selectedLightTheme.slice(1)} ▼
+                      </Button>
+                    }
+                  >
+                    <DropdownContent>
+                      {allThemes.map((themeName) => (
+                        <DropdownItem
+                          key={`light-${themeName}`}
+                          onClick={() => handleLightThemeChange(themeName)}
+                        >
+                          {themeName.charAt(0).toUpperCase() + themeName.slice(1)}
+                          {selectedLightTheme === themeName && ' ✓'}
+                        </DropdownItem>
+                      ))}
+                    </DropdownContent>
+                  </Dropdown>
+                  <Text size="xs" style={{ color: '#64748b', maxWidth: '200px' }}>
+                    Choose the theme for light mode
+                  </Text>
+                </Layout>
+
+                {/* Dark Theme Selector */}
+                <Layout direction="column" gap="sm">
+                  <Text weight="medium" size="sm">Dark Theme</Text>
+                  <Dropdown
+                    trigger={
+                      <Button variant="outline" size="sm">
+                        🌙 {selectedDarkTheme.charAt(0).toUpperCase() + selectedDarkTheme.slice(1)} ▼
+                      </Button>
+                    }
+                  >
+                    <DropdownContent>
+                      {allThemes.map((themeName) => (
+                        <DropdownItem
+                          key={`dark-${themeName}`}
+                          onClick={() => handleDarkThemeChange(themeName)}
+                        >
+                          {themeName.charAt(0).toUpperCase() + themeName.slice(1)}
+                          {selectedDarkTheme === themeName && ' ✓'}
+                        </DropdownItem>
+                      ))}
+                    </DropdownContent>
+                  </Dropdown>
+                  <Text size="xs" style={{ color: '#64748b', maxWidth: '200px' }}>
+                    Choose the theme for dark mode
+                  </Text>
+                </Layout>
+              </Layout>
+              
+              <Text size="sm" style={{ 
+                fontStyle: 'italic', 
+                color: '#475569',
+                backgroundColor: '#f1f5f9',
+                padding: '12px',
+                borderRadius: '8px',
+                borderLeft: '4px solid #3b82f6'
+              }}>
+                💡 <strong>Tip:</strong> Switch between light and dark mode using the theme toggle in the top navigation to see your selected themes in action!
+              </Text>
+            </Layout>
+          </CardBody>
+        </Card>
+
         {/* Available Themes */}
         <Layout direction="column" gap="md">
           <Text as="h2" size="xl" weight="bold">
