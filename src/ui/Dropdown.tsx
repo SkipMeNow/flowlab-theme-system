@@ -1,6 +1,5 @@
 import React, { forwardRef, useState, useRef, useEffect, ReactNode, HTMLAttributes } from 'react';
 import { useTheme } from '../hooks/useTheme';
-import { useBreakpoint, useIsMobile } from '../hooks/useResponsive';
 
 export interface DropdownItemProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'className'> {
   leftIcon?: ReactNode;
@@ -19,33 +18,33 @@ export const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(({
   children,
   ...props
 }, ref) => {
-  const { theme } = useTheme();
+  const { variables } = useTheme();
 
   const baseStyles: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    gap: 'var(--space-xs)',
+    gap: variables.spacing.xs,
     width: '100%',
-    padding: 'var(--space-xs) var(--space-sm)',
+    padding: `${variables.spacing.xs} ${variables.spacing.sm}`,
     border: 'none',
     backgroundColor: 'transparent',
-    color: destructive ? 'var(--error-color)' : 'var(--text-primary)',
-    fontSize: 'var(--font-size-sm)',
-    fontFamily: 'var(--font-family)',
+    color: destructive ? variables.colors.semantic.error : variables.colors.text.primary,
+    fontSize: variables.typography.fontSize.sm,
+    fontFamily: variables.typography.fontFamily,
     textAlign: 'left',
     cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 0.6 : 1,
-    transition: 'var(--transition-fast)',
+    opacity: disabled ? 0.5 : 1,
+    transition: variables.transitions.fast,
     outline: 'none',
   };
 
   const hoverStyles: React.CSSProperties = {
-    backgroundColor: destructive ? 'var(--error-light)' : 'var(--bg-hover)',
+    backgroundColor: destructive ? variables.colors.semantic.errorLight : variables.colors.background.hover,
   };
 
   const focusStyles: React.CSSProperties = {
-    backgroundColor: destructive ? 'var(--error-light)' : 'var(--bg-hover)',
-    boxShadow: `inset 0 0 0 1px ${destructive ? 'var(--error-color)' : 'var(--focus-ring)'}`,
+    backgroundColor: destructive ? variables.colors.semantic.errorLight : variables.colors.background.hover,
+    boxShadow: `inset 0 0 0 1px ${destructive ? variables.colors.semantic.error : variables.colors.accent[500]}`,
   };
 
   return (
@@ -98,13 +97,15 @@ export interface DropdownSeparatorProps {
 }
 
 export const DropdownSeparator = ({ className = '' }: DropdownSeparatorProps) => {
+  const { variables } = useTheme();
+  
   return (
     <div
       className={className}
       style={{
         height: '1px',
-        backgroundColor: 'var(--border-light)',
-        margin: 'var(--space-xs) 0',
+        backgroundColor: variables.colors.gray[200],
+        margin: `${variables.spacing.xs} 0`,
       }}
     />
   );
@@ -119,15 +120,17 @@ export const DropdownLabel = forwardRef<HTMLDivElement, DropdownLabelProps>(({
   children,
   ...props
 }, ref) => {
+  const { variables } = useTheme();
+  
   return (
     <div
       ref={ref}
       className={className}
       style={{
-        padding: 'var(--space-xs) var(--space-sm)',
-        fontSize: 'var(--font-size-xs)',
-        fontWeight: 'var(--font-weight-semibold)',
-        color: 'var(--text-muted)',
+        padding: `${variables.spacing.xs} ${variables.spacing.sm}`,
+        fontSize: variables.typography.fontSize.xs,
+        fontWeight: variables.typography.fontWeight.semibold,
+        color: variables.colors.text.muted,
         textTransform: 'uppercase',
         letterSpacing: '0.05em',
       }}
@@ -158,16 +161,16 @@ export const DropdownContent = forwardRef<HTMLDivElement, DropdownContentProps>(
   style,
   ...props
 }, ref) => {
-  const { theme } = useTheme();
+  const { variables } = useTheme();
 
   const baseStyles: React.CSSProperties = {
     minWidth: '220px',
-    backgroundColor: 'var(--bg-surface)',
-    border: '1px solid var(--border-color)',
-    borderRadius: 'var(--radius-md)',
-    boxShadow: 'var(--shadow-lg)',
-    padding: 'var(--space-xs)',
-    zIndex: 'var(--z-dropdown)',
+    backgroundColor: variables.colors.background.surface,
+    border: `1px solid ${variables.colors.gray[300]}`,
+    borderRadius: variables.borderRadius.md,
+    boxShadow: variables.shadows.lg,
+    padding: variables.spacing.xs,
+    zIndex: variables.zIndex.dropdown,
     outline: 'none',
     ...style,
   };
@@ -211,11 +214,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
   responsive = true,
   className = '',
 }, ref) => {
+  const { variables } = useTheme();
   const [internalOpen, setInternalOpen] = useState(false);
   const isControlled = controlledOpen !== undefined;
   const isOpen = isControlled ? controlledOpen : internalOpen;
-  const breakpoint = useBreakpoint();
-  const isMobile = useIsMobile();
+  // Removed responsive hooks
   
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLElement>(null);
@@ -263,20 +266,12 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
   const getContentStyles = (): React.CSSProperties => {
     const styles: React.CSSProperties = {
       position: 'absolute',
-      zIndex: 'var(--z-dropdown)',
-      minWidth: responsive && isMobile ? '100vw' : 'max-content',
-      maxWidth: responsive && isMobile ? '100vw' : '400px',
+      zIndex: variables.zIndex.dropdown,
+      minWidth: 'max-content',
+      maxWidth: '400px',
     };
 
-    // Responsive positioning for mobile
-    if (responsive && isMobile) {
-      // On mobile, dropdown takes full width and appears at bottom
-      styles.top = 'calc(100% + 8px)';
-      styles.left = '0';
-      styles.right = '0';
-      styles.transform = 'none';
-      return styles;
-    }
+    // Removed responsive mobile positioning
 
     // Side positioning
     switch (side) {

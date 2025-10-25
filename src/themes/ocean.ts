@@ -1,5 +1,4 @@
 import { Theme } from '../types';
-import { defaultBreakpoints, getMobileConfig } from '../utils/mobile-defaults';
 
 export const oceanTheme: Theme = {
   name: 'ocean',
@@ -173,7 +172,4 @@ export const oceanTheme: Theme = {
     fast: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
     base: '200ms cubic-bezier(0.4, 0, 0.2, 1)',
     slow: '300ms cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  breakpoints: defaultBreakpoints,
-  mobile: getMobileConfig('#0891b2'),
-};
+  },};

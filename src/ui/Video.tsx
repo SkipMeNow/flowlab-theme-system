@@ -1028,7 +1028,7 @@ export const Video = forwardRef<HTMLVideoElement, VideoProps>(({
                       <DropdownItem
                         key={speed}
                         leftIcon={<SpeedIcon size={16} color={playbackRate === speed ? 'var(--primary)' : 'currentColor'} />}
-                        rightIcon={playbackRate === speed ? '✓' : undefined}
+                        rightIcon={playbackRate === speed ? '[✓]' : undefined}
                         onClick={() => handlePlaybackSpeedChange(speed)}
                         style={{
                           color: playbackRate === speed ? 'var(--primary)' : 'var(--text-primary)',
@@ -1093,7 +1093,7 @@ export const Video = forwardRef<HTMLVideoElement, VideoProps>(({
                       <DropdownItem
                         key={quality.value}
                         leftIcon={<VideoQualityIcon size={16} color={currentQuality === quality.value ? 'var(--primary)' : 'currentColor'} />}
-                        rightIcon={currentQuality === quality.value ? '✓' : undefined}
+                        rightIcon={currentQuality === quality.value ? '[✓]' : undefined}
                         onClick={() => handleQualityChange(quality.value)}
                         style={{
                           color: currentQuality === quality.value ? 'var(--primary)' : 'var(--text-primary)',

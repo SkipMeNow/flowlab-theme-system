@@ -188,24 +188,7 @@ export function themeToCSSVariables(theme: Theme, config: ThemeConfig): Record<s
   variables['--info-bg'] = 'rgba(30, 41, 59, 0.9)';
   variables['--info-text'] = theme.colors.text.inverse;
 
-  // Breakpoints
-  variables['--breakpoint-xs'] = theme.breakpoints.xs;
-  variables['--breakpoint-sm'] = theme.breakpoints.sm;
-  variables['--breakpoint-md'] = theme.breakpoints.md;
-  variables['--breakpoint-lg'] = theme.breakpoints.lg;
-  variables['--breakpoint-xl'] = theme.breakpoints.xl;
-  variables['--breakpoint-xxl'] = theme.breakpoints.xxl;
-
-  // Mobile properties
-  variables['--touch-target-size'] = theme.mobile.touchTargetSize;
-  variables['--scroll-padding'] = theme.mobile.scrollPadding;
-  variables['--tap-highlight-color'] = theme.mobile.tapHighlightColor;
-  variables['--user-select'] = theme.mobile.userSelect;
-  variables['--overscroll-behavior'] = theme.mobile.overscrollBehavior;
-  variables['--safe-area-inset-top'] = theme.mobile.safeAreaInsets.top;
-  variables['--safe-area-inset-right'] = theme.mobile.safeAreaInsets.right;
-  variables['--safe-area-inset-bottom'] = theme.mobile.safeAreaInsets.bottom;
-  variables['--safe-area-inset-left'] = theme.mobile.safeAreaInsets.left;
+  // Removed breakpoints and mobile properties as they're no longer part of the theme system
 
   // Apply font size modifications
   if (config.fontSize !== 'medium') {

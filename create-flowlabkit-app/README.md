@@ -1,6 +1,6 @@
 # create-flowlabkit-app
 
-🎨 Interactive installer for FlowLabKit UI - Create React apps with beautiful themes instantly
+ Interactive installer for FlowLabKit UI - Create React apps with beautiful themes instantly
 
 ## Quick Start
 
@@ -65,26 +65,26 @@ Pure web template with:
 
 ## Features
 
-✅ **Interactive CLI** - Like `npm create vite@latest`  
-✅ **Multiple Templates** - React, Vanilla, TypeScript, JavaScript  
-✅ **Component Options** - Full components or themes-only  
-✅ **Theme Selection** - Choose specific themes or get them all  
-✅ **Ready to Run** - Includes dev server and build scripts  
-✅ **Examples Included** - Working demos in every template  
+[[✓]] **Interactive CLI** - Like `npm create vite@latest`  
+[[✓]] **Multiple Templates** - React, Vanilla, TypeScript, JavaScript  
+[[✓]] **Component Options** - Full components or themes-only  
+[[✓]] **Theme Selection** - Choose specific themes or get them all  
+[[✓]] **Ready to Run** - Includes dev server and build scripts  
+[[✓]] **Examples Included** - Working demos in every template  
 
 ## Example Usage
 
 ```bash
 $ npm create flowlabkit-app@latest my-project
 
-✨ Create FlowLabKit App
+ Create FlowLabKit App
 
 ? Project name: › my-awesome-app
 ? Select a framework: › React
 ? Select setup type: › TypeScript + Components  
 ? Select themes to include: › All 8 themes
 
-✅ Project created! Next steps:
+[[✓]] Project created! Next steps:
   cd my-awesome-app
   npm install
   npm run dev

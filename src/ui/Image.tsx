@@ -28,7 +28,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(({
   onError,
   ...props
 }, ref) => {
-  const { theme } = useTheme();
+  const { variables } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 

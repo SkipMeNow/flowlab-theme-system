@@ -133,7 +133,7 @@ function App() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}>
-              🎨 FlowLabKit Themes
+               FlowLabKit Themes
             </h1>
             <p style={{ 
               fontSize: '1.2rem', 
@@ -153,7 +153,7 @@ function App() {
             borderRadius: 'var(--radius-md)',
             padding: '1.5rem'
           }}>
-            <h3 style={{ marginTop: 0, marginBottom: '1rem' }}>🚀 Next Steps</h3>
+            <h3 style={{ marginTop: 0, marginBottom: '1rem' }}> Next Steps</h3>
             <ul style={{ lineHeight: '1.6', paddingLeft: '1.5rem' }}>
               <li>Edit <code>src/App.tsx</code> to customize your app</li>
               <li>Use CSS variables like <code>var(--bg-app)</code>, <code>var(--text-primary)</code></li>
@@ -170,7 +170,7 @@ function App() {
               borderLeft: '4px solid var(--accent-500)'
             }}>
               <p style={{ margin: 0, fontSize: '0.9rem' }}>
-                <strong>💡 Tip:</strong> This template includes only the theme system. 
+                <strong> Tip:</strong> This template includes only the theme system. 
                 Your app uses CSS variables that automatically update when themes change.
               </p>
             </div>

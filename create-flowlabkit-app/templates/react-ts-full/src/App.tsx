@@ -109,7 +109,7 @@ function App() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}>
-              🎨 FlowLabKit UI
+              FlowLabKit UI
             </h1>
             <p style={{ 
               fontSize: '1.2rem', 
@@ -126,7 +126,7 @@ function App() {
             
             <Card>
               <CardHeader>
-                <h3>🚀 Next Steps</h3>
+                <h3>Next Steps</h3>
               </CardHeader>
               <CardBody>
                 <ul style={{ lineHeight: '1.6' }}>

@@ -1,6 +1,5 @@
 import React, { forwardRef, HTMLAttributes } from 'react';
 import { useTheme } from '../hooks/useTheme';
-import { useBreakpoint, useIsMobile } from '../hooks/useResponsive';
 
 export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'className'> {
   variant?: 'elevated' | 'outlined' | 'filled';
@@ -24,48 +23,29 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(({
   children,
   ...props
 }, ref) => {
-  const { theme } = useTheme();
-  const breakpoint = useBreakpoint();
-  const isMobile = useIsMobile();
-
-  // Apply responsive adjustments
-  const responsivePadding = responsive && isMobile && padding === 'lg' ? 'md' : 
-                           responsive && isMobile && padding === 'md' ? 'sm' : padding;
-  const responsiveRadius = responsive && isMobile && radius === 'lg' ? 'md' : radius;
+  const { variables } = useTheme();
 
   // Base styles
   const baseStyles: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    transition: 'var(--transition-base)',
+    transition: variables.transitions.base,
     cursor: hoverable ? 'pointer' : 'default',
-    // Responsive margin and width adjustments
-    ...(responsive && isMobile && {
-      width: '100%',
-      maxWidth: '100%',
-      margin: '0',
-    }),
-    // Small screen layout adjustments
-    ...(responsive && (breakpoint === 'xs' || breakpoint === 'sm') && {
-      borderRadius: responsiveRadius === 'lg' ? 'var(--radius-md)' : 
-                   responsiveRadius === 'md' ? 'var(--radius-sm)' : 
-                   responsiveRadius === 'sm' ? 'var(--radius-sm)' : '0',
-    }),
   };
 
   // Variant styles
   const variantStyles: Record<string, React.CSSProperties> = {
     elevated: {
-      backgroundColor: 'var(--bg-surface)',
+      backgroundColor: variables.colors.background.surface,
       border: 'none',
     },
     outlined: {
-      backgroundColor: 'var(--bg-surface)',
-      border: '1px solid var(--border-color)',
+      backgroundColor: variables.colors.background.surface,
+      border: `1px solid ${variables.colors.border.color}`,
     },
     filled: {
-      backgroundColor: 'var(--bg-elevated)',
+      backgroundColor: variables.colors.background.elevated,
       border: 'none',
     },
   };
@@ -73,38 +53,38 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(({
   // Padding styles
   const paddingStyles: Record<string, React.CSSProperties> = {
     none: { padding: '0' },
-    sm: { padding: 'var(--space-sm)' },
-    md: { padding: 'var(--space-md)' },
-    lg: { padding: 'var(--space-lg)' },
+    sm: { padding: variables.spacing.sm },
+    md: { padding: variables.spacing.md },
+    lg: { padding: variables.spacing.lg },
   };
 
   // Radius styles
   const radiusStyles: Record<string, React.CSSProperties> = {
     none: { borderRadius: '0' },
-    sm: { borderRadius: 'var(--radius-sm)' },
-    md: { borderRadius: 'var(--radius-md)' },
-    lg: { borderRadius: 'var(--radius-lg)' },
+    sm: { borderRadius: variables.borderRadius.sm },
+    md: { borderRadius: variables.borderRadius.md },
+    lg: { borderRadius: variables.borderRadius.lg },
   };
 
   // Shadow styles
   const shadowStyles: Record<string, React.CSSProperties> = {
     none: { boxShadow: 'none' },
-    sm: { boxShadow: 'var(--shadow-sm)' },
-    md: { boxShadow: 'var(--shadow-md)' },
-    lg: { boxShadow: 'var(--shadow-lg)' },
+    sm: { boxShadow: variables.shadows.sm },
+    md: { boxShadow: variables.shadows.md },
+    lg: { boxShadow: variables.shadows.lg },
   };
 
   // Hover styles
   const hoverStyles: React.CSSProperties = hoverable ? {
     transform: 'translateY(-1px)',
-    boxShadow: shadow !== 'none' ? 'var(--shadow-lg)' : 'var(--shadow-md)',
+    boxShadow: shadow !== 'none' ? variables.shadows.lg : variables.shadows.md,
   } : {};
 
   const combinedStyles: React.CSSProperties = {
     ...baseStyles,
     ...variantStyles[variant],
-    ...paddingStyles[responsivePadding],
-    ...radiusStyles[responsiveRadius],
+    ...paddingStyles[padding],
+    ...radiusStyles[radius],
     ...shadowStyles[shadow],
   };
 
@@ -145,6 +125,8 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(({
   children,
   ...props
 }, ref) => {
+  const { variables } = useTheme();
+  
   return (
     <div
       ref={ref}
@@ -152,9 +134,9 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 'var(--space-md)',
-        paddingBottom: 'var(--space-sm)',
-        borderBottom: '1px solid var(--border-light)',
+        marginBottom: variables.spacing.md,
+        paddingBottom: variables.spacing.sm,
+        borderBottom: `1px solid ${variables.colors.gray[200]}`,
       }}
       className={className}
       {...props}
@@ -200,6 +182,8 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(({
   children,
   ...props
 }, ref) => {
+  const { variables } = useTheme();
+  
   return (
     <div
       ref={ref}
@@ -207,10 +191,10 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        gap: 'var(--space-sm)',
-        marginTop: 'var(--space-md)',
-        paddingTop: 'var(--space-sm)',
-        borderTop: '1px solid var(--border-light)',
+        gap: variables.spacing.sm,
+        marginTop: variables.spacing.md,
+        paddingTop: variables.spacing.sm,
+        borderTop: `1px solid ${variables.colors.gray[200]}`,
       }}
       className={className}
       {...props}

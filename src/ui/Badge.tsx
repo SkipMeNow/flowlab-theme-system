@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '../hooks/useTheme';
 
 export interface BadgeProps {
   variant?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
@@ -17,80 +18,81 @@ export const Badge: React.FC<BadgeProps> = ({
   className = '',
   children,
 }) => {
+  const { variables } = useTheme();
   // Base styles
   const baseStyles: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontFamily: 'var(--font-family)',
-    fontWeight: 'var(--font-weight-medium)',
+    fontFamily: variables.typography.fontFamily,
+    fontWeight: variables.typography.fontWeight.medium,
     lineHeight: 1,
     whiteSpace: 'nowrap',
     verticalAlign: 'middle',
-    transition: 'var(--transition-base)',
+    transition: variables.transitions.base,
   };
 
   // Variant styles
   const variantStyles: Record<string, React.CSSProperties> = {
     default: {
-      backgroundColor: 'var(--gray-100)',
-      color: 'var(--gray-800)',
+      backgroundColor: variables.colors.gray[100],
+      color: variables.colors.gray[800],
     },
     primary: {
-      backgroundColor: 'var(--accent-500)',
-      color: 'white',
+      backgroundColor: variables.colors.accent[500],
+      color: variables.colors.text.inverse,
     },
     secondary: {
-      backgroundColor: 'var(--gray-500)',
-      color: 'white',
+      backgroundColor: variables.colors.gray[500],
+      color: variables.colors.text.inverse,
     },
     success: {
-      backgroundColor: 'var(--success-color)',
-      color: 'white',
+      backgroundColor: variables.colors.semantic.success,
+      color: variables.colors.text.inverse,
     },
     warning: {
-      backgroundColor: 'var(--warning-color)',
-      color: 'white',
+      backgroundColor: variables.colors.semantic.warning,
+      color: variables.colors.text.inverse,
     },
     error: {
-      backgroundColor: 'var(--error-color)',
-      color: 'white',
+      backgroundColor: variables.colors.semantic.error,
+      color: variables.colors.text.inverse,
     },
     info: {
-      backgroundColor: 'var(--info)',
-      color: 'white',
+      backgroundColor: variables.colors.semantic.info,
+      color: variables.colors.text.inverse,
     },
   };
 
   // Size styles
   const sizeStyles: Record<string, React.CSSProperties> = {
     sm: {
-      fontSize: 'var(--font-size-xs)',
-      padding: dot ? '0' : 'var(--space-xs) var(--space-sm)',
-      minWidth: dot ? 'var(--space-sm)' : 'auto',
-      height: dot ? 'var(--space-sm)' : 'calc(var(--font-size-xs) + var(--space-xs) * 2)',
+      fontSize: variables.typography.fontSize.xs,
+      padding: dot ? '0' : `${variables.spacing.xs} ${variables.spacing.sm}`,
+      minWidth: dot ? variables.spacing.sm : 'auto',
+      height: dot ? variables.spacing.sm : `calc(${variables.typography.fontSize.xs} + ${variables.spacing.xs} * 2)`,
     },
     md: {
-      fontSize: 'var(--font-size-sm)',
-      padding: dot ? '0' : 'var(--space-xs) var(--space-md)',
-      minWidth: dot ? 'var(--space-md)' : 'auto',
-      height: dot ? 'var(--space-md)' : 'calc(var(--font-size-sm) + var(--space-sm))',
+      fontSize: variables.typography.fontSize.sm,
+      padding: dot ? '0' : `${variables.spacing.xs} ${variables.spacing.md}`,
+      minWidth: dot ? variables.spacing.md : 'auto',
+      height: dot ? variables.spacing.md : `calc(${variables.typography.fontSize.sm} + ${variables.spacing.sm})`,
     },
     lg: {
-      fontSize: 'var(--font-size-base)',
-      padding: dot ? '0' : 'var(--space-sm) var(--space-lg)',
-      minWidth: dot ? 'var(--space-lg)' : 'auto',
-      height: dot ? 'var(--space-lg)' : 'calc(var(--font-size-base) + var(--space-md))',
+      fontSize: variables.typography.fontSize.base,
+      padding: dot ? '0' : `${variables.spacing.sm} ${variables.spacing.lg}`,
+      minWidth: dot ? variables.spacing.lg : 'auto',
+      height: dot ? variables.spacing.lg : `calc(${variables.typography.fontSize.base} + ${variables.spacing.md})`,
     },
   };
 
   // Shape styles
   const shapeStyles: Record<string, React.CSSProperties> = {
     rounded: {
-      borderRadius: 'var(--radius-sm)',
+      borderRadius: variables.borderRadius.sm,
     },
     pill: {
-      borderRadius: '9999px',
+      borderRadius: variables.borderRadius.full,
     },
     square: {
       borderRadius: '0',

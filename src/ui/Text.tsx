@@ -25,47 +25,47 @@ export const Text = forwardRef<HTMLElement, TextProps>(({
   style,
   ...props
 }, ref) => {
-  const { theme } = useTheme();
+  const { variables } = useTheme();
   const Component = as;
 
   // Base styles
   const baseStyles: React.CSSProperties = {
     margin: 0,
-    fontFamily: 'var(--font-family)',
+    fontFamily: variables.typography.fontFamily,
     lineHeight: 1.5,
     textAlign: align,
   };
 
   // Size styles
   const sizeStyles: Record<string, React.CSSProperties> = {
-    xs: { fontSize: 'var(--font-size-xs)' },
-    sm: { fontSize: 'var(--font-size-sm)' },
-    md: { fontSize: 'var(--font-size-base)' },
-    lg: { fontSize: 'var(--font-size-lg)' },
-    xl: { fontSize: 'var(--font-size-xl)' },
-    '2xl': { fontSize: 'var(--font-size-2xl)' },
-    '3xl': { fontSize: 'var(--font-size-3xl)' },
+    xs: { fontSize: variables.typography.fontSize.xs },
+    sm: { fontSize: variables.typography.fontSize.sm },
+    md: { fontSize: variables.typography.fontSize.base },
+    lg: { fontSize: variables.typography.fontSize.lg },
+    xl: { fontSize: variables.typography.fontSize.xl },
+    '2xl': { fontSize: variables.typography.fontSize.xxl },
+    '3xl': { fontSize: variables.typography.fontSize.xxxl },
   };
 
   // Weight styles
   const weightStyles: Record<string, React.CSSProperties> = {
-    normal: { fontWeight: 'var(--font-weight-normal)' },
-    medium: { fontWeight: 'var(--font-weight-medium)' },
-    semibold: { fontWeight: 'var(--font-weight-semibold)' },
-    bold: { fontWeight: 'var(--font-weight-bold)' },
+    normal: { fontWeight: variables.typography.fontWeight.normal },
+    medium: { fontWeight: variables.typography.fontWeight.medium },
+    semibold: { fontWeight: variables.typography.fontWeight.semibold },
+    bold: { fontWeight: variables.typography.fontWeight.bold },
   };
 
   // Color styles
   const colorStyles: Record<string, React.CSSProperties> = {
-    primary: { color: 'var(--text-primary)' },
-    secondary: { color: 'var(--text-secondary)' },
-    tertiary: { color: 'var(--text-tertiary)' },
-    muted: { color: 'var(--text-muted)' },
-    accent: { color: 'var(--text-accent)' },
-    success: { color: 'var(--success-color)' },
-    warning: { color: 'var(--warning-color)' },
-    error: { color: 'var(--error-color)' },
-    info: { color: 'var(--info)' },
+    primary: { color: variables.colors.text.primary },
+    secondary: { color: variables.colors.text.secondary },
+    tertiary: { color: variables.colors.text.tertiary },
+    muted: { color: variables.colors.text.muted },
+    accent: { color: variables.colors.text.accent },
+    success: { color: variables.colors.semantic.success },
+    warning: { color: variables.colors.semantic.warning },
+    error: { color: variables.colors.semantic.error },
+    info: { color: variables.colors.semantic.info },
   };
 
   // Truncate styles
@@ -87,40 +87,40 @@ export const Text = forwardRef<HTMLElement, TextProps>(({
   // Default heading styles
   const headingStyles: Record<string, React.CSSProperties> = {
     h1: { 
-      fontSize: 'var(--font-size-3xl)', 
-      fontWeight: 'var(--font-weight-bold)',
+      fontSize: variables.typography.fontSize.xxxl, 
+      fontWeight: variables.typography.fontWeight.bold,
       lineHeight: 1.2,
-      marginBottom: 'var(--space-lg)',
+      marginBottom: variables.spacing.lg,
     },
     h2: { 
-      fontSize: 'var(--font-size-2xl)', 
-      fontWeight: 'var(--font-weight-bold)',
+      fontSize: variables.typography.fontSize.xxl, 
+      fontWeight: variables.typography.fontWeight.bold,
       lineHeight: 1.3,
-      marginBottom: 'var(--space-md)',
+      marginBottom: variables.spacing.md,
     },
     h3: { 
-      fontSize: 'var(--font-size-xl)', 
-      fontWeight: 'var(--font-weight-semibold)',
+      fontSize: variables.typography.fontSize.xl, 
+      fontWeight: variables.typography.fontWeight.semibold,
       lineHeight: 1.3,
-      marginBottom: 'var(--space-md)',
+      marginBottom: variables.spacing.md,
     },
     h4: { 
-      fontSize: 'var(--font-size-lg)', 
-      fontWeight: 'var(--font-weight-semibold)',
+      fontSize: variables.typography.fontSize.lg, 
+      fontWeight: variables.typography.fontWeight.semibold,
       lineHeight: 1.4,
-      marginBottom: 'var(--space-sm)',
+      marginBottom: variables.spacing.sm,
     },
     h5: { 
-      fontSize: 'var(--font-size-base)', 
-      fontWeight: 'var(--font-weight-semibold)',
+      fontSize: variables.typography.fontSize.base, 
+      fontWeight: variables.typography.fontWeight.semibold,
       lineHeight: 1.4,
-      marginBottom: 'var(--space-sm)',
+      marginBottom: variables.spacing.sm,
     },
     h6: { 
-      fontSize: 'var(--font-size-sm)', 
-      fontWeight: 'var(--font-weight-semibold)',
+      fontSize: variables.typography.fontSize.sm, 
+      fontWeight: variables.typography.fontWeight.semibold,
       lineHeight: 1.4,
-      marginBottom: 'var(--space-sm)',
+      marginBottom: variables.spacing.sm,
     },
   };
 

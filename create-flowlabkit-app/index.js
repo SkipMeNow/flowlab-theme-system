@@ -146,7 +146,7 @@ async function init() {
         {
           type: (_, { overwrite }) => {
             if (overwrite === false) {
-              throw new Error(red('✖') + ' Operation cancelled')
+              throw new Error(red('✗') + ' Operation cancelled')
             }
             return null
           },
@@ -227,7 +227,7 @@ async function init() {
       ],
       {
         onCancel: () => {
-          throw new Error(red('✖') + ' Operation cancelled')
+          throw new Error(red('✗') + ' Operation cancelled')
         }
       }
     )
@@ -328,7 +328,7 @@ async function init() {
   const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent)
   const pkgManager = pkgInfo ? pkgInfo.name : 'npm'
 
-  console.log(`\\n${green('✓')} Done. Now run:\\n`)
+  console.log(`\n${green('Done!')} Now run:\n`)
   if (root !== process.cwd()) {
     console.log(`  cd ${path.relative(process.cwd(), root)}`)
   }
@@ -343,7 +343,7 @@ async function init() {
       break
   }
   console.log()
-  console.log(cyan('🎨 Happy theming with FlowLabKit!'))
+  console.log(cyan('Happy theming with FlowLabKit!'))
 }
 
 init().catch((e) => {

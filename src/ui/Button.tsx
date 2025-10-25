@@ -1,6 +1,5 @@
 import React, { forwardRef, ButtonHTMLAttributes } from 'react';
 import { useTheme } from '../hooks/useTheme';
-import { useIsMobile, useHoverSupport } from '../hooks/useResponsive';
 
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
@@ -29,23 +28,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   ...props
 }, ref) => {
-  const { theme } = useTheme();
-  const isMobile = useIsMobile();
-  const supportsHover = useHoverSupport();
-
-  // Apply mobile optimizations
-  const effectiveSize = mobileOptimized && isMobile && size === 'sm' ? 'md' : size;
+  const { variables } = useTheme();
 
   // Base styles
   const baseStyles: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: shape === 'circle' ? '0' : 'var(--space-xs)',
-    fontFamily: 'var(--font-family)',
-    fontWeight: 'var(--font-weight-medium)',
+    gap: shape === 'circle' ? '0' : variables.spacing.xs,
+    fontFamily: variables.typography.fontFamily,
+    fontWeight: variables.typography.fontWeight.medium,
     border: '1px solid transparent',
-    transition: supportsHover ? 'var(--transition-base)' : 'none',
+    transition: variables.transitions.base,
     cursor: disabled || loading ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.6 : 1,
     width: fullWidth ? '100%' : 'auto',
@@ -53,70 +47,63 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     overflow: 'hidden',
     textAlign: 'center',
     whiteSpace: shape === 'circle' ? 'nowrap' : 'normal',
-    // Mobile optimizations
-    ...(mobileOptimized && isMobile && {
-      minHeight: 'var(--touch-target-size)',
-      WebkitTapHighlightColor: 'var(--tap-highlight-color)',
-      touchAction: 'manipulation',
-      userSelect: 'none',
-    }),
   };
 
   // Variant styles
   const variantStyles: Record<string, React.CSSProperties> = {
     primary: {
-      backgroundColor: 'var(--btn-primary-bg)',
-      color: 'var(--btn-primary-text)',
-      borderColor: 'var(--btn-primary-bg)',
+      backgroundColor: variables.colors.button.primary.bg,
+      color: variables.colors.button.primary.text,
+      borderColor: variables.colors.button.primary.bg,
     },
     secondary: {
-      backgroundColor: 'var(--btn-bg)',
-      color: 'var(--btn-text)',
-      borderColor: 'var(--btn-border)',
+      backgroundColor: variables.colors.button.bg,
+      color: variables.colors.button.text,
+      borderColor: variables.colors.button.border,
     },
     outline: {
       backgroundColor: 'transparent',
-      color: 'var(--btn-text)',
-      borderColor: 'var(--btn-border)',
+      color: variables.colors.button.text,
+      borderColor: variables.colors.button.border,
     },
     ghost: {
       backgroundColor: 'transparent',
-      color: 'var(--btn-text)',
+      color: variables.colors.button.text,
       borderColor: 'transparent',
     },
     danger: {
-      backgroundColor: 'var(--error-color)',
-      color: 'white',
-      borderColor: 'var(--error-color)',
+      backgroundColor: variables.colors.semantic.error,
+      color: variables.colors.text.inverse,
+      borderColor: variables.colors.semantic.error,
     },
   };
 
   // Size styles
   const sizeStyles: Record<string, React.CSSProperties> = {
     sm: {
-      padding: 'var(--space-xs) var(--space-sm)',
-      fontSize: 'var(--font-size-sm)',
-      minHeight: 'calc(var(--font-size-sm) + var(--space-md))',
+      padding: `${variables.spacing.xs} ${variables.spacing.sm}`,
+      fontSize: variables.typography.fontSize.sm,
+      minHeight: `calc(${variables.typography.fontSize.sm} + ${variables.spacing.md})`,
     },
     md: {
-      padding: 'var(--space-sm) var(--space-md)',
-      fontSize: 'var(--font-size-base)',
-      minHeight: 'calc(var(--font-size-base) + var(--space-lg))',
+      padding: `${variables.spacing.sm} ${variables.spacing.md}`,
+      fontSize: variables.typography.fontSize.base,
+      minHeight: `calc(${variables.typography.fontSize.base} + ${variables.spacing.lg})`,
     },
     lg: {
-      padding: 'var(--space-md) var(--space-lg)',
-      fontSize: 'var(--font-size-lg)',
-      minHeight: 'calc(var(--font-size-lg) + var(--space-xl))',
+      padding: `${variables.spacing.md} ${variables.spacing.lg}`,
+      fontSize: variables.typography.fontSize.lg,
+      minHeight: `calc(${variables.typography.fontSize.lg} + ${variables.spacing.xl})`,
     },
   };
 
   // Shape styles
   const shapeStyles: Record<string, React.CSSProperties> = {
     rounded: {
-      borderRadius: 'var(--radius-md)',
+      borderRadius: variables.borderRadius.md,
     },
     pill: {
-      borderRadius: '9999px',
+      borderRadius: variables.borderRadius.full,
     },
     square: {
       borderRadius: '0',
@@ -125,15 +112,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
       borderRadius: '50%',
       aspectRatio: '1',
       padding: '0',
-      minWidth: shape === 'circle' && effectiveSize === 'sm' ? '2rem' : 
-                shape === 'circle' && effectiveSize === 'md' ? '2.5rem' : 
-                shape === 'circle' && effectiveSize === 'lg' ? '3rem' : 'auto',
-      width: shape === 'circle' && effectiveSize === 'sm' ? '2rem' : 
-             shape === 'circle' && effectiveSize === 'md' ? '2.5rem' : 
-             shape === 'circle' && effectiveSize === 'lg' ? '3rem' : 'auto',
-      height: shape === 'circle' && effectiveSize === 'sm' ? '2rem' : 
-              shape === 'circle' && effectiveSize === 'md' ? '2.5rem' : 
-              shape === 'circle' && effectiveSize === 'lg' ? '3rem' : 'auto',
+      minWidth: shape === 'circle' && size === 'sm' ? '2rem' : 
+                shape === 'circle' && size === 'md' ? '2.5rem' : 
+                shape === 'circle' && size === 'lg' ? '3rem' : 'auto',
+      width: shape === 'circle' && size === 'sm' ? '2rem' : 
+             shape === 'circle' && size === 'md' ? '2.5rem' : 
+             shape === 'circle' && size === 'lg' ? '3rem' : 'auto',
+      height: shape === 'circle' && size === 'sm' ? '2rem' : 
+              shape === 'circle' && size === 'md' ? '2.5rem' : 
+              shape === 'circle' && size === 'lg' ? '3rem' : 'auto',
     },
   };
 
@@ -142,23 +129,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     switch (variant) {
       case 'primary':
         return {
-          backgroundColor: 'var(--btn-primary-bg-hover)',
+          backgroundColor: variables.colors.button.primary.bgHover,
         };
       case 'secondary':
         return {
-          backgroundColor: 'var(--btn-bg-hover)',
+          backgroundColor: variables.colors.button.bgHover,
         };
       case 'outline':
         return {
-          backgroundColor: 'var(--btn-bg-hover)',
+          backgroundColor: variables.colors.button.bgHover,
         };
       case 'ghost':
         return {
-          backgroundColor: 'var(--bg-hover)',
+          backgroundColor: variables.colors.background.hover,
         };
       case 'danger':
         return {
-          backgroundColor: 'var(--error-color)',
+          backgroundColor: variables.colors.semantic.error,
           filter: 'brightness(0.9)',
         };
       default:
@@ -171,23 +158,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     switch (variant) {
       case 'primary':
         return {
-          backgroundColor: 'var(--btn-primary-bg-active)',
+          backgroundColor: variables.colors.button.primary.bgActive,
         };
       case 'secondary':
         return {
-          backgroundColor: 'var(--btn-bg-active)',
+          backgroundColor: variables.colors.button.bgActive,
         };
       case 'outline':
         return {
-          backgroundColor: 'var(--btn-bg-active)',
+          backgroundColor: variables.colors.button.bgActive,
         };
       case 'ghost':
         return {
-          backgroundColor: 'var(--bg-active)',
+          backgroundColor: variables.colors.background.active,
         };
       case 'danger':
         return {
-          backgroundColor: 'var(--error-color)',
+          backgroundColor: variables.colors.semantic.error,
           filter: 'brightness(0.8)',
         };
       default:
@@ -198,7 +185,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   const combinedStyles: React.CSSProperties = {
     ...baseStyles,
     ...variantStyles[variant],
-    ...sizeStyles[effectiveSize],
+    ...sizeStyles[size],
     ...shapeStyles[shape],
   };
 
@@ -230,27 +217,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
           }
-          
-          .flowlab-button {
-            transition: var(--transition-base);
-          }
-          
-          .flowlab-button:not(:disabled):hover {
-            background-color: var(--btn-bg-hover);
-          }
-          
-          .flowlab-button.variant-primary:not(:disabled):hover {
-            background-color: var(--btn-primary-bg-hover);
-          }
-          
-          .flowlab-button.variant-ghost:not(:disabled):hover {
-            background-color: var(--bg-hover);
-          }
-          
-          .flowlab-button.variant-danger:not(:disabled):hover {
-            background-color: var(--error-color);
-            filter: brightness(0.9);
-          }
         `}
       </style>
       <button
@@ -258,14 +224,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
         disabled={disabled || loading}
         style={combinedStyles}
         className={`flowlab-button variant-${variant} ${className}`.trim()}
-        onMouseEnter={supportsHover ? (e) => {
+        onMouseEnter={(e) => {
           if (!disabled && !loading) {
             // Only apply hover styles, preserve existing styles
             const hoverStyles = getHoverStyles(variant);
             Object.assign(e.currentTarget.style, hoverStyles);
           }
-        } : undefined}
-        onMouseLeave={supportsHover ? (e) => {
+        }}
+        onMouseLeave={(e) => {
           if (!disabled && !loading) {
             // Only restore the specific properties we changed
             const hoverStyles = getHoverStyles(variant);
@@ -274,7 +240,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
               (e.currentTarget.style as any)[cssKey] = combinedStyles[cssKey] || '';
             });
           }
-        } : undefined}
+        }}
         onMouseDown={(e) => {
           if (!disabled && !loading) {
             const activeStyles = getActiveStyles(variant);
@@ -283,7 +249,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
         }}
         onMouseUp={(e) => {
           if (!disabled && !loading) {
-            const hoverStyles = supportsHover ? getHoverStyles(variant) : {};
+            const hoverStyles = getHoverStyles(variant);
             Object.assign(e.currentTarget.style, hoverStyles);
           }
         }}

@@ -44,10 +44,7 @@ export type {
   DropdownLabelProps 
 } from './Dropdown';
 
-// Responsive Layout Components
-export { ResponsiveContainer } from './ResponsiveContainer';
-export type { ResponsiveContainerProps } from './ResponsiveContainer';
-
+// Layout Components
 export { Layout } from './Layout';
 export type { LayoutProps } from './Layout';
 

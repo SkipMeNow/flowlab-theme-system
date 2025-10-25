@@ -8,6 +8,10 @@ dist/
 build/
 *.tsbuildinfo
 
+# Showcase (debugging only - not part of package)
+showcase/node_modules/
+showcase/dist/
+
 # IDE
 .vscode/
 .idea/

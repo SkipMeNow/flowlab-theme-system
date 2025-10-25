@@ -5,36 +5,36 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-🎨 A comprehensive, TypeScript-first theme system for React applications with **8 beautiful built-in themes**, full CSS variable support, and extensive customization options. Part of the FlowLabKit ecosystem for building modern React applications.
+A comprehensive, TypeScript-first theme system for React applications with **8 beautiful built-in themes**, full CSS variable support, and extensive customization options. Part of the FlowLabKit ecosystem for building modern React applications.
 
-**[🚀 Live Demo & Documentation →](https://skipmenow.github.io/flowlabkit-ui/)**
+**[Live Demo & Documentation →](https://skipmenow.github.io/flowlabkit-ui/)**
 
-## ⚡ Quick Start
+## Quick Start
 
 ```bash
 # Interactive installer - like Vite!  
 npm create flowlabkit-app@latest my-app
 
 # Choose your setup:
-# ✅ React or Vanilla
-# ✅ TypeScript or JavaScript  
-# ✅ Full components or themes-only
-# ✅ Select specific themes
+# React or Vanilla
+# TypeScript or JavaScript  
+# Full components or themes-only
+# Select specific themes
 
 cd my-app && npm install && npm run dev
 ```
 
 ## Features
 
-- 🎨 **8 Built-in Themes**: Light, Dark, Ocean, Forest, Sunset, Lavender, Cyberpunk, and Autumn themes
-- 🌙 **Dark/Light Mode**: Seamless theme switching with automatic CSS variable updates  
-- 📱 **Responsive Typography**: Font size scaling (small/medium/large) with proper line heights
-- 🎯 **Compact Mode**: Space-efficient layout option for dense interfaces
-- 🔧 **TypeScript First**: Full type safety with comprehensive interfaces
-- ⚡ **Performance Optimized**: CSS variables for efficient runtime theme changes
-- 💾 **Persistence**: LocalStorage integration for theme preferences
-- 🎛️ **Extensive Customization**: Over 100 CSS variables for complete control
-- 📐 **Resizable Panel System**: Comprehensive panel system with 10+ layout presets, full accessibility, and mobile optimization
+- **8 Built-in Themes**: Light, Dark, Ocean, Forest, Sunset, Lavender, Cyberpunk, and Autumn themes
+- **Dark/Light Mode**: Seamless theme switching with automatic CSS variable updates  
+- **Responsive Typography**: Font size scaling (small/medium/large) with proper line heights
+- **Compact Mode**: Space-efficient layout option for dense interfaces
+- **TypeScript First**: Full type safety with comprehensive interfaces
+- **Performance Optimized**: CSS variables for efficient runtime theme changes
+- **Persistence**: LocalStorage integration for theme preferences
+- **Extensive Customization**: Over 100 CSS variables for complete control
+- **Resizable Panel System**: Comprehensive panel system with 10+ layout presets, full accessibility, and mobile optimization
 
 ## Available Themes
 
@@ -49,7 +49,7 @@ cd my-app && npm install && npm run dev
 
 [View Theme Gallery →](./THEMES.md)
 
-## 🎯 Interactive Installer
+## Interactive Installer
 
 **The fastest way to get started!** Our interactive installer (`create-flowlabkit-app`) provides a Vite-like experience:
 
@@ -61,12 +61,12 @@ npm create flowlabkit-app@latest my-project
 
 | Template | Framework | Language | Components | Bundle Size |
 |----------|-----------|----------|------------|-------------|
-| `react-ts-full` | React | TypeScript | ✅ Full Library | ~150KB |
-| `react-ts-themes` | React | TypeScript | 🎨 Themes Only | ~65KB |
-| `react-js-full` | React | JavaScript | ✅ Full Library | ~150KB |
-| `react-js-themes` | React | JavaScript | 🎨 Themes Only | ~65KB |
-| `vanilla-ts` | Vanilla | TypeScript | 🎨 CSS Variables | ~45KB |
-| `vanilla-js` | Vanilla | JavaScript | 🎨 CSS Variables | ~45KB |
+| `react-ts-full` | React | TypeScript | Full Library | ~150KB |
+| `react-ts-themes` | React | TypeScript | Themes Only | ~65KB |
+| `react-js-full` | React | JavaScript | Full Library | ~150KB |
+| `react-js-themes` | React | JavaScript | Themes Only | ~65KB |
+| `vanilla-ts` | Vanilla | TypeScript | CSS Variables | ~45KB |
+| `vanilla-js` | Vanilla | JavaScript | CSS Variables | ~45KB |
 
 ### Theme Selection Features
 
@@ -75,9 +75,9 @@ npm create flowlabkit-app@latest my-project
 - **Configuration Stored**: Theme preferences saved in package.json
 - **Live Preview**: See your selections before scaffolding
 
-## 📦 Installation
+## Installation
 
-### 🚀 Interactive Installer (Recommended)
+### Interactive Installer (Recommended)
 
 Create a new project with FlowLabKit UI pre-configured using our **Vite-style interactive installer**:
 
@@ -85,35 +85,35 @@ Create a new project with FlowLabKit UI pre-configured using our **Vite-style in
 npm create flowlabkit-app@latest my-app
 ```
 
-**✨ Enhanced Interactive Flow:**
+**Enhanced Interactive Flow:**
 
-🖼️ **1. Choose Framework**
+**1. Choose Framework**
 - React (with full component library)
 - Vanilla (pure CSS variables + themes)
 
-⚙️ **2. Select Language**  
+**2. Select Language**  
 - TypeScript (recommended)
 - JavaScript
 
-📦 **3. Choose Setup Type**
+**3. Choose Setup Type**
 - **Full Components**: Complete UI library + themes
 - **Themes Only**: Just the theme system (lighter bundle)
 
-🎨 **4. Default Light Theme**
+**4. Default Light Theme**
 - Light, Ocean, Forest, Lavender, Autumn, or Sunset
 
-🌙 **5. Default Dark Theme**  
+**5. Default Dark Theme**  
 - Dark, Cyberpunk, Forest Dark, or Ocean Dark
 
-🎪 **6. Additional Themes** (optional)
+**6. Additional Themes** (optional)
 - Multi-select any remaining themes you want
 
 **What you get:**
-- ✅ **6 Templates**: React TS/JS (full/themes), Vanilla TS/JS
-- ✅ **Pre-configured Vite** with optimal settings
-- ✅ **Working Examples** with theme switching
-- ✅ **Your Selected Themes** ready to use
-- ✅ **TypeScript Support** (if chosen)
+- **6 Templates**: React TS/JS (full/themes), Vanilla TS/JS
+- **Pre-configured Vite** with optimal settings
+- **Working Examples** with theme switching
+- **Your Selected Themes** ready to use
+- **TypeScript Support** (if chosen)
 
 Then just:
 ```bash
@@ -122,13 +122,13 @@ npm install
 npm run dev
 ```
 
-**🎯 Perfect for:**
+**Perfect for:**
 - New projects starting from scratch
 - Learning FlowLabKit UI features  
 - Prototyping with specific themes
 - Testing different framework combinations
 
-### 📚 Manual Installation
+### Manual Installation
 
 Add to existing project:
 
@@ -138,7 +138,7 @@ npm install @flowlabkit/ui
 
 **That's it!** This installs everything: theme system, all 8 themes, and all UI components.
 
-> 💡 **How it works**: You install once, but import only what you need. Modern bundlers (Webpack, Vite, etc.) automatically tree-shake unused code, so you only pay for what you use!
+> **How it works**: You install once, but import only what you need. Modern bundlers (Webpack, Vite, etc.) automatically tree-shake unused code, so you only pay for what you use!
 
 ### Requirements
 
@@ -146,7 +146,7 @@ npm install @flowlabkit/ui
 - **TypeScript**: 4.0+ (recommended for full type safety)
 - **Browser Support**: Modern browsers with CSS Custom Properties support
 
-## 🚀 Quick Start
+## Quick Start
 ```tsx
 import React from 'react';
 import { ThemeProvider, Button, Card, CardBody, PanelGroup, Panel } from '@flowlabkit/ui';
@@ -397,7 +397,7 @@ function ThemeSelector() {
 }
 ```
 
-## 📦 Import Options (Tree-Shaking)
+## Import Options (Tree-Shaking)
 
 After running `npm install @flowlabkit/ui`, choose your import strategy:
 
@@ -625,7 +625,7 @@ const customTheme: Theme = {
 - React 16.8+ (hooks required)
 - TypeScript 4.0+ recommended
 
-## 🎨 Live Demo & Documentation
+## Live Demo & Documentation
 
 **[View Interactive Showcase →](https://skipmenow.github.io/flowlabkit-ui/)**
 
@@ -666,7 +666,7 @@ See the main FlowLabKit repository for contribution guidelines.
 
 This package is part of FlowLabKit - a comprehensive toolkit for building modern React applications:
 
-- `@flowlabkit/ui` - Theme system with 8 built-in themes ✅
+- `@flowlabkit/ui` - Theme system with 8 built-in themes
 - `@flowlabkit/components` - Complete UI component library (coming soon)
 - `@flowlabkit/icons` - Icon library (coming soon)
 - `@flowlabkit/animations` - Animation utilities (coming soon)

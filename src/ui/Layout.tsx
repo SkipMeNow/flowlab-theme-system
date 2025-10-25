@@ -1,15 +1,15 @@
 import React, { forwardRef, HTMLAttributes } from 'react';
-import { useBreakpoint, useIsMobile } from '../hooks/useResponsive';
+import { useTheme } from '../hooks/useTheme';
 
 export interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, 'className'> {
   /** Layout direction */
-  direction?: 'row' | 'column' | 'auto';
+  direction?: 'row' | 'column';
   /** Gap between items */
   gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   /** Padding around layout */
   padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  /** Maximum width constraint */
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'none';
+  /** Layout container width preset - defaults to 'auto' for flexible sizing */
+  layoutWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'auto';
   /** Alignment of items */
   align?: 'start' | 'center' | 'end' | 'stretch';
   /** Justification of items */
@@ -18,19 +18,17 @@ export interface LayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, 'class
   wrap?: boolean;
   /** Center the layout container */
   centered?: boolean;
-  /** Responsive behavior enabled */
-  responsive?: boolean;
   className?: string;
 }
 
-const maxWidthValues = {
+const layoutWidthValues = {
   xs: '480px',
   sm: '640px',
   md: '768px',
   lg: '1024px',
   xl: '1280px',
   full: '100%',
-  none: 'none'
+  auto: 'none'
 };
 
 const alignValues = {
@@ -50,107 +48,48 @@ const justifyValues = {
 };
 
 export const Layout = forwardRef<HTMLDivElement, LayoutProps>(({
-  direction = 'auto',
+  direction = 'row',
   gap = 'md',
   padding = 'md',
-  maxWidth = 'none',
+  layoutWidth = 'auto',
   align = 'start',
   justify = 'start',
   wrap = true,
   centered = false,
-  responsive = true,
   className = '',
   children,
   ...props
 }, ref) => {
-  const breakpoint = useBreakpoint();
-  const isMobile = useIsMobile();
-
-  // Determine responsive direction
-  const getResponsiveDirection = () => {
-    if (!responsive) return direction;
-    
-    if (direction === 'auto') {
-      // Auto-detect direction based on screen size
-      return isMobile ? 'column' : 'row';
-    }
-    
-    // Force column on very small screens for better UX
-    if (direction === 'row' && breakpoint === 'xs') {
-      return 'column';
-    }
-    
-    return direction;
-  };
-
-  // Determine responsive gap
-  const getResponsiveGap = () => {
-    if (!responsive) return gap;
-    
-    if (isMobile) {
-      if (gap === 'xl') return 'lg';
-      if (gap === 'lg') return 'md';
-    }
-    return gap;
-  };
-
-  // Determine responsive padding
-  const getResponsivePadding = () => {
-    if (!responsive) return padding;
-    
-    if (isMobile) {
-      if (padding === 'xl') return 'lg';
-      if (padding === 'lg') return 'md';
-    }
-    return padding;
-  };
-
-  const responsiveDirection = getResponsiveDirection();
-  const responsiveGap = getResponsiveGap();
-  const responsivePadding = getResponsivePadding();
+  const { variables } = useTheme();
 
   // Layout styles
   const getLayoutStyles = (): React.CSSProperties => {
-    const baseStyles: React.CSSProperties = {
+    return {
       display: 'flex',
-      flexDirection: responsiveDirection as 'row' | 'column',
+      flexDirection: direction,
       alignItems: alignValues[align],
       justifyContent: justifyValues[justify],
-      gap: responsiveGap !== 'none' ? `var(--space-${responsiveGap})` : '0',
-      padding: responsivePadding !== 'none' ? `var(--space-${responsivePadding})` : '0',
-      maxWidth: maxWidthValues[maxWidth],
+      gap: gap !== 'none' ? variables.spacing[gap] : '0',
+      padding: padding !== 'none' ? variables.spacing[padding] : '0',
+      maxWidth: layoutWidthValues[layoutWidth],
       margin: centered ? '0 auto' : '0',
-      flexWrap: wrap ? 'wrap' : 'nowrap',
-      width: '100%',
+      flexWrap: wrap ? 'wrap' as const : 'nowrap' as const,
+      width: layoutWidth === 'auto' ? 'auto' : '100%',
+      boxSizing: 'border-box',
     };
-
-    // Mobile-specific adjustments
-    if (responsive && isMobile) {
-      baseStyles.minHeight = 'auto';
-      
-      // Ensure items stretch to full width in column layout
-      if (responsiveDirection === 'column') {
-        baseStyles.alignItems = 'stretch';
-      }
-      
-      // Add safe area padding on mobile
-      if (responsivePadding !== 'none') {
-        baseStyles.paddingLeft = `max(var(--space-${responsivePadding}), var(--mobile-safe-area-left, 0px))`;
-        baseStyles.paddingRight = `max(var(--space-${responsivePadding}), var(--mobile-safe-area-right, 0px))`;
-        baseStyles.paddingTop = `max(var(--space-${responsivePadding}), var(--mobile-safe-area-top, 0px))`;
-        baseStyles.paddingBottom = `max(var(--space-${responsivePadding}), var(--mobile-safe-area-bottom, 0px))`;
-      }
-    }
-
-    return baseStyles;
   };
 
+  const { style: externalStyle, ...otherProps } = props;
+  
   return (
     <div
       ref={ref}
-      style={getLayoutStyles()}
+      style={{
+        ...getLayoutStyles(),
+        ...externalStyle
+      }}
       className={className}
-      {...props}
+      {...otherProps}
     >
       {children}
     </div>

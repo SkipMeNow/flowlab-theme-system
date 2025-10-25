@@ -45,6 +45,6 @@ function setupEventListeners() {
 updateTheme()
 setupEventListeners()
 
-console.log('🎨 FlowLabKit themes loaded!')
+console.log(' FlowLabKit themes loaded!')
 console.log('Available themes:', { lightTheme, darkTheme })
 console.log('Current mode:', currentMode)

@@ -27,11 +27,11 @@ function fetchJSON(url) {
 }
 
 async function checkPackageStats() {
-  console.log('🔍 Checking FlowLabKit UI Package Statistics...\n');
+  console.log('Checking FlowLabKit UI Package Statistics...\n');
   
   try {
     // 1. Get package info from npm registry
-    console.log('📦 Package Information:');
+    console.log('Package Information:');
     const packageInfo = await fetchJSON(`https://registry.npmjs.org/${packageName}`);
     const latestVersion = packageInfo['dist-tags'].latest;
     const publishDate = new Date(packageInfo.time[latestVersion]).toLocaleDateString();
@@ -44,7 +44,7 @@ async function checkPackageStats() {
     console.log(`   Description: ${packageInfo.description}\n`);
 
     // 2. Get download statistics
-    console.log('📊 Download Statistics:');
+    console.log('Download Statistics:');
     
     // Last day
     const lastDay = await fetchJSON(`https://api.npmjs.org/downloads/point/last-day/${packageName}`);
@@ -63,7 +63,7 @@ async function checkPackageStats() {
     console.log(`   Last Year: ${lastYear.downloads || 0} downloads\n`);
 
     // 3. Get detailed range data for last 30 days
-    console.log('📈 Last 30 Days Breakdown:');
+    console.log('Last 30 Days Breakdown:');
     const endDate = new Date().toISOString().split('T')[0];
     const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     
@@ -77,23 +77,23 @@ async function checkPackageStats() {
       console.log(`   Average Daily Downloads: ${avgDaily}`);
       
       // Show last 7 days
-      console.log('\n   📅 Last 7 Days:');
+      console.log('\n   Last 7 Days:');
       rangeData.downloads.slice(-7).forEach(day => {
         console.log(`      ${day.day}: ${day.downloads} downloads`);
       });
     }
 
-    console.log('\n🔗 Useful Links:');
+    console.log('\nUseful Links:');
     console.log(`   npm Page: https://www.npmjs.com/package/${packageName}`);
     console.log(`   npm Charts: https://npmcharts.com/compare/${packageName}`);
     console.log(`   Bundle Size: https://bundlephobia.com/package/${packageName}`);
     console.log(`   GitHub: ${packageInfo.repository?.url || 'Not specified'}`);
     
   } catch (error) {
-    console.error('❌ Error fetching statistics:', error.message);
+    console.error('Error fetching statistics:', error.message);
     
     if (error.message.includes('404')) {
-      console.log('\n💡 This might be because:');
+      console.log('\nThis might be because:');
       console.log('   - The package was just published (stats take time to appear)');
       console.log('   - No downloads have occurred yet');
       console.log('   - API is temporarily unavailable');

@@ -1,5 +1,4 @@
 import { Theme } from '../types';
-import { defaultBreakpoints, getMobileConfig } from '../utils/mobile-defaults';
 
 export const darkTheme: Theme = {
   name: 'dark',
@@ -174,6 +173,4 @@ export const darkTheme: Theme = {
     base: '200ms cubic-bezier(0.4, 0, 0.2, 1)',
     slow: '300ms cubic-bezier(0.4, 0, 0.2, 1)',
   },
-  breakpoints: defaultBreakpoints,
-  mobile: getMobileConfig('#3b82f6'),
 };

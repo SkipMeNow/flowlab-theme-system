@@ -1,5 +1,4 @@
 import { Theme } from '../types';
-import { defaultBreakpoints, getMobileConfig } from '../utils/mobile-defaults';
 
 export const cyberpunkTheme: Theme = {
   name: 'cyberpunk',
@@ -173,7 +172,4 @@ export const cyberpunkTheme: Theme = {
     fast: '100ms linear',
     base: '150ms linear',
     slow: '200ms linear',
-  },
-  breakpoints: defaultBreakpoints,
-  mobile: getMobileConfig('#06b6d4'),
-};
+  },};

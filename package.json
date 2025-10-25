@@ -1,7 +1,7 @@
 {
   "name": "@flowlabkit/ui",
   "version": "1.6.6",
-  "description": "🎨 React UI library with 8 beautiful themes, dark/light mode, TypeScript support, and comprehensive component system. Features resizable panels, CSS variables, and modular architecture.",
+  "description": "React UI library with 8 beautiful themes, dark/light mode, TypeScript support, and comprehensive component system. Features resizable panels, CSS variables, and modular architecture.",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -39,15 +39,9 @@
     "build": "rollup -c",
     "build:watch": "rollup -c --watch",
     "dev": "rollup -c --watch",
-    "showcase": "vite",
-    "showcase:build": "vite build",
-    "showcase:preview": "vite preview",
-    "showcase:deploy": "npm run build && npm run showcase:build",
-    "deploy": "npm run showcase:deploy && gh-pages -d dist-showcase",
-    "clean": "rimraf dist dist-showcase",
+    "clean": "rimraf dist",
     "prepublishOnly": "npm run clean && npm run build",
-    "type-check": "tsc --noEmit",
-    "stats": "node scripts/check-stats.js"
+    "type-check": "tsc --noEmit"
   },
   "keywords": [
     "react",
@@ -90,8 +84,6 @@
     "@types/node": "^24.8.1",
     "@types/react": "^18.3.26",
     "@types/react-dom": "^18.2.18",
-    "@vitejs/plugin-react": "^5.0.4",
-    "gh-pages": "^6.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.5",
@@ -99,8 +91,7 @@
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-postcss": "^4.0.2",
     "tslib": "^2.8.1",
-    "typescript": "^5.3.3",
-    "vite": "^7.1.10"
+    "typescript": "^5.3.3"
   },
   "repository": {
     "type": "git",
