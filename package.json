@@ -1,6 +1,6 @@
 {
   "name": "@flowlabkit/ui",
-  "version": "1.6.6",
+  "version": "1.7.0",
   "description": "React UI library with 8 beautiful themes, advanced responsive system, dark/light mode, TypeScript support, and comprehensive component system. Features CSS-like responsive behavior, resizable panels, mobile-first design, and modular architecture.",
   "type": "module",
   "main": "dist/index.js",
