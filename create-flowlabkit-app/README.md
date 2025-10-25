@@ -1,6 +1,16 @@
 # create-flowlabkit-app
 
- Interactive installer for FlowLabKit UI - Create React apps with beautiful themes and responsive system instantly
+**Official installer for @flowlabkit/ui** - Create React apps with 8 beautiful themes, responsive system, and TypeScript support instantly.
+
+> **⚠️ Important:** This package is a scaffolding tool that depends on [`@flowlabkit/ui`](https://www.npmjs.com/package/@flowlabkit/ui). Generated projects will include `@flowlabkit/ui` as a dependency.
+
+## 📚 About FlowLabKit UI
+
+FlowLabKit UI is a comprehensive React component library featuring 8 beautiful themes, an advanced responsive system, and complete TypeScript support. This installer helps you quickly scaffold new projects with FlowLabKit UI pre-configured.
+
+**Main Package:** [`@flowlabkit/ui`](https://www.npmjs.com/package/@flowlabkit/ui)  
+**Documentation:** [https://skipmenow.github.io/flowlabkit-ui/](https://skipmenow.github.io/flowlabkit-ui/)  
+**Repository:** [https://github.com/SkipMeNow/flowlabkit-ui](https://github.com/SkipMeNow/flowlabkit-ui)
 
 ## Quick Start
 
@@ -106,12 +116,22 @@ Each template includes:
 - **Documentation** and next steps
 - **Build scripts** for production
 
-## Links
+## 🔗 Related Links
 
-- **FlowLabKit UI**: https://www.npmjs.com/package/@flowlabkit/ui
-- **Documentation**: https://skipmenow.github.io/flowlabkit-ui/
-- **Repository**: https://github.com/SkipMeNow/flowlabkit-ui
+| Resource | Link |
+|----------|------|
+| **Main Package** | [`@flowlabkit/ui`](https://www.npmjs.com/package/@flowlabkit/ui) |
+| **Documentation** | [https://skipmenow.github.io/flowlabkit-ui/](https://skipmenow.github.io/flowlabkit-ui/) |
+| **GitHub Repository** | [https://github.com/SkipMeNow/flowlabkit-ui](https://github.com/SkipMeNow/flowlabkit-ui) |
+| **Issues & Support** | [https://github.com/SkipMeNow/flowlabkit-ui/issues](https://github.com/SkipMeNow/flowlabkit-ui/issues) |
 
-## License  
+## ⚠️ Dependencies
 
-MIT
+This installer creates projects that depend on:
+- [`@flowlabkit/ui`](https://www.npmjs.com/package/@flowlabkit/ui) - The main UI component library
+- `react` & `react-dom` - Required peer dependencies (18.0.0+)
+- `vite` - Development and build tool (included in generated templates)
+
+## 📄 License  
+
+MIT - Same as [@flowlabkit/ui](https://www.npmjs.com/package/@flowlabkit/ui)

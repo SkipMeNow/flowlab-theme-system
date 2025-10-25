@@ -782,11 +782,33 @@ See the main FlowLabKit repository for contribution guidelines.
 
 This package is part of FlowLabKit - a comprehensive toolkit for building modern React applications:
 
-- `@flowlabkit/ui` - Theme system with 8 built-in themes
-- `@flowlabkit/components` - Complete UI component library (coming soon)
-- `@flowlabkit/icons` - Icon library (coming soon)
-- `@flowlabkit/animations` - Animation utilities (coming soon)
-- `@flowlabkit/forms` - Form handling toolkit (coming soon)
+| Package | Purpose | Status |
+|---------|---------|--------|
+| **[@flowlabkit/ui](https://www.npmjs.com/package/@flowlabkit/ui)** | Theme system with 8 built-in themes | ✅ **Available** |
+| **[create-flowlabkit-app](https://www.npmjs.com/package/create-flowlabkit-app)** | Interactive project installer | ✅ **Available** |
+| `@flowlabkit/components` | Complete UI component library | 🚧 Coming soon |
+| `@flowlabkit/icons` | Icon library | 🚧 Coming soon |
+| `@flowlabkit/animations` | Animation utilities | 🚧 Coming soon |
+| `@flowlabkit/forms` | Form handling toolkit | 🚧 Coming soon |
+
+### Quick Install
+
+Get started with FlowLabKit UI in seconds:
+
+```bash
+# 🚀 Interactive installer (recommended)
+npm create flowlabkit-app@latest my-app
+
+# 📦 Add to existing project  
+npm install @flowlabkit/ui
+```
+
+**Installer Features:**
+- Interactive theme selection (choose from 8 themes)
+- Multiple templates (React TypeScript/JavaScript, Vanilla)
+- Component library options (full components or themes-only)
+- Pre-configured Vite development environment
+- Working examples and responsive demos included
 
 ## License
 
