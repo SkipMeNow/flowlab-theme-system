@@ -1,6 +1,6 @@
 # create-flowlabkit-app
 
- Interactive installer for FlowLabKit UI - Create React apps with beautiful themes instantly
+ Interactive installer for FlowLabKit UI - Create React apps with beautiful themes and responsive system instantly
 
 ## Quick Start
 
@@ -41,16 +41,20 @@ The installer will prompt you to choose:
 ### React + TypeScript + Components
 Full-featured template with:
 - All FlowLabKit UI components (Button, Card, Input, Badge, etc.)
-- Interactive theme switching
-- Component showcase
-- TypeScript support
+- **Advanced Responsive System** with ResponsiveWrapper and responsive hooks
+- **Mobile-First Design** with automatic layout adaptation
+- Interactive theme switching and responsive demo
+- Component showcase with live examples
+- TypeScript support with full type safety
 - Vite development server
 
 ### React + TypeScript + Themes Only  
 Lightweight template with:
 - Theme system only (CSS variables)
+- **Basic responsive detection** with window resize handling
 - Custom styling with theme variables
 - Theme switching functionality
+- Responsive demo showing breakpoints
 - TypeScript support
 
 ### React + JavaScript variants
@@ -68,9 +72,10 @@ Pure web template with:
 [[✓]] **Interactive CLI** - Like `npm create vite@latest`  
 [[✓]] **Multiple Templates** - React, Vanilla, TypeScript, JavaScript  
 [[✓]] **Component Options** - Full components or themes-only  
+[[✓]] **Responsive System** - Advanced mobile-first responsive behavior  
 [[✓]] **Theme Selection** - Choose specific themes or get them all  
 [[✓]] **Ready to Run** - Includes dev server and build scripts  
-[[✓]] **Examples Included** - Working demos in every template  
+[[✓]] **Examples Included** - Working demos with responsive features in every template  
 
 ## Example Usage
 
@@ -95,7 +100,9 @@ $ npm create flowlabkit-app@latest my-project
 Each template includes:
 - **package.json** with proper dependencies
 - **Vite configuration** for fast development  
-- **Working examples** of theme usage
+- **Working examples** of theme usage and responsive behavior
+- **Responsive demos** showing breakpoint detection
+- **Component showcase** (in full templates) with mobile-first design
 - **Documentation** and next steps
 - **Build scripts** for production
 

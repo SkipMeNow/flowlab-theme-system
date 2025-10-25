@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { ThemeProvider, useTheme } from '@flowlabkit/ui/core'
 import { oceanTheme, cyberpunkTheme } from '@flowlabkit/ui/themes'
 
@@ -69,6 +69,78 @@ function ThemeControls() {
           Current: {config.mode} mode
         </span>
       </div>
+    </div>
+  )
+}
+
+function ResponsiveDemo() {
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
+  const [breakpoint, setBreakpoint] = useState('lg')
+
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth
+      setWindowSize({ width, height: window.innerHeight })
+      
+      // Simple breakpoint detection
+      if (width < 480) setBreakpoint('xs')
+      else if (width < 640) setBreakpoint('sm')
+      else if (width < 768) setBreakpoint('md')
+      else if (width < 1024) setBreakpoint('lg')
+      else if (width < 1280) setBreakpoint('xl')
+      else setBreakpoint('xxl')
+    }
+    
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
+
+  const isMobile = breakpoint === 'xs' || breakpoint === 'sm'
+
+  return (
+    <div style={{ 
+      backgroundColor: 'var(--bg-surface)',
+      border: '1px solid var(--border-color)',
+      borderRadius: 'var(--radius-md)',
+      padding: '1.5rem',
+      marginBottom: '2rem'
+    }}>
+      <h3 style={{ marginTop: 0, marginBottom: '1rem' }}>📱 Responsive Demo</h3>
+      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+        <span style={{ 
+          backgroundColor: 'var(--info)',
+          color: 'var(--text-on-accent)',
+          padding: '0.25rem 0.75rem',
+          borderRadius: 'var(--radius-sm)',
+          fontSize: '0.875rem'
+        }}>
+          Breakpoint: {breakpoint}
+        </span>
+        <span style={{ 
+          backgroundColor: isMobile ? 'var(--warning)' : 'var(--success)',
+          color: 'var(--text-on-accent)',
+          padding: '0.25rem 0.75rem',
+          borderRadius: 'var(--radius-sm)',
+          fontSize: '0.875rem'
+        }}>
+          {isMobile ? '📱 Mobile' : '💻 Desktop'}
+        </span>
+        <span style={{ 
+          backgroundColor: 'var(--bg-elevated)',
+          color: 'var(--text-primary)',
+          padding: '0.25rem 0.75rem',
+          borderRadius: 'var(--radius-sm)',
+          fontSize: '0.875rem',
+          border: '1px solid var(--border-color)'
+        }}>
+          {windowSize.width} × {windowSize.height}px
+        </span>
+      </div>
+      <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+        Resize your browser window to see responsive detection in action!
+        Add <code>@flowlabkit/ui</code> components for full responsive behavior.
+      </p>
     </div>
   )
 }
@@ -144,6 +216,7 @@ function App() {
             </p>
           </header>
           
+          <ResponsiveDemo />
           <ThemeControls />
           <ColorPalette />
           
@@ -159,6 +232,7 @@ function App() {
               <li>Use CSS variables like <code>var(--bg-app)</code>, <code>var(--text-primary)</code></li>
               <li>Try different themes from <code>@flowlabkit/ui/themes</code></li>
               <li>Add components by importing from <code>@flowlabkit/ui/components</code></li>
+              <li>Upgrade to full components with <code>npm install @flowlabkit/ui</code> for responsive system</li>
               <li>Check the <a href="https://skipmenow.github.io/flowlabkit-ui/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-500)' }}>documentation</a></li>
             </ul>
             
@@ -170,8 +244,9 @@ function App() {
               borderLeft: '4px solid var(--accent-500)'
             }}>
               <p style={{ margin: 0, fontSize: '0.9rem' }}>
-                <strong> Tip:</strong> This template includes only the theme system. 
+                <strong>💡 Tip:</strong> This template includes only the theme system with basic responsive detection. 
                 Your app uses CSS variables that automatically update when themes change.
+                For full responsive components, install the complete <code>@flowlabkit/ui</code> package!
               </p>
             </div>
           </div>
