@@ -280,17 +280,31 @@ function ThemeSelector() {
                 </Text>
                 
                 {/* Debug Info */}
-                <Text size="xs" style={{ 
-                  color: '#64748b',
-                  backgroundColor: '#f8fafc',
-                  padding: '8px',
-                  borderRadius: '4px',
-                  fontFamily: 'monospace'
-                }}>
-                  <strong>Current State:</strong> Compact: {config.compactMode ? 'ON' : 'OFF'} | 
-                  Light: {selectedLightTheme} | Dark: {selectedDarkTheme} | 
-                  Mode: {config.mode}
-                </Text>
+                <Card style={{ backgroundColor: '#f8fafc', borderColor: '#e2e8f0' }}>
+                  <CardBody>
+                    <Layout direction="column" gap="xs">
+                      <Text size="sm" weight="medium">🔧 Current Theme State</Text>
+                      <Layout direction="row" gap="md" wrap>
+                        <Text size="xs" style={{ fontFamily: 'monospace' }}>
+                          <strong>Mode:</strong> {config.mode}
+                        </Text>
+                        <Text size="xs" style={{ fontFamily: 'monospace' }}>
+                          <strong>Compact:</strong> {config.compactMode ? 'ON' : 'OFF'}
+                        </Text>
+                        <Text size="xs" style={{ fontFamily: 'monospace' }}>
+                          <strong>Light Theme:</strong> {selectedLightTheme}
+                        </Text>
+                        <Text size="xs" style={{ fontFamily: 'monospace' }}>
+                          <strong>Dark Theme:</strong> {selectedDarkTheme}
+                        </Text>
+                      </Layout>
+                      <Text size="xs" style={{ color: '#64748b', fontStyle: 'italic' }}>
+                        This debug panel shows the current theme configuration. 
+                        Try the controls above and toggle light/dark mode to see changes!
+                      </Text>
+                    </Layout>
+                  </CardBody>
+                </Card>
               </Layout>
             </Layout>
           </CardBody>

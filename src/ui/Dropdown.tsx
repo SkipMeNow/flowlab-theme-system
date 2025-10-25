@@ -263,42 +263,78 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
-  // Handle window resize and scroll to reposition dropdown
+  // Handle smooth positioning without visible snapping
   const [contentStyles, setContentStyles] = useState<React.CSSProperties>({});
+  const positionUpdateTimeoutRef = useRef<NodeJS.Timeout>();
+
+  // Inject CSS animation keyframes when component mounts
+  useEffect(() => {
+    const styleId = 'flowlab-dropdown-animations';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-4px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
 
     const updatePosition = () => {
-      setContentStyles(getContentStyles());
+      const newStyles = getContentStyles();
+      setContentStyles(newStyles);
     };
 
     // Initial positioning
     updatePosition();
 
-    // Update position on scroll and resize
+    // Significantly reduce position updates to minimize visual jumping
     const handlePositionUpdate = () => {
-      updatePosition();
+      if (positionUpdateTimeoutRef.current) {
+        clearTimeout(positionUpdateTimeoutRef.current);
+      }
+      
+      // Only update position after a longer delay to reduce snapping
+      positionUpdateTimeoutRef.current = setTimeout(() => {
+        updatePosition();
+      }, 100); // Increased delay to reduce repositioning frequency
     };
 
-    window.addEventListener('scroll', handlePositionUpdate, true);
-    window.addEventListener('resize', handlePositionUpdate);
+    // Use passive listeners for better performance and less frequent updates
+    window.addEventListener('scroll', handlePositionUpdate, { passive: true, capture: true });
+    window.addEventListener('resize', handlePositionUpdate, { passive: true });
 
     return () => {
+      if (positionUpdateTimeoutRef.current) {
+        clearTimeout(positionUpdateTimeoutRef.current);
+      }
       window.removeEventListener('scroll', handlePositionUpdate, true);
       window.removeEventListener('resize', handlePositionUpdate);
     };
   }, [isOpen, side, align, sideOffset]);
 
-  // Position dropdown content with fixed positioning to avoid clipping
+  // Position dropdown content with smooth fixed positioning
   const getContentStyles = (): React.CSSProperties => {
     if (!triggerRef.current) {
       return {
         position: 'fixed',
-        zIndex: variables.zIndex.modal, // Use modal z-index for highest priority
+        zIndex: variables.zIndex.modal,
         minWidth: 'max-content',
         maxWidth: '400px',
         visibility: 'hidden',
+        opacity: 0,
       };
     }
 
@@ -307,28 +343,34 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
     const viewportHeight = window.innerHeight;
 
     const styles: React.CSSProperties = {
-      position: 'fixed', // Use fixed positioning to avoid parent container clipping
-      zIndex: variables.zIndex.modal, // Use highest z-index to ensure it's on top
-      minWidth: Math.max(triggerRect.width, 200), // Minimum width based on trigger
-      maxWidth: Math.min(400, viewportWidth - 20), // Responsive max width
-      maxHeight: viewportHeight - 20, // Prevent overflow
-      overflow: 'auto', // Allow scrolling if content is too tall
+      position: 'fixed',
+      zIndex: variables.zIndex.modal,
+      minWidth: Math.max(triggerRect.width, 200),
+      maxWidth: Math.min(400, viewportWidth - 20),
+      maxHeight: Math.min(300, viewportHeight - 40), // More conservative max height
+      overflow: 'auto',
+      opacity: 1,
+      // Add smooth transition for repositioning
+      transition: 'opacity 150ms ease-in-out',
+      // Prevent text selection during positioning
+      userSelect: 'none',
+      pointerEvents: 'auto',
     };
 
-    // Calculate position based on side preference
+    // Calculate ideal position based on side preference
     let top = triggerRect.bottom + sideOffset;
     let left = triggerRect.left;
 
-    // Handle side positioning
+    // Handle side positioning with less aggressive repositioning
     switch (side) {
       case 'top':
-        top = triggerRect.top - sideOffset;
+        top = triggerRect.top - sideOffset - 200; // Estimate dropdown height
         break;
       case 'bottom':
         top = triggerRect.bottom + sideOffset;
         break;
       case 'left':
-        left = triggerRect.left - sideOffset;
+        left = triggerRect.left - 220; // Estimate dropdown width
         top = triggerRect.top;
         break;
       case 'right':
@@ -354,29 +396,31 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
       }
     }
 
-    // Prevent dropdown from going off-screen
-    const dropdownWidth = styles.minWidth as number;
+    // Only adjust position if absolutely necessary to prevent off-screen
+    const margin = 8;
+    const estimatedWidth = 220;
     
-    // Adjust horizontal position if it would go off-screen
-    if (left + dropdownWidth > viewportWidth) {
-      left = viewportWidth - dropdownWidth - 10;
+    // Gentle horizontal bounds checking
+    if (left + estimatedWidth > viewportWidth - margin) {
+      left = Math.max(margin, viewportWidth - estimatedWidth - margin);
     }
-    if (left < 10) {
-      left = 10;
-    }
-
-    // Adjust vertical position if it would go off-screen
-    const estimatedHeight = 300; // Estimate dropdown height
-    if (top + estimatedHeight > viewportHeight && triggerRect.top > estimatedHeight) {
-      // Flip to top if there's more space above
-      top = triggerRect.top - sideOffset;
-      if (side === 'bottom') {
-        styles.transform = (styles.transform || '') + ' translateY(-100%)';
-      }
+    if (left < margin) {
+      left = margin;
     }
 
-    if (top < 10) {
-      top = 10;
+    // Gentle vertical bounds checking
+    const estimatedHeight = 200;
+    if (top + estimatedHeight > viewportHeight - margin && triggerRect.top > estimatedHeight + margin) {
+      // Only flip if there's significantly more space above
+      top = triggerRect.top - estimatedHeight - sideOffset;
+    }
+    
+    // Ensure minimum distance from viewport edges
+    if (top < margin) {
+      top = margin;
+    }
+    if (top + estimatedHeight > viewportHeight - margin) {
+      top = Math.max(margin, viewportHeight - estimatedHeight - margin);
     }
 
     styles.top = top;
@@ -408,15 +452,35 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({
         {triggerElement}
         
         
-        {/* Render dropdown content as portal to document.body to avoid clipping */}
+        {/* Render dropdown content as portal with smooth positioning */}
         {isOpen && typeof document !== 'undefined' && createPortal(
-          <div style={contentStyles}>
+          <div 
+            style={{
+              ...contentStyles,
+              // Add CSS animation through style object
+              animationName: 'fadeIn',
+              animationDuration: '150ms',
+              animationTimingFunction: 'ease-out',
+              animationFillMode: 'both',
+            }}
+            onScroll={(e) => {
+              // Prevent event bubbling during scroll
+              e.stopPropagation();
+            }}
+          >
             <DropdownContent
               ref={contentRef}
               align={align}
               side={side}
               sideOffset={sideOffset}
               role="menu"
+              style={{
+                // Prevent layout shifts during repositioning
+                willChange: 'transform',
+                backfaceVisibility: 'hidden',
+                // Ensure content doesn't flash during position updates
+                contain: 'layout style paint',
+              }}
               onKeyDown={(e) => {
                 // Handle arrow key navigation
                 if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
